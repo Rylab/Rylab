@@ -1,0 +1,25 @@
+{
+  "name": "Rylab",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=10"
+  },
+  "description": "rylab.dev",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server/server.ts",
+    "build": "next build",
+    "export": "NODE_ENV=production next export",
+    "lint": "eslint . && tslint -c tslint.json '**/*.ts?(x)'",
+    "start": "NODE_ENV=production yarn start",
+    "test": "NODE_ENV=test jest",
+    "test:watch": "NODE_ENV=test jest --watch"
+  },
+  "author": "Ryan D LaBarre",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^10.0.5",
+    "react": "^17",
+    "react-dom": "^17"
+  }
+}
