@@ -1,90 +1,101 @@
-/* base style */
-.container {
+body {
   font-size: 11pt;
   margin: 0px;
   padding: 0px;
 }
 
-.container h1 {
+a {
+  color: #ccc;
+  text-decoration: underline;
+}
+  a:active {
+    text-decoration: none;
+    border-bottom: 1px #eee dotted;
+  }
+  a:hover {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px #ccc dotted;
+  }
+  a:visited {
+    color: #aaa;
+    text-decoration: none;
+  }
+
+img {
+  border: 0;
+}
+
+p {
+  font-size: 11pt;
+}
+
+.small {
+  cursor: auto;
+  font-size: 9pt;
+}
+.large {
+  font-size: 17pt;
+}
+
+.dark {
+  color: #666;
+}
+  .hoverdark:hover {
+    color: #666;
+  }
+.light {
+  color: #ddd;
+}
+  .hoverlight:hover {
+    color: #ddd;
+  }
+.medium {
+  color: #333;
+}
+  .hovermedium:hover {
+    color: #333;
+  }
+
+h1 {
   color: #ebebeb;
   font-size: 21pt;
   font-weight: bold;
   margin: 20px 0 10px 0;
 }
 
-.container h2 {
+h2 {
   Color: #111;
   margin: 10px 0 5px 0;
   font-size: 14pt;
   Font-weight: semi-bold;
 }
 
-.container a {
-  color: #ccc;
-  text-decoration: underline;
-}
-  .container a:active {
-    text-decoration: none;
-    border-bottom: 1px #eee dotted;
-  }
-  .container a:hover {
-    color: #fff;
-    text-decoration: none;
-    border-bottom: 1px #ccc dotted;
-  }
-  .container a:visited {
-    color: #aaa;
-    text-decoration: none;
-  }
-
-.container p {
-  font-size: 11pt;
-}
-
-.container .small {
-  cursor: auto;
-  font-size: 9pt;
-}
-.container .large {
-  font-size: 17pt;
-}
-.container .dark {
-  color: #666;
-}
-.container .hoverdark:hover {
-  color: #666;
-}
-.container .light {
-  color: #ddd;
-}
-.container .hoverlight:hover {
-  color: #ddd;
-}
-.container .medium {
-  color: #333;
-}
-.container .hovermedium:hover {
-  color: #333;
-}
-
-.container ul.list {
+ul.list {
   padding: 16px 18px;
   text-align: left;
 }
-  .container ul.list li {
+  ul.list li {
     margin-bottom: 10px;
   }
-  .container ul.list li:last-child {
-    margin-bottom: 2px;
-  }
+    ul.list li:last-child {
+      margin-bottom: 2px;
+    }
 
-.container ul.narrow {
+ul.narrow {
   max-width: 377px;
   margin: 10px auto;
   border-radius: 16px;
 }
 
-#header {
+div#content {
+  min-width: 300px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+div#header {
   background-position: top left no-repeat;
   background-size: cover;
   margin: 4px auto;
@@ -95,132 +106,125 @@
   width: 97%;
 }
 
-#content {
-  min-width: 300px;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0px;
-}
-
 /* responsive core */
 @media(min-width: 709px) and (min-device-width: 709px) {
-  #header {
+  div#content {
+    padding: 0 7%;
+  }
+  div#header {
     border-radius: 17px;
     height: 255px;
     max-width: 702px;
     margin-top: 27px;
   }
-  #content {
-    padding: 0 7%;
-  }
-  .container ul.narrow {
+  ul.narrow {
     max-width: 177px;
   }
 }
 
 @media(min-width: 1017px) {
-  #header {
+  div#header {
     margin-top: 47px;
   }
 }
 
 @media(min-width: 1317px) {
-  #header {
+  div#header {
     margin-top: 77px;
   }
 }
 
-/* rylab overloads */
+/* rylab overloads core below -- no bootstrap */
 a#aeq, a#aeq:hover {
   border-bottom: none;
   text-decoration: none;
 }
 
-.container {
+body {
   background-color: #111;
   font-family: verdana, helvetica, sans-serif;
   text-align: center;
 }
 
-#header {
+div#header {
   background-image: url(/img/header_extrovert.png);
 }
-  #header:hover {
+  div#header:hover {
     cursor: grab;
     background-image: url(/img/header_introvert.png);
   }
-  #header:hover img.rylab {
+  div#header:hover img.rylab {
     background-image: url(/img/rylab_introvert.png);
     background-position: 3px 3px;
     transition: 1.7s;
   }
 
-#footer {
+div#footer {
   margin: 30px auto;
 }
 
-.container img.bsd {
+img.bsd {
   border: 4px dashed #222;
   border-radius: 77%;
   margin: 47px 0 27px 0;
   padding: 177px;
   opacity: 1.0;
 }
-  .container img.bsd:hover {
+  img.bsd:hover {
     background-image: url(/img/bsd_introvert.png);
     border: 4px dashed #bbb;
     cursor: url(/img/bsd_cursor.png) 50 50, progress;
     opacity: 0.2;
   }
 
-.container .hoverlight.small:hover {
+.hoverlight.small:hover {
   cursor: help;
 }
 
-.container .hoverdots {
+.hoverdots {
   border: 3px solid #123;
   transition: 0.3s;
   transition-timing-function: ease;
 }
-  .container .hoverdots:hover {
+  .hoverdots:hover {
     border: 3px dotted #321;
     transition: 0.7s;
     transition-timing-function: ease;
   }
 
-#digitalhaiku {
+div#digitalhaiku {
   transition: 0.7s;
 }
-  #digitalhaiku:hover {
+  div#digitalhaiku:hover {
     color: #777;
     cursor: crosshair;
     transition: 0.7s;
   }
 
-#rylab {
+div#rylab {
   color: #222;
   margin: 0px auto;
   opacity: 0.1;
   padding-top: 17px;
   transition: 0.7s;
 }
-  #rylab:hover {
+  div#rylab:hover {
     cursor: all-scroll;
     color: #777;
     opacity: 1.0;
     transition: 0.3s;
 }
 
-.container ul.narrow {
+ul.narrow {
   border: 3px dashed #222;
 }
-  .container ul.narrow:hover {
+  ul.narrow:hover {
     border: 3px dashed #333;
   }
 
 /* responsive rylab */
 @media(min-width: 709px) and (min-device-width: 709px) {
-  .container img.rylab {
+  img.rylab {
     background-size: cover;
     margin-top: 0px;
     width: 702px;
@@ -228,14 +232,14 @@ a#aeq, a#aeq:hover {
 }
 
 @media(min-width: 1017px) {
-  .container img.rylab {
+  img.rylab {
     margin-top: 77px;
     width: 502px;
   }
 }
 
 @media(min-width: 1317px) {
-  .container img.rylab {
+  img.rylab {
     margin-top: 107px;
     width: 402px;
   }

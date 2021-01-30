@@ -1,17 +1,16 @@
 {
-  "name": "Rylab",
+  "name": "rylab.dev",
   "version": "0.0.1",
   "engines": {
     "node": ">=10"
   },
-  "description": "rylab.dev",
+  "description": "rylab.dev website source code.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server/server.ts",
     "build": "next build",
     "export": "NODE_ENV=production next export",
     "lint": "eslint . && tslint -c tslint.json '**/*.ts?(x)'",
-    "start": "NODE_ENV=production yarn start",
+    "start": "NODE_ENV=production next start",
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch"
   },
