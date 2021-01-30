@@ -47,8 +47,6 @@ export default function Index() {
         <meta name="og:title" content="{siteTitle} :: Home" />
         <meta name="description" content="Welcome to Rylab, digital home of Ryan LaBarre" />
         <meta property="og:description" content="Digital Home of Ryan LaBarre" />
-        <meta property="og:image" content="https://rylab.com/img/bsd_extrovert.png" />
-        <meta property="og:url" content="https://rylab.com" />
       </Head>
       <div id="header" className="hoverdots">
         <img className="rylab"

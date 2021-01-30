@@ -16,7 +16,7 @@ export default function Layout({ children }) {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta property="og:site_name" content="Rylab.com" />
         <meta property="og:title" content="RyLaB" />
-        <link rel="icon" type="image/png" href="https://rylab.com/img/bsd_introvert.png" />
+        <link rel="icon" type="image/png" href="/img/bsd_introvert.png" />
       </Head>
       <main>{children}</main>
       <div id="footer">
