@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "build": "next build",
+    "dev": "NODE_ENV=development next start",
     "export": "NODE_ENV=production next export",
     "lint": "eslint . && tslint -c tslint.json '**/*.ts?(x)'",
     "start": "NODE_ENV=production next start",
@@ -19,6 +20,7 @@
   "dependencies": {
     "next": "^10.0.5",
     "react": "^17",
-    "react-dom": "^17"
+    "react-dom": "^17",
+    "styled-components": "5.2.0"
   }
 }

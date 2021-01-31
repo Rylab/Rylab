@@ -73,8 +73,8 @@ export default function Index() {
             <h1>Digital Selves</h1>
             <ul className="narrow list">
               {links.map(link => (
-                <li className={`link ${link.alias}`}>
-                  <a title={link.title} href={link.url} target="_blank">
+                <li className={`link ${link.alias}`} key={link.alias}>
+                  <a title={link.title} href={link.url} rel="noopener" target="_blank">
                     {link.name}</a>
                 </li>
               ))}
