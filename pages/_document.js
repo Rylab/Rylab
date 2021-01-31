@@ -26,9 +26,7 @@ export default class Rylab extends Document {
           <meta name="language" content="en" />
           <meta name="robots" content="index, follow" />
           <meta name="theme-color" content="#222" />
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta property="og:site_name" content="Rylab.com" />
-          <meta property="og:title" content="RyLaB" />
           <link rel="icon" type="image/png" href="/img/bsd_introvert.png" />
           {this.props.styleTags}
         </Head>

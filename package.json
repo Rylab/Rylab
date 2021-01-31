@@ -1,10 +1,10 @@
 {
-  "name": "rylab.dev",
-  "version": "0.0.1",
+  "name": "rylab.com",
+  "version": "0.0.3",
   "engines": {
     "node": ">=10"
   },
-  "description": "rylab.dev website source code.",
+  "description": "rylab.com website source code.",
   "main": "index.js",
   "scripts": {
     "build": "next build",
@@ -16,7 +16,7 @@
     "test:watch": "NODE_ENV=test jest --watch"
   },
   "author": "Ryan D LaBarre",
-  "license": "ISC",
+  "license": "CC BY-NC-SA 4.0",
   "dependencies": {
     "next": "^10.0.5",
     "react": "^17",

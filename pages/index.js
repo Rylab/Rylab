@@ -44,7 +44,7 @@ export default function Index() {
       <Head>
         <link rel="canonical" href="https://rylab.com" />
         <title>{ siteTitle } :: Home</title>
-        <meta name="og:title" content="{siteTitle} :: Home" />
+        <meta name="og:title" content={`${siteTitle} :: Home`} />
         <meta name="description" content="Welcome to Rylab, digital home of Ryan LaBarre" />
         <meta property="og:description" content="Digital Home of Ryan LaBarre" />
       </Head>
@@ -83,7 +83,7 @@ export default function Index() {
         )}
       </div>
       <a id="aeq" href="https://algorithmeq.com" target="_aeq">
-        <img height="77" width="77" className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" /></a>
+        <img className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" /></a>
     </Layout>
   )
 }
