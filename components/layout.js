@@ -11,6 +11,7 @@ export default function Layout({ children }) {
           <a
             alt="Content license URL alias for: CC BY-NC-SA 4.0"
             href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            rel="noopener"
             target="_blank"
             title="Creative Commons BY-NC-SA 4.0">
             some rights reserved</a>

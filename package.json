@@ -1,9 +1,6 @@
 {
   "name": "rylab.com",
-  "version": "0.0.3",
-  "engines": {
-    "node": ">=10"
-  },
+  "version": "0.0.4",
   "description": "rylab.com website source code.",
   "main": "index.js",
   "scripts": {
@@ -16,11 +13,12 @@
     "test:watch": "NODE_ENV=test jest --watch"
   },
   "author": "Ryan D LaBarre",
-  "license": "CC BY-NC-SA 4.0",
+  "license": "CC-BY-NC-SA-4.0",
   "dependencies": {
     "next": "^10.0.5",
     "react": "^17",
     "react-dom": "^17",
+    "react-is": "^16.8.0",
     "styled-components": "5.2.0"
   }
 }
