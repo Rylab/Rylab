@@ -20,24 +20,21 @@ img {
 }
 
 #header {
-  background-image: url(/img/header_extrovert.png);
-  background-position: top left;
+  background: #000 url(/img/header_extrovert.png) top left no-repeat;
   background-size: cover;
-  margin: 12px auto;
+  margin: 0px;
   min-height: 255px;
   overflow: hidden;
+  opacity: 1.0;
   padding: 0px;
+  position: relative;
   text-align: left;
-  width: 96%;
+  width: 100%;
 }
   #header:hover {
     cursor: grab;
     background-image: url(/img/header_introvert.png);
-  }
-  #header:hover .rylab {
-    background-image: url(/img/rylab_introvert.png);
-    background-position: 3px 3px;
-    transition: 2s;
+    opacity: .77;
   }
 
 #footer {
@@ -191,6 +188,16 @@ ul.narrow {
     transition: 0.8s;
   }
 
+.rylab {
+  background-image: url(/img/rylab_introvert.png);
+  background-position: 0.07px 0.07px;
+  background-size: contain;
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  max-width: 992px;
+}
+
 #rylab {
   color: #222;
   margin: 0px auto;
@@ -203,7 +210,7 @@ ul.narrow {
     color: #777;
     opacity: 1.0;
     transition: 0.3s;
-}
+  }
 
 #saxylab a {
   border-bottom: 2px transparent;
@@ -243,7 +250,7 @@ ul.narrow {
   #header {
     border-radius: 17px;
     height: 255px;
-    margin-top: 27px;
+    margin: 27px auto 7px auto;
     max-width: 702px;
   }
   ul.narrow {
@@ -256,11 +263,6 @@ ul.narrow {
     ul.list li {
       margin-bottom: 15px;
     }
-  .rylab {
-    background-size: cover;
-    margin-top: 0px;
-    width: 702px;
-  }
   .bsd {
     padding: 227px;
   }
@@ -270,10 +272,6 @@ ul.narrow {
   #header {
     margin-top: 47px;
   }
-  .rylab {
-    margin-top: 77px;
-    width: 502px;
-  }
   .bsd {
     padding: 22%;
   }
@@ -282,9 +280,5 @@ ul.narrow {
 @media(min-width: 1317px) {
   #header {
     margin-top: 77px;
-  }
-  .rylab {
-    margin-top: 107px;
-    width: 402px;
   }
 }
