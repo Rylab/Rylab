@@ -12,6 +12,11 @@ const links = [{
   title: 'Open Source Rylab',
   url: 'https://github.com/rylab',
 },{
+  alias: 'greensock',
+  name: 'GreenSock',
+  title: 'Animator Rylab',
+  url: 'https://greensock.com/profile/93487-rylab/',
+},{
   alias: 'instagram',
   name: 'Instagram',
   title: 'Photographically Social Rylab',
@@ -19,13 +24,13 @@ const links = [{
 },{
   alias: 'linkedin',
   name: 'LinkedIn',
-  title: 'Super Professional Rylab',
+  title: 'Super Pro Rylab',
   url: 'http://lnkd.in/bkDM4Bc',
 },{
   alias: 'medium-profile',
   name: 'Medium',
   title: 'Poetic Author @rylab',
-  url: 'https://medium.com/@rylab',
+  url: 'https://rylab.medium.com/',
 },{
   alias: 'stackoverflow',
   name: 'StackOverflow',
@@ -34,7 +39,7 @@ const links = [{
 },{
   alias: 'twitter',
   name: 'Twitter',
-  title: 'Tweety @rylab',
+  title: 'Tweeting @rylab',
   url: 'https://twitter.com/rylab',
 }];
 
