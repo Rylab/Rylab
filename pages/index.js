@@ -82,6 +82,8 @@ export default function Index() {
           </>
         )}
       </div>
+      <div id="saxylab"><a href="https://saxylab.com" title="Saxy and Ryan Saxylab Wedding">
+        Saxy and Ryan are getting married!</a></div>
       <a id="aeq" href="https://algorithmeq.com" target="_aeq">
         <img className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" /></a>
     </Layout>

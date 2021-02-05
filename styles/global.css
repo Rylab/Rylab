@@ -200,6 +200,22 @@ ul.narrow {
     transition: 0.3s;
 }
 
+#saxylab {
+  color: rgb(8, 27, 0);
+  margin: 0px auto;
+  opacity: 0.1;
+  padding-top: 17px;
+  transition: 0.4s;
+}
+  #saxylab:hover {
+    cursor: all-scroll;
+    color: rgb(5, 160, 0);
+    opacity: 1.0;
+    transition: 0.4s;
+}
+
+
+
 /* responsive core */
 @media(min-width: 568px) {
   .bsd {
