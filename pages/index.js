@@ -61,12 +61,12 @@ export default function Index() {
       </div>
       <div id="rylab">(: hello rylab :)</div>
       <div id="content">
-        <p className="large light">
+        <p id="haiku-today" className="large light">
           someday&nbsp;I will&nbsp;make;
-          a&nbsp;cooler personal&nbsp;site;
+          a&nbsp;cool personal&nbsp;website;
           it&nbsp;may be&nbsp;today
         </p>
-        <p className="small dark hoverlight">
+        <p id="haiku-tomorrow" className="small dark hoverlight">
           perhaps tomorrow;
           but&nbsp;probably not&nbsp;either;
           our&nbsp;planet still&nbsp;spins
