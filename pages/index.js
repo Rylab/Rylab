@@ -66,7 +66,8 @@ export default function Index() {
           but&nbsp;probably not&nbsp;either;
           our&nbsp;planet still&nbsp;spins
         </p>
-        <div id="digitalhaiku">#digitalhaiku</div>
+        <div id="saxylab"><a href="https://saxylab.com" title="Saxy and Ryan Saxylab Wedding">
+        Saxy and Ryan are gettin' married!</a></div>
         <br />
         {links.length && (
           <>
@@ -82,8 +83,8 @@ export default function Index() {
           </>
         )}
       </div>
-      <div id="saxylab"><a href="https://saxylab.com" title="Saxy and Ryan Saxylab Wedding">
-        Saxy and Ryan are getting married!</a></div>
+      <a href="https://medium.com/@rylab/abc-digitally-evolving-futurist-goals-9b11bd0f54d2" rel="noopener" target="_medium">
+        <div id="digitalhaiku">#digitalhaiku</div></a>
       <a id="aeq" href="https://algorithmeq.com" target="_aeq">
         <img className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" /></a>
     </Layout>
