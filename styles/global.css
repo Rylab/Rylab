@@ -178,6 +178,8 @@ ul.narrow {
   }
 
 #digitalhaiku {
+  color: rgb(46, 14, 88);
+  margin-top: 20px;
   transition: 0.7s;
 }
   #digitalhaiku:hover {
