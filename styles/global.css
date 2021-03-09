@@ -113,6 +113,11 @@ h3 {
   font-size: 14pt;
   Font-weight: semi-bold;
 }
+h4 {
+  color: #222;
+  font-size: 13pt;
+  margin: 1px 0 2px 0;
+}
 
 ul.list {
   padding: 20px 24px;

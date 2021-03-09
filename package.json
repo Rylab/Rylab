@@ -3,10 +3,10 @@
   "description": "rylab.com website source code.",
   "dependencies": {
     "next": "^10.0.6",
-    "react": "^17",
+    "react": "^17.0.1",
     "react-dom": "^17",
-    "react-is": "^16.8.0",
-    "styled-components": "5.2.0"
+    "react-is": "^17.0.1",
+    "styled-components": "5.2.1"
   },
   "license": "CC-BY-NC-SA-4.0",
   "name": "rylab.com",

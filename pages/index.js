@@ -12,11 +12,6 @@ const links = [{
   title: 'Open Source Rylab',
   url: 'https://github.com/rylab',
 },{
-  alias: 'greensock',
-  name: 'GreenSock',
-  title: 'Animator Rylab',
-  url: 'https://greensock.com/profile/93487-rylab/',
-},{
   alias: 'instagram',
   name: 'Instagram',
   title: 'Photographically Social Rylab',
