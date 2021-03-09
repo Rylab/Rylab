@@ -94,9 +94,9 @@ export default function SpinnerDemo() {
       <Head>
         <link rel="canonical" href="https://rylab.com/tapespinner" />
         <title>{ siteTitle } :: TapeSpinner Demo</title>
-        <meta name="og:title" content={`${siteTitle} :: Home`} />
-        <meta name="description" content="TapeSpinner example" />
-        <meta property="og:description" content="Digital Home of Ryan LaBarre" />
+        <meta name="og:title" content={`${siteTitle} :: TapeSpinner Demo`} />
+        <meta name="description" content="TapeSpinner component demo." />
+        <meta property="og:description" content="RyLaB: TapeSpinner component demo." />
       </Head>
       <main style={{ maxWidth: 1000, margin: '0 auto', padding: 20 }}>
         {Object.keys(tapes).map(tapeKey => (
