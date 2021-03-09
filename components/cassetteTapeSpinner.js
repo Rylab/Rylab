@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 const CassetteContainer = styled.div`
   border-radius: 2px;
-  margin: 15px 0 3px 0;
+  display: inline-block;
+  margin: 20px;
   width: 248px;
   height: 159px;
   position: relative;
@@ -125,16 +126,20 @@ const TapeSpinner = ({children, spin = true, style}) => {
   const r1 = (t) => {
     const m = t % 1500;
     const d = m * 0.24;
-    leftWheel.current.setAttribute('transform-origin', '44px 45px');
-    leftWheel.current.setAttribute('transform', 'rotate('+d+')');
+    if (leftWheel) {
+      leftWheel.current.setAttribute('transform-origin', '44px 45px');
+      leftWheel.current.setAttribute('transform', 'rotate('+d+')');
+    }
     window.requestAnimationFrame(r1);
   }
 
   const r2 = (t) => {
     const m = t % 1500;
     const d = m * 0.24;
-    rightWheel.current.setAttribute('transform-origin', '44px 45px');
-    rightWheel.current.setAttribute('transform', 'translate(292.390000, 0.000000),rotate('+d+')');
+    if (rightWheel) {
+      rightWheel.current.setAttribute('transform-origin', '44px 45px');
+      rightWheel.current.setAttribute('transform', 'translate(292.390000, 0.000000),rotate('+d+')');
+    }
     window.requestAnimationFrame(r2);
   }
 
