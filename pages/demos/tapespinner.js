@@ -127,7 +127,7 @@ export default function SpinnerDemo() {
           </TapeSpinner>
 
           <AddButton
-            disabled={!song.title && !song.artist}
+            disabled={!song.title || !song.artist}
             onClick={addSong}>
               Add Song</AddButton>
         </div>

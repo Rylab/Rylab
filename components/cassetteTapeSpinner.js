@@ -126,9 +126,9 @@ const TapeSpinner = ({children, spin = true, style}) => {
   const r1 = (t) => {
     const m = t % 1500;
     const d = m * 0.24;
-    if (leftWheel) {
+    if (leftWheel && leftWheel.current) {
       leftWheel.current.setAttribute('transform-origin', '44px 45px');
-      leftWheel.current.setAttribute('transform', 'rotate('+d+')');
+      leftWheel.current.setAttribute('transform', `rotate(${d})`);
     }
     window.requestAnimationFrame(r1);
   }
@@ -136,9 +136,9 @@ const TapeSpinner = ({children, spin = true, style}) => {
   const r2 = (t) => {
     const m = t % 1500;
     const d = m * 0.24;
-    if (rightWheel) {
+    if (rightWheel && rightWheel.current) {
       rightWheel.current.setAttribute('transform-origin', '44px 45px');
-      rightWheel.current.setAttribute('transform', 'translate(292.390000, 0.000000),rotate('+d+')');
+      rightWheel.current.setAttribute('transform', `translate(292.390000, 0.000000),rotate(${d})`);
     }
     window.requestAnimationFrame(r2);
   }

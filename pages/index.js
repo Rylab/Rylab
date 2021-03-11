@@ -66,8 +66,19 @@ export default function Index() {
           but&nbsp;probably not&nbsp;either;
           our&nbsp;planet still&nbsp;spins
         </p>
+        <div id="digitalhaiku">
+          <a href="https://medium.com/@rylab/abc-digitally-evolving-futurist-goals-9b11bd0f54d2"
+            rel="noopener" target="_medium" title="Haiku on Medium">
+            #digitalhaiku
+          </a>
+        </div>
+        <div id="demos">
+          <a href="/demos/tapespinner" target="_demos" title="Tape Spinner demo">
+            SVG Cassette Tape Spinner
+          </a>
+        </div>
         <div id="saxylab">
-          <a href="https://saxylab.com" title="Saxy and Ryan Saxylab Wedding">
+          <a href="https://saxylab.com" title="Saxy and Ryan Wedding :: SaxyLab">
             Saxy and Ryan are gettin' married!
           </a>
         </div>
@@ -85,11 +96,6 @@ export default function Index() {
             </ul>
           </>
         )}
-      </div>
-      <div id="digitalhaiku">
-        <a href="https://medium.com/@rylab/abc-digitally-evolving-futurist-goals-9b11bd0f54d2" rel="noopener" target="_medium">
-          #digitalhaiku
-        </a>
       </div>
       <a id="aeq" href="https://algorithmeq.com" target="_aeq">
         <img className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" /></a>

@@ -179,18 +179,43 @@ ul.narrow {
     transition-timing-function: ease;
   }
 
+#demos {
+  margin-top: 25px;
+  transition: 0.3s;
+}
+  #demos a {
+    color: rgb(21, 124, 143);
+    cursor: crosshair;
+    opacity: .6;
+    text-decoration: none;
+  }
+  #demos a:hover {
+    color: rgb(31, 194, 167);
+    opacity: 1.0;
+    transition: 0.8s;
+  }
+  #demos a:active, #demos a:focus {
+    color: rgb(31, 194, 167);
+    opacity: 1.0;
+    transition: 0.4s;
+  }
+
 #digitalhaiku {
   margin-top: 20px;
   transition: 0.7s;
 }
   #digitalhaiku a {
-    color: rgb(46, 14, 88);
+    color: rgb(58, 14, 116);
     cursor: crosshair;
     text-decoration: none;
   }
   #digitalhaiku a:hover {
-    color: rgb(80, 30, 145);
+    color: rgb(136, 0, 226);
     transition: 0.8s;
+  }
+  #digitalhaiku a:active, #digitalhaiku a:focus {
+    color: rgb(136, 0, 226);
+    transition: .4s;
   }
 
 .rylab {
@@ -217,30 +242,28 @@ ul.narrow {
     transition: 0.3s;
   }
 
-#saxylab a {
-  border-bottom: 2px transparent;
-  color: #1d5d00;
-  display: inline-block;
-  margin: 15px auto 5px auto;
-  opacity: 0.4;
-  padding-top: 5px;
-  transition: 0.42s;
-  transition-timing-function: ease;
+#saxylab {
+  margin: 25px auto 0px auto;
 }
-  #saxylab a:active {
-    cursor: all-scroll;
-    color: rgb(107, 221, 103);
-    opacity: 1.0;
-    transition: 0.2s;
+  #saxylab a {
+    color: #319c00;
+    cursor: crosshair;
+    opacity: 0.5;
+    padding-top: 5px;
+    text-decoration: none;
+    transition: 0.42s;
+    transition-timing-function: ease;
   }
-  #saxylab a:hover {
-    cursor: all-scroll;
-    color: rgb(5, 160, 0);
-    opacity: 1.0;
-    transition: 0.2;
-  }
-
-
+    #saxylab a:active, #saxylab a:focus {
+      color: rgb(107, 221, 103);
+      opacity: 1.0;
+      transition: 0.2s;
+    }
+    #saxylab a:hover {
+      color: rgb(5, 160, 0);
+      opacity: 1.0;
+      transition: 0.2s;
+    }
 
 /* responsive core */
 @media(min-width: 568px) {
