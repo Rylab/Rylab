@@ -127,8 +127,7 @@ const TapeSpinner = ({children, spin = true, style}) => {
     const m = t % 1500;
     const d = m * 0.24;
     if (leftWheel && leftWheel.current) {
-      leftWheel.current.setAttribute('transform-origin', '44px 45px');
-      leftWheel.current.setAttribute('transform', `rotate(${d})`);
+      leftWheel.current.setAttribute('transform', 'rotate('+d+', 44, 45)');
     }
     window.requestAnimationFrame(r1);
   }
@@ -137,8 +136,7 @@ const TapeSpinner = ({children, spin = true, style}) => {
     const m = t % 1500;
     const d = m * 0.24;
     if (rightWheel && rightWheel.current) {
-      rightWheel.current.setAttribute('transform-origin', '44px 45px');
-      rightWheel.current.setAttribute('transform', `translate(292.390000, 0.000000),rotate(${d})`);
+      rightWheel.current.setAttribute('transform', 'translate(292.39, 0.00) rotate('+d+', 44, 45)');
     }
     window.requestAnimationFrame(r2);
   }
@@ -153,7 +151,7 @@ const TapeSpinner = ({children, spin = true, style}) => {
               <path d="M162.938464,196.74055 C150.695282,196.74055 140.84594,206.745384 140.84594,219.182306 L140.84594,297.298794 C140.84594,309.735513 150.695082,319.74055 162.938464,319.74055 L537.753416,319.74055 C549.996598,319.74055 559.84594,309.735716 559.84594,297.298794 L559.84594,219.182306 C559.84594,206.745587 549.996798,196.74055 537.753416,196.74055 L162.938464,196.74055 L162.938464,196.74055 Z M277.830106,216.74055 L424.893135,216.74055 C429.310636,216.74055 432.84594,220.359979 432.84594,224.84306 L432.84594,297.669866 C432.84594,302.152845 429.310736,305.74055 424.893135,305.74055 L277.830106,305.74055 C273.412604,305.74055 269.84594,302.152946 269.84594,297.669866 L269.84594,224.84306 C269.84594,220.36008 273.412504,216.74055 277.830106,216.74055 L277.830106,216.74055 Z" id="wheel-cover" fill="#000000" fillRule="nonzero"></path>
               <rect id="outer-body" stroke="#000000" strokeWidth="3.7838" strokeLinecap="round" x="0.7378" y="0.0514" width="692.68" height="442.8"></rect>
               <g id="wheels" transform="translate(161.000000, 213.000000)" stroke="#FFFFFF">
-                <g ref={leftWheel}>
+                <g id="leftWheel" ref={leftWheel}>
                   <path d="M88.6088629,45.1415212 C88.6088629,69.6036554 68.7784728,89.434857 44.3155271,89.434857 C19.8533929,89.434857 0.02219122,69.604467 0.02219122,45.1415212 C0.02219122,20.679387 19.8525813,0.84818536 44.3155271,0.84818536 C68.7776612,0.84818536 88.6088629,20.6785754 88.6088629,45.1415212 Z" id="border" strokeWidth="10.2836569" strokeLinecap="round"></path>
                   <g id="teeth" transform="translate(2.000000, 11.000000)" fill="#FFFFFF" fillRule="nonzero">
                     <rect id="rect3609" x="0.65" y="31.61" width="12.738" height="7.8723"></rect>
@@ -164,7 +162,7 @@ const TapeSpinner = ({children, spin = true, style}) => {
                     <rect id="rect3619" transform="translate(62.590495, 7.815287) rotate(-53.045000) translate(-62.590495, -7.815287) " x="56.2214952" y="3.87913658" width="12.738" height="7.8723"></rect>
                   </g>
                 </g>
-                <g ref={rightWheel} transform="translate(292.390000, 0.000000)">
+                <g id="rightWheel" ref={rightWheel} transform="translate(292.39, 0.00) rotate(0)">
                   <path d="M88.6088629,45.1415212 C88.6088629,69.6036554 68.7784728,89.434857 44.3155271,89.434857 C19.8533929,89.434857 0.02219122,69.604467 0.02219122,45.1415212 C0.02219122,20.679387 19.8525813,0.84818536 44.3155271,0.84818536 C68.7776612,0.84818536 88.6088629,20.6785754 88.6088629,45.1415212 Z" id="border" strokeWidth="10.2836569" strokeLinecap="round"></path>
                   <g id="teeth" transform="translate(2.000000, 11.000000)" fill="#FFFFFF" fillRule="nonzero">
                     <rect id="rect3647" x="0.65" y="31.61" width="12.738" height="7.8723"></rect>

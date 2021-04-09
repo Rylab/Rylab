@@ -20,8 +20,8 @@ export default class Rylab extends Document {
     return (
       <Html lang="en">
         <Head>
-          <meta charsSet="utf-8" />
-          <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+          <meta charSet="utf-8" />
+          <meta httpEquiv="content-type" content="text/html;charset=UTF-8" />
           <meta name="author" content='Ryan "Rylab" D. LaBarre' />
           <meta name="language" content="en" />
           <meta name="robots" content="index, follow" />
