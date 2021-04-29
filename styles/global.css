@@ -242,6 +242,10 @@ ul.narrow {
     transition: 0.3s;
   }
 
+.crosshair {
+  cursor: crosshair;
+}
+
 #saxylab {
   margin: 25px auto 0px auto;
 }
