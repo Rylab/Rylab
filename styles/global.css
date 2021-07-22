@@ -123,12 +123,21 @@ ul.list {
   padding: 20px 24px;
   text-align: left;
 }
-  ul.list li {
+  ul.list li.link {
     margin-bottom: 20px;
+    text-align: center;
   }
   ul.list li:last-child {
     margin-bottom: 2px;
   }
+    ul.list li.link a {
+      display: inline-block;
+      padding-bottom: 2px;
+      width: 100%;
+    }
+    ul.list li.link a:hover {
+      border-bottom: none;
+    }
 
 ul.narrow {
   border: 3px dashed #222;
