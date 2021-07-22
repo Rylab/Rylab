@@ -78,8 +78,8 @@ export default function Index() {
           </a>
         </div>
         <div id="saxylab">
-          <a href="https://saxylab.com" title="Saxy and Ryan Wedding :: SaxyLab">
-            Saxy and Ryan are gettin' married!
+          <a href="https://saxylab.com" target="_saxylab" title="Saxy and Ryan Wedding :: SaxyLab">
+            Saxy and Ryan got hitched!
           </a>
         </div>
         <br />
