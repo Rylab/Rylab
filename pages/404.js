@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Layout, { siteTitle } from '../components/layout'
+import { siteTitle } from '../components/layout'
 
 export default function NotFound() {
   return (
-    <Layout NotFound>
+    <>
       <Head>
         <title>{siteTitle} :: 404 Page Not Found</title>
       </Head>
@@ -19,6 +19,6 @@ export default function NotFound() {
           <b>&lt;404&gt;</b>&nbsp;Not Found&nbsp;<b>&lt;/404&gt;</b>
         </p>
       </div>
-    </Layout>
+    </>
   )
 }
