@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Layout, { siteTitle } from '../components/layout'
+import { siteTitle } from '../components/layout'
 
 export default function InternalServerError() {
   return (
-    <Layout InternalServerError>
+    <>
       <Head>
         <title>{siteTitle} :: 500 Internal Server Error</title>
       </Head>
@@ -19,6 +19,6 @@ export default function InternalServerError() {
           <b>&lt;500&gt;</b>&nbsp;Internal Server Error&nbsp;<b>&lt;/500&gt;</b>
         </p>
       </div>
-    </Layout>
+    </>
   )
 }
