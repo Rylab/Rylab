@@ -15,5 +15,9 @@
     "build": "next build",
     "start": "next start"
   },
-  "version": "0.0.7"
+  "version": "0.1.0",
+  "devDependencies": {
+    "eslint": "<8.0.0",
+    "eslint-config-next": "12.0.0"
+  }
 }

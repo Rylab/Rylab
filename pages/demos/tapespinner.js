@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Layout, { siteTitle } from '../../components/layout'
 import TapeSpinner from '../../components/cassetteTapeSpinner'
+import { siteTitle } from '../../components/layout'
 
 const AddButton = styled.button`
   border-radius: 20px;
@@ -15,6 +15,19 @@ export default function SpinnerDemo() {
   const [song, setSong] = useState({})
   const [addedSongCount, setAddedSongCount] = useState(0)
   const [tapes, setTapes] = useState({})
+
+  const addTape = ({ id, title, artist, spin, style }) => {
+    tapes[id] = {
+      artist,
+      title,
+      spin,
+      style,
+    };
+
+    setTapes({
+      ...tapes,
+    });
+  }
 
   const addSong = () => {
     if (song.title && song.artist) {
@@ -31,19 +44,6 @@ export default function SpinnerDemo() {
     } else {
       console.error('Song title and artist are required.');
     }
-  }
-
-  const addTape = ({ id, title, artist, spin, style }) => {
-    tapes[id] = {
-      artist,
-      title,
-      spin,
-      style,
-    };
-
-    setTapes({
-      ...tapes,
-    });
   }
 
   const handleSongChange = e => {
@@ -90,7 +90,7 @@ export default function SpinnerDemo() {
   }, []);
 
   return (
-    <Layout tapespinner>
+    <>
       <Head>
         <link rel="canonical" href="https://rylab.com/tapespinner" />
         <title>{ siteTitle } :: TapeSpinner Demo</title>
@@ -133,6 +133,6 @@ export default function SpinnerDemo() {
         </div>
         )}
       </main>
-    </Layout>
+    </>
   )
 }
