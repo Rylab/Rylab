@@ -36,3 +36,5 @@ out/
 .nuxt
 dist/
 
+# Macintrash
+.DS_Store

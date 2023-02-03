@@ -9,7 +9,7 @@ export default function NotFound() {
         <title>{siteTitle} :: 404 Page Not Found</title>
       </Head>
       <div className="content">
-        <Link href={'/'}>
+        <Link href={'/'} passHref>
           <img
             className="crosshair"
             style={{ marginTop: 100, marginBottom: 50, height: 250, width: 250 }}

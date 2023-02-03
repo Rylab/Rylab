@@ -142,8 +142,8 @@ const TapeSpinner = ({children, spin = true, style}) => {
   }
 
   return (
-    <CassetteContainer style={style}>
-      <svg onLoad={spin ? spinWheels() : ()=>{}} className="background" width="697px" height="447px" viewBox="0 0 697 447" version="1.1">
+    <CassetteContainer style={style} onLoad={spin ? spinWheels() : ()=>{}}>
+      <svg className="background" width="697px" height="447px" viewBox="0 0 697 447" version="1.1">
         <g id="cassette-border" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="tapecassette" transform="translate(1.000000, 1.000000)">
             <g id="main-body" transform="translate(347.154060, 222.240550) scale(-1, 1) rotate(-180.000000) translate(-347.154060, -222.240550) translate(0.154060, 0.740550)">
