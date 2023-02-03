@@ -74,7 +74,7 @@ export default function Index() {
             </a>
           </div>
           <div id="demos">
-            <Link href="/demos/tapespinner" target="_demos" title="Tape Spinner demo">
+            <Link href="/demos/tapespinner" title="Tape Spinner demo">
               SVG Cassette Tape Spinner
             </Link>
           </div>

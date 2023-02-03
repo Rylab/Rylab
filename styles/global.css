@@ -188,6 +188,14 @@ ul.narrow {
     transition-timing-function: ease;
   }
 
+.nav {
+  color: #aaa;
+  margin-bottom: 15px;
+}
+  .nav a {
+    text-decoration: none;
+  }
+
 #demos {
   margin-top: 25px;
   transition: 0.3s;
