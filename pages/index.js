@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { siteTitle } from '../components/layout'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 const contentType = 'application/json'
 
@@ -83,7 +84,7 @@ export default function Index() {
             </a>
           </div>
           <br />
-          {selves.data && selves.data.length && (
+          {selves.data && selves.data.length ? (
             <>
               <h1 style={{ marginBottom: 20 }}>Digital Selves</h1>
               <ul className="narrow list">
@@ -95,6 +96,8 @@ export default function Index() {
                 ))}
               </ul>
             </>
+          ) : (
+            <LoadingSpinner />
           )}
         </div>
         <a id="aeq" href="https://algorithmeq.com" target="_aeq">
