@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TapeSpinner from '../../components/cassetteTapeSpinner'
@@ -99,6 +100,10 @@ export default function SpinnerDemo() {
         <meta property="og:description" content="RyLaB: TapeSpinner component demo." />
       </Head>
       <main style={{ maxWidth: 1000, margin: '0 auto', padding: 20 }}>
+        <div className="nav">
+          <Link href="/">rylab</Link>/demos/tapespinner
+        </div>
+
         {Object.keys(tapes).map(tapeKey => (
           <TapeSpinner style={tapes[tapeKey].style} spin={tapes[tapeKey].spin} key={tapeKey}>
             <div className={`titleLine${tapes[tapeKey].title.length > 20 ? ' long' : ''}`}>{ tapes[tapeKey].title }</div>
