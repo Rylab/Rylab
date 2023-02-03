@@ -1,47 +1,43 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { siteTitle } from '../components/layout'
 
-const links = [
-  {
-    alias: 'facebook',
-    name: 'Facebook',
-    title: 'Fantastically Friendly Rylab',
-    url: 'https://facebook.com/rylab',
-  }, {
-    alias: 'github',
-    name: 'GitHub',
-    title: 'Open Source Rylab',
-    url: 'https://github.com/rylab',
-  }, {
-    alias: 'instagram',
-    name: 'Instagram',
-    title: 'Photographically Social Rylab',
-    url: 'https://www.instagram.com/rylab',
-  }, {
-    alias: 'linkedin',
-    name: 'LinkedIn',
-    title: 'Super Pro Rylab',
-    url: 'http://lnkd.in/bkDM4Bc',
-  }, {
-    alias: 'medium-profile',
-    name: 'Medium',
-    title: 'Poetic Author @rylab',
-    url: 'https://rylab.medium.com/',
-  }, {
-    alias: 'stackoverflow',
-    name: 'StackOverflow',
-    title: 'Pragmatic Programmer @rylab',
-    url: 'https://stackoverflow.com/users/1035173/ryan-lab',
-  }, {
-    alias: 'twitter',
-    name: 'Twitter',
-    title: 'Tweeting @rylab',
-    url: 'https://twitter.com/rylab',
-  },
-];
+const contentType = 'application/json'
 
 export default function Index() {
+  const [loading, setLoading] = useState(true)
+  const [selves, setSelves] = useState({})
+
+  useEffect(() => {
+    getSelves()
+  }, [])
+
+  const getSelves = async () => {
+    try {
+      setLoading(true)
+  
+      const res = await fetch('/api/selves', {
+        headers: {
+          accept: contentType,
+          'content-type': contentType,
+        },
+        method: 'GET',
+      })
+      const selves = await res.json()
+      setLoading(false)
+  
+      if (selves.data) {
+        setSelves({ data: selves.data })
+      } else {
+        console.error(res)
+      }
+    } catch (error) {
+      setLoading(false)
+      console.error(error)
+    }
+  }
+
   return (
     <>
       <Head>
@@ -87,11 +83,11 @@ export default function Index() {
             </a>
           </div>
           <br />
-          {links.length && (
+          {selves.data && selves.data.length && (
             <>
-              <h1>Digital Selves</h1>
+              <h1 style={{ marginBottom: 20 }}>Digital Selves</h1>
               <ul className="narrow list">
-                {links.map(link => (
+                {selves.data.map(link => (
                   <li className={`link ${link.alias}`} key={link.alias}>
                     <a title={link.title} href={link.url} rel="noreferrer" target="_blank">
                       {link.name}</a>
