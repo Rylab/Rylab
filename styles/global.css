@@ -284,7 +284,15 @@ ul.narrow {
 
 .crosshair {
   cursor: crosshair;
+  opacity: 50%;
+  transition: 0.9s;
+  transition-timing-function: ease;
 }
+  .crosshair:hover {
+    opacity: 90%;
+    transition: 0.3s;
+    transition-timing-function: ease;
+  }
 
 #saxylab {
   margin: 25px auto 0px auto;

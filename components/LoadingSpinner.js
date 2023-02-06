@@ -53,8 +53,8 @@ const LoadingSpinner = ({children, style}) => {
     <LoaderContainer style={style}>
       <svg className="spinner" viewBox="0 0 50 50">
         <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%" gradientTransform="rotate(120)">
-          <stop offset="5%" stop-color="#010101" />
-          <stop offset="95%" stop-color="#343434" />
+          <stop offset="5%" stopColor="#010101" />
+          <stop offset="95%" stopColor="#343434" />
         </linearGradient>
         <circle className="path" cx="25" cy="25" r="20" fill="url(#linear)" strokeWidth="2"></circle>
       </svg>

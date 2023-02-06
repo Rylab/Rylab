@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { siteTitle } from '../components/layout'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -50,9 +51,11 @@ export default function Index() {
       </Head>
       <main>
         <div id="header" className="hoverborder">
-          <img className="rylab"
+          <Image className="rylab"
             src="/img/rylab_extrovert.png"
             alt="A very pretty building in San Francisco. &copy; Ryan D LaBarre"
+            height="255"
+            width="702"
             title="Pretty building in San Francisco. Rylab does not live here (but has been here)" />
         </div>
         <div id="rylab">(: hello :)</div>
