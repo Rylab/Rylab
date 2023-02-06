@@ -337,6 +337,7 @@ ul.narrow {
     max-width: 222px;
   }
   ul.list {
+    list-style: none;
     padding: 16px 18px;
     text-align: left;
   }
