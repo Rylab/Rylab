@@ -70,8 +70,8 @@ export default function Index() {
           <LoadingSpinner />
           <div id="digitalhaiku">
             <a href="https://medium.com/@rylab/abc-digitally-evolving-futurist-goals-9b11bd0f54d2"
-              rel="noreferrer" target="_medium" title="Haikus on Medium">
-              #digitalhaikus
+              rel="noreferrer" target="_medium" title="My Haiku on Medium">
+              #digitalhaiku
             </a>
           </div>
           <div id="demos">
