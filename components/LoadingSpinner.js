@@ -8,7 +8,8 @@ const LoaderContainer = styled.div`
   position: relative;
 
   .spinner {
-    animation: rotate 2s linear infinite;
+    animation: rotate 3s linear infinite;
+    cursor: wait;
     z-index: 2;
     position: absolute;
     top: 50%;
@@ -18,9 +19,9 @@ const LoaderContainer = styled.div`
     height: 50px;
     
     & .path {
-      stroke: #ddd;
+      stroke: #454545;
       stroke-linecap: round;
-      animation: dash 1.5s ease-in-out infinite;
+      animation: dash 2s ease-in-out infinite;
     }
     
   }
@@ -51,8 +52,11 @@ const LoadingSpinner = ({children, style}) => {
   return (
     <LoaderContainer style={style}>
       <svg className="spinner" viewBox="0 0 50 50">
-        <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%"></linearGradient>
-        <circle className="path" cx="25" cy="25" r="20" fill="url(#linear)" strokeWidth="5"></circle>
+        <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%" gradientTransform="rotate(120)">
+          <stop offset="5%" stop-color="#010101" />
+          <stop offset="95%" stop-color="#343434" />
+        </linearGradient>
+        <circle className="path" cx="25" cy="25" r="20" fill="url(#linear)" strokeWidth="2"></circle>
       </svg>
       {children}
     </LoaderContainer>
