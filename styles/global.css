@@ -72,6 +72,7 @@ p {
   .small {
     cursor: auto;
     font-size: 9pt;
+    line-height: 13pt;
   }
   .large {
     font-size: 17pt;
@@ -246,17 +247,20 @@ ul.narrow {
 }
 
 #rylab {
-  color: #222;
+  color: #255;
   margin: 0px auto;
-  opacity: 0.2;
+  opacity: 0.1;
   padding-top: 17px;
-  transition: 0.8s;
+  transition: 0.9s;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
   #rylab:hover {
     cursor: all-scroll;
     color: #777;
     opacity: 1.0;
-    transition: 0.3s;
+    transition: 0.2s;
   }
 
 .crosshair {
