@@ -55,21 +55,22 @@ export default function Index() {
             alt="A very pretty building in San Francisco. &copy; Ryan D LaBarre"
             title="Pretty building in San Francisco. Rylab does not live here (but has been here)" />
         </div>
-        <div id="rylab">(: hello rylab :)</div>
+        <div id="rylab">(: hello :)</div>
         <div id="content">
           <p id="haiku-today" className="large light">
-            someday&nbsp;I will&nbsp;make;
-            a&nbsp;cool personal&nbsp;website;
+            someday&nbsp;I will&nbsp;make,<br />
+            a&nbsp;great personal&nbsp;website;<br />
             it&nbsp;may be&nbsp;today
           </p>
           <p id="haiku-tomorrow" className="small dark hoverlight">
-            perhaps tomorrow;
-            but&nbsp;probably not&nbsp;either;
-            our&nbsp;planet still&nbsp;spins
+            perhaps tomorrow?<br />
+            probably&nbsp;not then&nbsp;either...<br />
+            our&nbsp;planet still&nbsp;spins<br />
           </p>
+          <LoadingSpinner />
           <div id="digitalhaiku">
             <a href="https://medium.com/@rylab/abc-digitally-evolving-futurist-goals-9b11bd0f54d2"
-              rel="noreferrer" target="_medium" title="Haiku on Medium">
+              rel="noreferrer" target="_medium" title="My Haiku on Medium">
               #digitalhaiku
             </a>
           </div>
@@ -100,8 +101,7 @@ export default function Index() {
             <LoadingSpinner />
           )}
         </div>
-        <a id="aeq" href="https://algorithmeq.com" target="_aeq">
-          <img className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" /></a>
+        <img className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" />
       </main>
     </>
   )
