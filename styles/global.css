@@ -163,12 +163,12 @@ ul.narrow {
   display: block;
   height: 77px;
   margin: 47px auto 27px auto;
+  padding: 25%;
   width: 77px;
-  padding: 77px;
 }
   .bsd:hover {
     background: url(/img/bsd_introvert.png) center center no-repeat;
-    background-size: cover;
+    background-size: 80%;
     border: 3px dashed #fff;
     cursor: url(/img/bsd_cursor.png) 50 50, progress;
     opacity: 0.2;
@@ -317,16 +317,13 @@ ul.narrow {
       margin-bottom: 15px;
     }
   .bsd {
-    padding: 227px;
+    padding: 15%;
   }
 }
 
 @media(min-width: 1017px) {
   #header {
     margin-top: 47px;
-  }
-  .bsd {
-    padding: 22%;
   }
 }
 

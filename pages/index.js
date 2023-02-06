@@ -101,8 +101,7 @@ export default function Index() {
             <LoadingSpinner />
           )}
         </div>
-        <a id="aeq" href="https://algorithmeq.com" target="_aeq">
-          <img className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" /></a>
+        <img className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" />
       </main>
     </>
   )
