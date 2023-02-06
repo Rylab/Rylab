@@ -49,7 +49,7 @@ export default function Index() {
         <meta property="og:description" content="Digital Home of Ryan LaBarre" />
       </Head>
       <main>
-        <div id="header" className="hoverdots">
+        <div id="header" className="hoverborder">
           <img className="rylab"
             src="/img/rylab_extrovert.png"
             alt="A very pretty building in San Francisco. &copy; Ryan D LaBarre"

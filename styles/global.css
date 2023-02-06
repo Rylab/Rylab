@@ -22,6 +22,7 @@ img {
 #header {
   background: #000 url(/img/header_extrovert.png) top left no-repeat;
   background-size: cover;
+  cursor: grab;
   margin: 0px;
   min-height: 255px;
   overflow: hidden;
@@ -30,11 +31,14 @@ img {
   position: relative;
   text-align: left;
   width: 100%;
+  transition: background-image 0.3s;
+  transition-timing-function: ease;
 }
   #header:hover {
-    cursor: grab;
     background-image: url(/img/header_introvert.png);
     opacity: .77;
+    transition: background-image 0.7s;
+    transition-timing-function: ease;
   }
 
 #footer {
@@ -145,9 +149,13 @@ ul.narrow {
   border-radius: 16px;
   margin: 10px auto;
   max-width: 377px;
+  transition: border 0.3s;
+  transition-timing-function: ease;
 }
   ul.narrow:hover {
     border: 3px dashed #555;
+    transition: border 0.5s;
+    transition-timing-function: ease;
   }
 
 #aeq, #aeq:hover {
@@ -156,6 +164,8 @@ ul.narrow {
 }
 
 .bsd {
+  background: url(/img/bsd_introvert.png) center center no-repeat;
+  background-size: 3%;
   box-sizing: content-box;
   opacity: 1.0;
   border: 3px dashed #222;
@@ -165,27 +175,31 @@ ul.narrow {
   margin: 47px auto 27px auto;
   padding: 25%;
   width: 77px;
+  transition: 0.9s;
+  transition-timing-function: ease;
 }
   .bsd:hover {
     background: url(/img/bsd_introvert.png) center center no-repeat;
-    background-size: 80%;
+    background-size: 92%;
     border: 3px dashed #fff;
     cursor: url(/img/bsd_cursor.png) 50 50, progress;
     opacity: 0.2;
+    transition: 0.3s;
+    transition-timing-function: ease;
   }
 
 .hoverlight.small:hover {
   cursor: help;
 }
 
-.hoverdots {
-  border: 3px solid #123;
-  transition: 0.3s;
+.hoverborder {
+  border: 4px solid #123;
+  transition: border 0.5s;
   transition-timing-function: ease;
 }
-  .hoverdots:hover {
-    border: 3px dotted #321;
-    transition: 0.7s;
+  .hoverborder:hover {
+    border: 4px solid #321;
+    transition: border 0.9s;
     transition-timing-function: ease;
   }
 
@@ -240,10 +254,13 @@ ul.narrow {
   background-image: url(/img/rylab_introvert.png);
   background-position: 0.07px 0.07px;
   background-size: contain;
+  opacity: 50%;
   position: absolute;
   bottom: 3px;
   left: 3px;
   max-width: 992px;
+  transition: background-image 0.3s;
+  transition-timing-function: ease;
 }
 
 #rylab {
@@ -252,6 +269,7 @@ ul.narrow {
   opacity: 0.1;
   padding-top: 17px;
   transition: 0.9s;
+  transition-timing-function: ease;
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -260,7 +278,8 @@ ul.narrow {
     cursor: all-scroll;
     color: #777;
     opacity: 1.0;
-    transition: 0.2s;
+    transition: 0.3s;
+    transition-timing-function: ease;
   }
 
 .crosshair {

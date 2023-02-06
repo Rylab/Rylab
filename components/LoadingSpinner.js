@@ -1,11 +1,10 @@
-import { useRef } from 'react'
 import styled from 'styled-components'
 
 const LoaderContainer = styled.div`
   display: inline-block;
-  margin: 20px;
-  width: 50px;
   height: 50px;
+  width: 50px;
+  margin: 20px;
   position: relative;
 
   .spinner {
@@ -52,7 +51,8 @@ const LoadingSpinner = ({children, style}) => {
   return (
     <LoaderContainer style={style}>
       <svg className="spinner" viewBox="0 0 50 50">
-        <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
+        <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%"></linearGradient>
+        <circle className="path" cx="25" cy="25" r="20" fill="url(#linear)" strokeWidth="5"></circle>
       </svg>
       {children}
     </LoaderContainer>
