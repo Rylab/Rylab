@@ -37,8 +37,7 @@ img {
   #header:hover {
     background-image: url(/img/header_introvert.png);
     opacity: .77;
-    transition: background-image 0.7s;
-    transition-timing-function: ease;
+    transition: background-image 0.5s;
   }
 
 #footer {
@@ -54,20 +53,24 @@ img {
 
 a {
   color: #ccc;
-  text-decoration: underline;
+  text-decoration-color: #222;
+  transition: 0.22s;
+  transition-timing-function: ease;
 }
   a:active {
-    text-decoration: none;
+    color: #fff;
+    text-decoration-color: #fff;
     border-bottom: 1px #eee dotted;
+    transition: 0.22s;
   }
   a:hover {
-    color: #fff;
-    text-decoration: none;
+    color: #dedede;
+    text-decoration-color: #dedede;
     border-bottom: 1px #ccc dotted;
+    transition: 0.22s;
   }
-  a:visited {
+  a:visited:not(:hover) {
     color: #aaa;
-    text-decoration: none;
   }
 
 p {
@@ -77,9 +80,15 @@ p {
     cursor: auto;
     font-size: 9pt;
     line-height: 13pt;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
   }
   .large {
     font-size: 17pt;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
   }
   .dark {
     color: #666;
@@ -92,6 +101,8 @@ p {
   }
   .hoverlight:hover {
     color: #ddd;
+    transition: 0.44s;
+    transition-timing-function: ease;
   }
   .medium {
     color: #333;
@@ -137,10 +148,10 @@ ul.list {
   }
     ul.list li.link a {
       display: inline-block;
-      padding-bottom: 2px;
+      padding-bottom: 3px;
       width: 100%;
     }
-    ul.list li.link a:hover {
+    ul.list li.link a:active, ul.list li.link a:hover {
       border-bottom: none;
     }
 
@@ -188,9 +199,20 @@ ul.narrow {
     transition-timing-function: ease;
   }
 
-.hoverlight.small:hover {
-  cursor: help;
+.cassette {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
+
+.hoverlight.small {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+  .hoverlight.small:hover {
+    cursor: help;
+  }
 
 .hoverborder {
   border: 4px solid #123;
@@ -206,6 +228,9 @@ ul.narrow {
 .nav {
   color: #aaa;
   margin-bottom: 15px;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
   .nav a {
     text-decoration: none;
@@ -213,52 +238,54 @@ ul.narrow {
 
 #demos {
   margin-top: 25px;
-  transition: 0.3s;
 }
   #demos a {
     color: rgb(21, 124, 143);
     cursor: crosshair;
-    opacity: .6;
+    opacity: 0.6;
     text-decoration: none;
+    transition: 0.22s;
+    transition-timing-function: ease;
   }
   #demos a:hover {
     color: rgb(31, 194, 167);
     opacity: 1.0;
-    transition: 0.8s;
+    transition: 0.22s;
   }
   #demos a:active, #demos a:focus {
     color: rgb(31, 194, 167);
     opacity: 1.0;
-    transition: 0.4s;
+    transition: 0.22s;
   }
-
-#digitalhaiku {
-  margin-top: 20px;
-  transition: 0.7s;
-}
+  
+  #digitalhaiku {
+    margin-top: 20px;
+  }
   #digitalhaiku a {
     color: rgb(58, 14, 116);
     cursor: crosshair;
     text-decoration: none;
+    transition: 0.2s;
+    transition-timing-function: ease;
   }
   #digitalhaiku a:hover {
     color: rgb(136, 0, 226);
-    transition: 0.8s;
+    transition: 0.2s;
   }
   #digitalhaiku a:active, #digitalhaiku a:focus {
     color: rgb(136, 0, 226);
-    transition: .4s;
+    transition: 0.2s;
   }
 
 .rylab {
   background-image: url(/img/rylab_introvert.png);
-  background-position: 0.07px 0.07px;
   background-size: contain;
-  opacity: 50%;
+  opacity: 77%;
   position: absolute;
-  bottom: 3px;
-  left: 3px;
-  max-width: 992px;
+  bottom: 0;
+  left: 0;
+  min-height: 20px;
+  max-width: 97%;
   transition: background-image 0.3s;
   transition-timing-function: ease;
 }
@@ -279,7 +306,6 @@ ul.narrow {
     color: #777;
     opacity: 1.0;
     transition: 0.3s;
-    transition-timing-function: ease;
   }
 
 .crosshair {
@@ -291,7 +317,6 @@ ul.narrow {
   .crosshair:hover {
     opacity: 90%;
     transition: 0.3s;
-    transition-timing-function: ease;
   }
 
 #saxylab {
@@ -323,6 +348,7 @@ ul.narrow {
     padding: 177px;
   }
 }
+
 @media(min-width: 709px) {
   #content {
     padding: 0 7%;

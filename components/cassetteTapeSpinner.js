@@ -114,7 +114,7 @@ const CassetteContainer = styled.div`
   }
 `
 
-const TapeSpinner = ({children, spin = true, style}) => {
+const TapeSpinner = ({children, spin = true, style, id}) => {
   const leftWheel = useRef(null)
   const rightWheel = useRef(null)
 
@@ -142,7 +142,7 @@ const TapeSpinner = ({children, spin = true, style}) => {
   }
 
   return (
-    <CassetteContainer style={style} onLoad={spin ? spinWheels() : ()=>{}}>
+    <CassetteContainer className="cassette" style={style} id={id} onLoad={spin ? spinWheels() : ()=>{}}>
       <svg className="background" width="697px" height="447px" viewBox="0 0 697 447" version="1.1">
         <g id="cassette-border" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="tapecassette" transform="translate(1.000000, 1.000000)">
