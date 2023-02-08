@@ -190,7 +190,6 @@ ul.narrow {
   transition-timing-function: ease;
 }
   .bsd:hover {
-    background: url(/img/bsd_introvert.png) center center no-repeat;
     background-size: 92%;
     border: 3px dashed #fff;
     cursor: url(/img/bsd_cursor.png) 50 50, progress;
@@ -386,3 +385,8 @@ ul.narrow {
     margin-top: 77px;
   }
 }
+
+body:after {
+  content: url(/img/header_introvert.png) url(/img/bsd_cursor.png);
+  display: none;
+ }
