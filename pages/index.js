@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { siteTitle } from '../components/layout'
 import LoadingSpinner from '../components/LoadingSpinner'
 
-const contentType = 'application/json'
+const jsonContentType = 'application/json'
 
 export default function Index() {
   const [loading, setLoading] = useState(true)
@@ -20,8 +20,8 @@ export default function Index() {
   
       const res = await fetch('/api/selves', {
         headers: {
-          accept: contentType,
-          'content-type': contentType,
+          accept: jsonContentType,
+          'content-type': jsonContentType,
         },
         method: 'GET',
       })
@@ -49,11 +49,11 @@ export default function Index() {
         <meta property="og:description" content="Digital Home of Ryan LaBarre" />
       </Head>
       <main>
-        <div id="header" className="hoverdots">
+        <div id="header" className="hoverborder">
           <img className="rylab"
             src="/img/rylab_extrovert.png"
-            alt="A very pretty building in San Francisco. &copy; Ryan D LaBarre"
-            title="Pretty building in San Francisco. Rylab does not live here (but has been here)" />
+            alt="A very pretty building in Golden Gate Park, San Francisco"
+            title="A very pretty building in Golden Gate Park." />
         </div>
         <div id="rylab">(: hello :)</div>
         <div id="content">
