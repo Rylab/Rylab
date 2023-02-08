@@ -9,7 +9,7 @@ const LoaderContainer = styled.div`
 
   .spinner {
     animation: rotate 3s linear infinite;
-    cursor: wait;
+    cursor: url(/img/bsd_cursor_invert.png) 20 20, progress;
     z-index: 2;
     position: absolute;
     top: 50%;
@@ -23,7 +23,6 @@ const LoaderContainer = styled.div`
       stroke-linecap: round;
       animation: dash 2s ease-in-out infinite;
     }
-    
   }
   
   @keyframes rotate {

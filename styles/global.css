@@ -387,6 +387,6 @@ ul.narrow {
 }
 
 body:after {
-  content: url(/img/header_introvert.png) url(/img/bsd_cursor.png);
+  content: url(/img/header_introvert.png) url(/img/bsd_cursor.png) url(/img/bsd_cursor_invert.png);
   display: none;
  }
