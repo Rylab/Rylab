@@ -3,18 +3,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { siteTitle } from '../components/layout'
 
+const pageTitle = `${siteTitle} :: Not Found`
+
 export default function NotFound() {
   return (
     <>
       <Head>
-        <title>{siteTitle} :: 404 Page Not Found</title>
+        <link rel="canonical" href="https://rylab.com/404" />
+        <title>{ pageTitle }</title>
       </Head>
       <div className="content" style={{ marginTop: 100 }}>
-        <Link href={'/'} passHref>
+        <Link href={'/'} className="discreet" passHref>
           <Image
             className="crosshair"
-            height="250"
-            width="250"
+            height="300"
+            width="300"
             src="/img/bsd_extrovert.png" alt="RyLaB Home" />
         </Link>
         <p style={{ color: '#666', marginBottom: 250, marginTop: 20 }}>

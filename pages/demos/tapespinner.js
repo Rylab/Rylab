@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import TapeSpinner from '../../components/cassetteTapeSpinner'
 import { siteTitle } from '../../components/layout'
 
+const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
+
 const AddButton = styled.button`
   border-radius: 20px;
   font-size: 14pt;
@@ -156,10 +158,10 @@ export default function SpinnerDemo() {
     <>
       <Head>
         <link rel="canonical" href="https://rylab.com/tapespinner" />
-        <title>{ siteTitle } :: TapeSpinner Demo</title>
-        <meta name="og:title" content={`${siteTitle} :: TapeSpinner Demo`} />
-        <meta name="description" content="TapeSpinner component demo." />
-        <meta property="og:description" content="RyLaB: TapeSpinner component demo." />
+        <title>{ pageTitle }</title>
+        <meta name="og:title" content={ pageTitle } />
+        <meta name="description" content="TapeSpinner animated SVG React component demo." />
+        <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
       </Head>
       <main style={{ maxWidth: 1400, margin: '0 auto', padding: 20 }}>
         <div className="nav">

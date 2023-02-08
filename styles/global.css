@@ -57,13 +57,13 @@ a {
   transition: 0.22s;
   transition-timing-function: ease;
 }
-  a:active {
+  a:active:not(.discreet) {
     color: #fff;
     text-decoration-color: #fff;
     border-bottom: 1px #eee dotted;
     transition: 0.22s;
   }
-  a:hover {
+  a:hover:not(.discreet) {
     color: #dedede;
     text-decoration-color: #dedede;
     border-bottom: 1px #ccc dotted;

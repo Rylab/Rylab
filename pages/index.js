@@ -5,6 +5,7 @@ import { siteTitle } from '../components/layout'
 import LoadingSpinner from '../components/LoadingSpinner'
 
 const jsonContentType = 'application/json'
+const pageTitle = `${siteTitle} :: Home`
 
 export default function Index() {
   const [loading, setLoading] = useState(true)
@@ -43,8 +44,8 @@ export default function Index() {
     <>
       <Head>
         <link rel="canonical" href="https://rylab.com" />
-        <title>{ siteTitle } :: Home</title>
-        <meta name="og:title" content={`${siteTitle} :: Home`} />
+        <title>{ pageTitle }</title>
+        <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="Welcome to Rylab, digital home of Ryan LaBarre" />
         <meta property="og:description" content="Digital Home of Ryan LaBarre" />
       </Head>
