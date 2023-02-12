@@ -138,6 +138,7 @@ h4 {
 ul.list {
   padding: 20px 24px;
   text-align: left;
+  list-style-type: none;
 }
   ul.list li.link {
     margin-bottom: 20px;
@@ -362,7 +363,6 @@ ul.narrow {
     max-width: 222px;
   }
   ul.list {
-    list-style: none;
     padding: 16px 18px;
     text-align: left;
   }
