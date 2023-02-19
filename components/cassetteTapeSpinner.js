@@ -40,27 +40,34 @@ const CassetteContainer = styled.div`
     width: 202px;
   }
     .artistLine {
+      bottom: 25px;
       left: 24px;
+      transition: 5s;
     }
     .artistLine:hover, .titleLine:hover {
       cursor: default;
       user-select: none;
     }
-
-  .artistLine {
-    bottom: 25px;
-  }
     .artistLine.long {
       font-size: 11px;
       bottom: 26px;
     }
-  .titleLine {
-    bottom: 46px;
-  }
-    .titleLine.long {
+      .artistLine.long:hover {
+        left: 0px;
+        transition: 5s;
+      }
+    .titleLine {
+      left: 24px;
+      bottom: 46px;
+      transition: 5s;
+    }
+    .titleLine.long:hover {
       font-size: 11px;
       bottom: 47px;
+      left: 0px;
+      transition: 5s;
     }
+
   .songIdLine {
     display: none;
     bottom: 8px;
