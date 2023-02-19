@@ -1,17 +1,19 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { baseUrl, siteTitle } from '../components/layout'
+import { baseUrl, jsonContentType, siteTitle } from '../components/layout'
 import LoadingSpinner from '../components/LoadingSpinner'
 
-const jsonContentType = 'application/json'
 const pageTitle = `${siteTitle} :: Home`
 
 export default function Index() {
+  const [editing, setEditing] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [password, setPassword] = useState({})
   const [selves, setSelves] = useState({})
 
   useEffect(() => {
+    setPassword(localStorage.getItem('managePass'))
     getSelves()
   }, [])
 
@@ -19,12 +21,18 @@ export default function Index() {
     try {
       setLoading(true)
   
-      const res = await fetch('/api/selves', {
-        headers: {
-          accept: jsonContentType,
-          'content-type': jsonContentType,
-        },
+      const headers = {
+        accept: jsonContentType,
+        'content-type': jsonContentType,
         method: 'GET',
+      };
+
+      if (password) {
+        headers['x-admin'] = password
+      }
+
+      const res = await fetch('/api/selves', {
+        headers,
       })
       const selves = await res.json()
       setLoading(false)
@@ -38,6 +46,19 @@ export default function Index() {
       setLoading(false)
       console.error(error)
     }
+  }
+
+  // TODO update for song
+  const toggleEditing = e => {
+    setEditing({
+      data: [
+        ...guestList.data,
+      ],
+      editing: {
+        ...guestList.editing,
+        [e.target.name]: !guestList.editing[e.target.name],
+      },
+    })
   }
 
   return (
@@ -69,12 +90,12 @@ export default function Index() {
             our&nbsp;planet still&nbsp;spins<br />
           </p>
           <LoadingSpinner />
-          <div class="demo">
+          <div className="demo">
             <Link href="/demos/tapespinner" title="Tape Spinner demo">
               Animated SVG Cassette spinner
             </Link>
           </div>
-          <div class="demo">
+          <div className="demo">
             <Link href="/demos/tapeai" title="Tape Spinner demo">
               OpenAI Cassette generator
             </Link>
@@ -91,7 +112,7 @@ export default function Index() {
             </a>
           </div>
           <br />
-          {selves.data?.length ? (
+          { selves.data?.length ? (
             <>
               <h1 style={{ marginBottom: 20 }}>Digital Selves</h1>
               <ul className="narrow list">

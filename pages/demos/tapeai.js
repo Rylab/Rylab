@@ -1,9 +1,10 @@
-import { v4 as uuidv4 } from 'uuid'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 import styled from 'styled-components'
 import styles from '../../styles/ai.module.css'
-import { baseUrl, siteTitle } from '../../components/layout'
+
+import { baseUrl, jsonContentType, siteTitle } from '../../components/layout'
 import Navigation from '../../components/navigation'
 
 const pageTitle = `${siteTitle} :: Animated AI Cassette Playground`
@@ -12,32 +13,8 @@ export default function AiPlayground() {
   const [adjectiveInput, setAdjectiveInput] = useState('')
   const [genreInput, setGenreInput] = useState('')
   const [result, setResult] = useState()
-  const [uuid, setUuid] = useState()
 
-  const getUuid = () => {
-    if (uuid) return uuid
-
-    const localUuid = localStorage.getItem('uuid')
-
-    if (localUuid) {
-      setUuid(localUuid)
-
-      return localUuid
-    }
-
-    const newUuid = uuidv4()
-
-    try {
-      localStorage.setItem('uuid', newUuid)
-      setUuid(newUuid)
-
-      return newUuid
-    } catch (e) {
-      console.error(e)
-
-      alert('A browser supporting localStorage is required.')
-    }
-  }
+  const router = useRouter()
 
   async function onSubmit(event) {
     event.preventDefault()
@@ -45,16 +22,16 @@ export default function AiPlayground() {
     let tapeInfo = {}
 
     try {
-
       const response = await fetch('/api/tapeai', {
-        method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          accept: jsonContentType,
+          'content-type': jsonContentType,
         },
+        method: 'POST',
         body: JSON.stringify({
           adjective: adjectiveInput,
           genre: genreInput,
-          uuid: getUuid(),
+          uuid,
         }),
       })
       
@@ -84,7 +61,7 @@ export default function AiPlayground() {
     <div>
       <Head>
         <title>{ pageTitle }</title>
-        <link rel="canonical" href={`https://${baseUrl}/demos/tapespinner`} />
+        <link rel="canonical" href={`https://${baseUrl}/demos/tapeai`} />
         <link rel="icon" href="/img/bsd_introvert.png" />
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner: animated AI Cassette Tape playground." />

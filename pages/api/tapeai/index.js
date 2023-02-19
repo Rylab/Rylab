@@ -1,4 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai'
+import { getUuid } from '../../../utils/helpers'
 
 // TODO: actual specific UUID validation in addition to basic sanity check
 const UUID_LENGTH = 36
@@ -56,19 +57,7 @@ const getTemperature = req => {
   return req.body?.temperature?.trim() ?? defaultTemperature
 }
 
-const getUuid = req => {
-  const uuid = req.body?.uuid?.trim()
-
-  return uuid ? validateUuid(uuid) : ''
-}
-
-const validateUuid = uuid => {
-  return uuid?.length === UUID_LENGTH
-    ? uuid
-    : ''
-}
-
-export default async function (req, res) {
+export default async function handler(req, res) {
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -90,6 +79,8 @@ export default async function (req, res) {
 
     return
   }
+
+  const isAdmin = headers['x-admin'] === MANAGE_PASS
 
   const adjective = getAdjective(req)
   const genre = getGenre(req)
