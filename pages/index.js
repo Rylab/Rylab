@@ -69,16 +69,21 @@ export default function Index() {
             our&nbsp;planet still&nbsp;spins<br />
           </p>
           <LoadingSpinner />
+          <div class="demo">
+            <Link href="/demos/tapespinner" title="Tape Spinner demo">
+              Animated SVG Cassette spinner
+            </Link>
+          </div>
+          <div class="demo">
+            <Link href="/demos/tapeai" title="Tape Spinner demo">
+              OpenAI Cassette generator
+            </Link>
+          </div>
           <div id="digitalhaiku">
             <a href="https://medium.com/@rylab/abc-digitally-evolving-futurist-goals-9b11bd0f54d2"
               rel="noreferrer" target="_medium" title="My Haiku on Medium">
               #digitalhaiku
             </a>
-          </div>
-          <div id="demos">
-            <Link href="/demos/tapespinner" title="Tape Spinner demo">
-              SVG Cassette Tape Spinner
-            </Link>
           </div>
           <div id="saxylab">
             <a href="https://saxylab.com" target="_saxylab" title="Saxy and Ryan :: SaxyLab">

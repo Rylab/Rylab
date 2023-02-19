@@ -46,7 +46,7 @@ export default function AiPlayground() {
 
     try {
 
-      const response = await fetch('/api/ai', {
+      const response = await fetch('/api/tapeai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export default function AiPlayground() {
       </Head>
 
       <main className={styles.main}>
-        <Navigation path='demos/ai' />
+        <Navigation path='demos/tapeai' />
         <h1 style={{ marginBottom: 30, marginTop: 25 }}>AI Cassette Tape Generator</h1>
         <form onSubmit={onSubmit}>
           <input

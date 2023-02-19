@@ -263,10 +263,10 @@ ul.narrow {
     cursor: url(/img/bsd_cursor_invert.png) 20 20, progress;
   }
 
-#demos {
+.demo {
   margin-top: 25px;
 }
-  #demos a {
+  .demo a {
     color: rgb(21, 124, 143);
     cursor: crosshair;
     opacity: 0.6;
@@ -274,12 +274,12 @@ ul.narrow {
     transition: 0.22s;
     transition-timing-function: ease;
   }
-  #demos a:hover {
+  .demo a:hover {
     color: rgb(31, 194, 167);
     opacity: 1.0;
     transition: 0.22s;
   }
-  #demos a:active, #demos a:focus {
+  .demo a:active, .demo a:focus {
     color: rgb(31, 194, 167);
     opacity: 1.0;
     transition: 0.22s;
