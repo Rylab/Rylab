@@ -1,6 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
+import { baseUrl } from '../components/layout'
 
 export default class Rylab extends Document {
   static async getInitialProps(ctx) {
@@ -35,11 +36,11 @@ export default class Rylab extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="content-type" content="text/html;charset=UTF-8" />
-          <meta name="author" content='Ryan "Rylab" D. LaBarre' />
+          <meta name="author" content="Ryan LaBarre (Rylab)" />
           <meta name="language" content="en" />
           <meta name="robots" content="index, follow" />
           <meta name="theme-color" content="#222" />
-          <meta property="og:site_name" content="Rylab.com" />
+          <meta property="og:site_name" content={ baseUrl } />
           <link rel="icon" type="image/png" href="/img/bsd_introvert.png" />
           {this.props.styles}
         </Head>

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { siteTitle } from '../components/layout'
+import { baseUrl, siteTitle } from '../components/layout'
 import LoadingSpinner from '../components/LoadingSpinner'
 
 const jsonContentType = 'application/json'
@@ -43,21 +43,21 @@ export default function Index() {
   return (
     <>
       <Head>
-        <link rel="canonical" href="https://rylab.com" />
+        <link rel="canonical" href={`https://${ baseUrl }`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="Welcome to Rylab, digital home of Ryan LaBarre" />
         <meta property="og:description" content="Digital Home of Ryan LaBarre" />
       </Head>
       <main>
-        <div id="header" className="hoverborder">
+        <div id="header" className="hoverborder lockish">
           <img className="rylab"
             src="/img/rylab_extrovert.png"
             alt="A very pretty building in Golden Gate Park, San Francisco"
             title="A very pretty building in Golden Gate Park." />
         </div>
-        <div id="rylab">(: hello :)</div>
-        <div id="content">
+        <div id="rylab" className="lockish">(: hello :)</div>
+        <div id="content" className="lockish">
           <p id="haiku-today" className="large light">
             someday&nbsp;I will&nbsp;make,<br />
             a&nbsp;great personal&nbsp;website;<br />
@@ -81,18 +81,18 @@ export default function Index() {
             </Link>
           </div>
           <div id="saxylab">
-            <a href="https://saxylab.com" target="_saxylab" title="Saxy and Ryan Wedding :: SaxyLab">
-              Saxy and Ryan got hitched!
+            <a href="https://saxylab.com" target="_saxylab" title="Saxy and Ryan :: SaxyLab">
+              SaxyLab
             </a>
           </div>
           <br />
-          {selves.data && selves.data.length ? (
+          {selves.data?.length ? (
             <>
               <h1 style={{ marginBottom: 20 }}>Digital Selves</h1>
               <ul className="narrow list">
                 {selves.data.map(link => (
                   <li className={`link ${link.alias}`} key={link.alias}>
-                    <a title={link.title} href={link.url} rel="noreferrer" target="_blank">
+                    <a className="link" title={link.title} href={link.url} rel="noreferrer" target="_blank">
                       {link.name}</a>
                   </li>
                 ))}
@@ -102,7 +102,7 @@ export default function Index() {
             <LoadingSpinner />
           )}
         </div>
-        <img className="bsd" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" />
+        <img className="bsd lockish" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" />
       </main>
     </>
   )

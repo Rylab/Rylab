@@ -19,6 +19,12 @@ img {
   border: 0;
 }
 
+img.icon {
+  display: block;
+  margin: 20px auto;
+  width: 32px;
+}
+
 #header {
   background: #000 url(/img/header_extrovert.png) top left no-repeat;
   background-size: cover;
@@ -31,7 +37,8 @@ img {
   position: relative;
   text-align: left;
   width: 100%;
-  transition: background-image 0.3s;
+  transition: background-imaage 0.2s;
+  transition: background-position 1.0s;
   transition-timing-function: ease;
 }
   #header:hover {
@@ -41,7 +48,7 @@ img {
   }
 
 #footer {
-  margin: 30px auto;
+  margin: 50px auto 30px auto;
 }
 
 #content {
@@ -72,23 +79,24 @@ a {
   a:visited:not(:hover) {
     color: #aaa;
   }
-
+  a.question {
+    cursor: alias;
+  }
 p {
   font-size: 11pt;
 }
-  .small {
-    cursor: auto;
-    font-size: 9pt;
-    line-height: 13pt;
+  .lockish {
     user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
   }
+  .small {
+    cursor: auto;
+    font-size: 9pt;
+    line-height: 13pt;
+  }
   .large {
     font-size: 17pt;
-    user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
   }
   .dark {
     color: #666;
@@ -165,6 +173,7 @@ ul.narrow {
   transition-timing-function: ease;
 }
   ul.narrow:hover {
+    background-color: #121212;
     border: 3px dashed #555;
     transition: border 0.5s;
     transition-timing-function: ease;
@@ -185,7 +194,6 @@ ul.narrow {
   display: block;
   height: 77px;
   margin: 47px auto 27px auto;
-  padding: 25%;
   width: 77px;
   transition: 0.9s;
   transition-timing-function: ease;
@@ -205,14 +213,9 @@ ul.narrow {
   -ms-user-select: none;
 }
 
-.hoverlight.small {
-  user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+.hoverlight.small:hover {
+  cursor: help;
 }
-  .hoverlight.small:hover {
-    cursor: help;
-  }
 
 .hoverborder {
   border: 4px solid #123;
@@ -225,15 +228,38 @@ ul.narrow {
     transition-timing-function: ease;
   }
 
-.nav {
+.selectable {
+  cursor: copy;
+}
+
+.selectable::selection,
+.selectable span::selection,
+.selectable a::selection {
+  color: white;
+  background: #333;
+}
+
+.selectable::-moz-selection,
+.selectable span::-moz-selection,
+.selectable a::-moz-selection {
+  color: white;
+  background: #333;
+}
+
+#navigation {
   color: #aaa;
   margin-bottom: 15px;
-  user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+  margin-top: 25px;
 }
-  .nav a {
+  #navigation .protocol {
+    display: none
+  }
+
+  #navigation a {
     text-decoration: none;
+  }
+  #navigation a:hover {
+    cursor: url(/img/bsd_cursor_invert.png) 20 20, progress;
   }
 
 #demos {
@@ -279,6 +305,7 @@ ul.narrow {
 
 .rylab {
   background-image: url(/img/rylab_introvert.png);
+  background-position: 0px 0px;
   background-size: contain;
   opacity: 77%;
   position: absolute;
@@ -286,7 +313,8 @@ ul.narrow {
   left: 0;
   min-height: 20px;
   max-width: 97%;
-  transition: background-image 0.3s;
+  transition: background-image 0.7s;
+  transition: background-position 0.3s;
   transition-timing-function: ease;
 }
 
@@ -297,9 +325,6 @@ ul.narrow {
   padding-top: 17px;
   transition: 0.9s;
   transition-timing-function: ease;
-  user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
   #rylab:hover {
     cursor: all-scroll;
@@ -343,21 +368,25 @@ ul.narrow {
     }
 
 /* responsive core */
-@media(min-width: 568px) {
+@media(max-width: 568px) {
   .bsd {
-    padding: 177px;
+    padding: 80px;
+  }
+  ul.narrow {
+    max-width: 220px;
   }
 }
 
-@media(min-width: 709px) {
+@media(min-width: 569px) and (max-width: 1016px) {
   #content {
     padding: 0 7%;
   }
   #header {
+    background-position: 0px 0px;
     border-radius: 17px;
     height: 255px;
     margin: 27px auto 7px auto;
-    max-width: 702px;
+    max-width: 500px;
   }
   ul.narrow {
     max-width: 222px;
@@ -370,19 +399,36 @@ ul.narrow {
       margin-bottom: 15px;
     }
   .bsd {
+    max-width: 250px;
     padding: 15%;
   }
 }
 
-@media(min-width: 1017px) {
+@media(min-width: 1017px) and (max-width: 1316px) {
   #header {
-    margin-top: 47px;
+    background-position: 0px -40px;
+  }
+
+  .bsd {
+    padding: 16%;
+  }
+
+  .rylab {
+    margin-left: 10%;
   }
 }
 
 @media(min-width: 1317px) {
   #header {
-    margin-top: 77px;
+    background-position: 0px -70px;
+  }
+
+  .bsd {
+    padding: 17%;
+  }
+
+  .rylab {
+    margin-left: 20%;
   }
 }
 
