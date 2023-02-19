@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { siteTitle } from '../components/layout'
+import { baseUrl, siteTitle } from '../components/layout'
 
 const pageTitle = `${siteTitle} :: Not Found`
 
@@ -9,7 +9,7 @@ export default function NotFound() {
   return (
     <>
       <Head>
-        <link rel="canonical" href="https://rylab.com/404" />
+        <link rel="canonical" href={`https://${ baseUrl }/404`} />
         <title>{ pageTitle }</title>
       </Head>
       <div className="content" style={{ marginTop: 100 }}>

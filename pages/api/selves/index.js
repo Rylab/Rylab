@@ -1,4 +1,4 @@
-import { dbConnect } from '../../../util/mongodb'
+import { dbConnect } from '../../../utils/mongodb'
 
 const initDatabase = async () => {
   try {

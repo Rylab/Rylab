@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TapeSpinner from '../../components/cassetteTapeSpinner'
-import { siteTitle } from '../../components/layout'
+import { baseUrl, siteTitle } from '../../components/layout'
+import Navigation from '../../components/navigation'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
 
@@ -157,16 +157,14 @@ export default function SpinnerDemo() {
   return (
     <>
       <Head>
-        <link rel="canonical" href="https://rylab.com/tapespinner" />
+        <link rel="canonical" href={`https://${ baseUrl }/demos/tapespinner`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
       </Head>
-      <main style={{ maxWidth: 1400, margin: '0 auto', padding: 20 }}>
-        <div className="nav">
-          <Link href="/">rylab</Link>/demos/tapespinner
-        </div>
+      <main>
+        <Navigation path='demos/tapespinner' />
 
         {Object.keys(tapes).map(tapeKey => {
           const hasLongArtist = tapes[tapeKey].artist.length > 25
