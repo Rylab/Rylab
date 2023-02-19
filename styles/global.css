@@ -30,7 +30,8 @@ img.icon {
   background-size: cover;
   cursor: grab;
   margin: 0px;
-  min-height: 255px;
+  min-height: 175px;
+  min-width: 320px;
   overflow: hidden;
   opacity: 1.0;
   padding: 0px;
