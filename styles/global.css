@@ -53,10 +53,30 @@ img.icon {
 }
 
 #content {
-  min-width: 300px;
+  min-width: 280px;
   max-width: 700px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+#embedCodeContainer {
+  color: #666;
+  display: inline-block;
+  margin: 0 auto;
+  word-wrap: break-word;
+  text-align: center;
+  width: 75%;
+}
+
+#embedCode {
+  border: 3px solid #777;
+  border-radius: 3px;
+  color: #666;
+  display: block;
+  margin: 0 auto;
+  min-height: 85px;
+  padding: 8px;
+  text-align: left;
 }
 
 a {
@@ -101,6 +121,25 @@ p {
   }
   .dark {
     color: #666;
+  }
+  .btn.dark {
+    background-color: #111;
+    border: 2px solid #333;
+    border-radius: 15px;
+    color: #666;
+    display: block;
+    margin: 2px auto;
+    padding: 4px 10px;
+  }
+  input.dark {
+    background-color: #111;
+    border: 2px solid #222;
+    color: #666;
+    border-radius: 10px;
+    display: block;
+    margin: 2px auto;
+    padding: 4px 10px;
+    text-align: center;
   }
   .hoverdark:hover {
     color: #666;
@@ -169,7 +208,7 @@ ul.narrow {
   border: 3px dashed #222;
   border-radius: 16px;
   margin: 10px auto;
-  max-width: 377px;
+  max-width: 300px;
   transition: border 0.3s;
   transition-timing-function: ease;
 }
@@ -249,6 +288,7 @@ ul.narrow {
 
 #navigation {
   color: #aaa;
+  font-size: 12px;
   margin-bottom: 15px;
   margin-top: 25px;
 }
@@ -374,20 +414,21 @@ ul.narrow {
     padding: 80px;
   }
   ul.narrow {
-    max-width: 220px;
+    max-width: 230px;
   }
 }
 
 @media(min-width: 569px) and (max-width: 1016px) {
-  #content {
-    padding: 0 7%;
-  }
   #header {
     background-position: 0px 0px;
     border-radius: 17px;
     height: 255px;
     margin: 27px auto 7px auto;
     max-width: 500px;
+  }
+
+  #navigation {
+    font-size: 13px;
   }
   ul.narrow {
     max-width: 222px;
@@ -409,11 +450,13 @@ ul.narrow {
   #header {
     background-position: 0px -40px;
   }
+  #navigation {
+    font-size: 12px;
+  }
 
   .bsd {
     padding: 16%;
   }
-
   .rylab {
     margin-left: 10%;
   }

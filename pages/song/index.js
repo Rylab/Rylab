@@ -2,9 +2,9 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import TapeSpinner from '../../components/cassetteTapeSpinner'
 import { baseUrl, jsonContentType, siteTitle } from '../../components/layout'
 import Navigation from '../../components/navigation'
+import TapeSpinner from '../../components/cassetteTapeSpinner'
 import { tapeColors } from '../../utils/helpers'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
@@ -34,75 +34,15 @@ const AddButton = styled.button`
 const ALLOWED_TAPE_PROPS = ['artist', 'title']
 const MAX_TAPES = Number.MAX_SAFE_INTEGER
 
-export default function SpinnerDemo() {
+export default function SongDetail() {
   const [addedTapeCount, setaddedTapeCount] = useState(0)
   const [canAdd, setCanAdd] = useState(false)
-  const [songs, setSongs] = useState({})
+  const [song, setSong] = useState({})
   const [tape, setTape] = useState({})
-  const [tapes, setTapes] = useState({})
   const [loading, setLoading] = useState(true)
 
-  const addTape = ({ id, artist, title, spin = true, style }) => {
-    tapes[id] = {
-      artist,
-      title,
-      spin,
-      style,
-    }
-
-    if (typeof tapeColors !== 'undefined' && !tapes[id].style) {
-      tapes[id].style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
-    }
-
-    setTapes({
-      ...tapes,
-    })
-  }
-
-  const handleAddTape = (event) => {
-    if (!canAdd || (event?.type === 'keyup' && event?.key !== 'Enter')) {
-      return
-    }
-
-    const artist = tape.artist?.trim()
-    const title = tape.title?.trim()
-
-    if (artist && title) {
-      const id = `tid-${addedTapeCount}`
-
-      addTape({
-        id,
-        artist,
-        title,
-        spin: Math.random() < 0.5,
-        style: { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] },
-      })
-
-      setaddedTapeCount(addedTapeCount + 1)
-
-      if (addedTapeCount >= MAX_TAPES) {
-        setCanAdd(false)
-      }
-
-      setTape({})
-    } else {
-      console.error('Title and artist are required.')
-    }
-  }
-
-  const handleTapeChange = e => {
-    const { name, value } = e.target
-
-    if (ALLOWED_TAPE_PROPS.includes(name)) {
-      setTape({
-        ...tape,
-        [name]: value,
-      })
-    }
-  }
-
-  const getEmbed = _id => {
-    window.open(`/song/${_id}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450');
+  const openEmbedLink = song => {
+    window.open(`/song/${song._id}`, 'rylab', 'menubar=1,resizable=1,width=350,height=250')
   }
 
   const getSongs = async () => {
@@ -121,8 +61,9 @@ export default function SpinnerDemo() {
   
       if (songs.data) {
         songs.data.map(song => {
-          if (typeof tapeColors !== 'undefined' && !song.style)
+          if (tapeColors.length && !song.style) {
             song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
+          }
         })
 
         setSongs({ data: songs.data })
@@ -135,11 +76,23 @@ export default function SpinnerDemo() {
     }
   }
 
+  const handleTapeChange = e => {
+    const { name, value } = e.target
+
+    if (ALLOWED_TAPE_PROPS.includes(name)) {
+      setTape({
+        ...tape,
+        [name]: value,
+      })
+    }
+  }
+
   useEffect(() => {
     addTape({
       _id: 'fake-uuid-0001',
       title: 'The Best Song',
       artist: 'The Worst Band',
+      style: { backgroundColor: tapeColors[1] },
     })
 
     addTape({
@@ -147,6 +100,7 @@ export default function SpinnerDemo() {
       title: 'The Worst Snog',
       artist: 'The Best Band',
       spin: false,
+      style: { backgroundColor: tapeColors[2] },
     })
 
     addTape({
@@ -154,24 +108,28 @@ export default function SpinnerDemo() {
       title: 'The Worst Snog With The Best Super Long Name',
       artist: 'The Best Band With The Worst Terrible Long Name',
       spin: false,
+      style: { backgroundColor: tapeColors[3] },
     })
 
     addTape({
       _id: 'fake-uuid-0100',
       title: 'Loser',
       artist: 'Beck',
+      style: { backgroundColor: tapeColors[4] },
     })
 
     addTape({
       _id: 'fake-uuid-0101',
       title: 'Once Upon a Thyme',
       artist: 'Pun in the Oven',
+      style: { backgroundColor: tapeColors[5] },
     })
 
     addTape({
       _id: 'fake-uuid-0110',
       title: '<script>alert("nice try")</script>',
       artist: 'Failed Hacker #2',
+      style: { backgroundColor: tapeColors[6] },
       spin: false,
     })
 
@@ -179,47 +137,28 @@ export default function SpinnerDemo() {
     getSongs()
   }, [])
 
+  const hasLongArtist = song.artist?.length > 25
+  const hasLongTitle = song.title?.length > 25
+  
   return (
     <>
       <Head>
-        <link rel="canonical" href={`https://${ baseUrl }/demos/tapespinner`} />
+        <link rel="canonical" href={`https://${ baseUrl }/song`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
       </Head>
       <main>
-        <Navigation path='demos/tapespinner' />
-        {songs.data?.map(song => {
-          const hasLongArtist = song.artist.length > 25
-          const hasLongTitle = song.title.length > 25
-
-          return (
-            <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
-              <div title={ song.title } onClick={() => getEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-                { song.title }</div>
-              <div title={ song.artist } onClick={() => getEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-                { song.artist }</div>
-              <div className="songIdLine" onClick={() => getEmbed(song._id)}>{ song._id }</div>
-              <div className="uuidLine"><Link href={`/songs/${song.uuid}`}>{ song.uuid }</Link></div>
-            </TapeSpinner>
-          )
-        })}
-        {Object.keys(tapes).map(tapeKey => {
-          const hasLongArtist = tapes[tapeKey].artist.length > 25
-          const hasLongTitle = tapes[tapeKey].title.length > 25
-
-          return (
-            <TapeSpinner style={tapes[tapeKey].style} spin={tapes[tapeKey].spin} key={tapeKey} id={`#${tapeKey}`}>
-              <div title={ hasLongTitle ? tapes[tapeKey].title : '' } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-                { tapes[tapeKey].title }</div>
-              <div title={ hasLongArtist ? tapes[tapeKey].artist : '' } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-                { tapes[tapeKey].artist }</div>
-                <div className={`songIdLine`} onClick={() => getEmbed(tapes[tapeKey]._id)}>{ tapes[tapeKey]._id }</div>
-              <div className={`uuidLine`} onClick={() => getEmbed(tapeKey)}>{ tapeKey }</div>
-            </TapeSpinner>
-          )
-        })}
+        <Navigation path={`song/${song._id}`} />
+        <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
+          <div title={ song.title } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+            { song.title }</div>
+          <div title={ song.artist } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+            { song.artist }</div>
+          <div className="songIdLine" onClick={() => openEmbedLink(song._id)}>{ song._id }</div>
+          <Link href={`/songs/${song.uuid}`}><div className="uuidLine" onClick={() => getUserTapes(song)}>{ song.uuid }</div></Link>
+        </TapeSpinner>
 
         {canAdd && (
         <div style={{ marginTop: 50 }}>
