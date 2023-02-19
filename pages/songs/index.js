@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { baseUrl, jsonContentType, siteTitle } from '../../components/layout'
 import Navigation from '../../components/navigation'
 import TapeSpinner from '../../components/cassetteTapeSpinner'
-import tapeColors from '../../utils/helpers'
+import { tapeColors } from '../../utils/helpers'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo :: Hot Songs`
 
