@@ -11,6 +11,7 @@ export default function Index() {
   const [loading, setLoading] = useState(true)
   const [password, setPassword] = useState({})
   const [selves, setSelves] = useState({})
+  const [uuid, setUuid] = useState('')
 
   useEffect(() => {
     setPassword(localStorage.getItem('managePass'))
@@ -29,6 +30,9 @@ export default function Index() {
 
       if (password) {
         headers['x-admin'] = password
+      }
+      if (uuid) {
+        headers['x-uuid'] = uuid
       }
 
       const res = await fetch('/api/selves', {

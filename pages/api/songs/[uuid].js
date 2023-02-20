@@ -1,19 +1,8 @@
 import { ObjectId } from 'mongodb'
 import { validateUuid } from '../../../utils/helpers'
-import { dbConnect } from '../../../utils/mongodb'
+import { dbCollection } from '../../../utils/mongodb'
 
 const { MANAGE_PASS } = process.env
-
-const initDatabase = async () => {
-  try {
-    const { db } = await dbConnect()
-    return {
-      songCollection: db.collection('songs'),
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
 
 export default async function handler(req, res) {
   const {
@@ -32,8 +21,8 @@ export default async function handler(req, res) {
       try {
         _uuid = new ObjectId(uuid)
 
-        const { songCollection } = await initDatabase()
-        const result = await songCollection.find({ uuid: _uuid }).toArray()
+        const { songsCollection } = await dbCollection('songs')
+        const result = await songsCollection.find({ uuid: _uuid }).toArray()
         const songs = JSON.parse(JSON.stringify(result))
 
         res.status(200).json({ success: true, data: songs })

@@ -1,8 +1,8 @@
 import { Configuration, OpenAIApi } from 'openai'
-import { getUuid } from '../../../utils/helpers'
+import { validateUuid } from '../../../utils/helpers'
+import { dbCollection } from '../../../utils/mongodb'
 
-// TODO: actual specific UUID validation in addition to basic sanity check
-const UUID_LENGTH = 36
+const { MANAGE_PASS } = process.env
 
 // TODO: make defaults more dynamic? base on previously submitted values?
 
@@ -41,20 +41,20 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API,
 })
 
-const getAdjective = req => {
-  return req.body?.adjective?.trim() || defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
+const getAdjective = query => {
+  return query.adjective?.trim() || defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
 }
 
-const getGenre = req => {
-  return req.body?.genre?.trim() || defaultGenres[~~(Math.random() * defaultGenres.length)]
+const getGenre = query => {
+  return query.genre?.trim() || defaultGenres[~~(Math.random() * defaultGenres.length)]
 }
 
-const getModel = req => {
-  return req.body?.model?.trim() ?? defaultModel
+const getModel = query => {
+  return query.model?.trim() ?? defaultModel
 }
 
-const getTemperature = req => {
-  return req.body?.temperature?.trim() ?? defaultTemperature
+const getTemperature = query => {
+  return query.temperature?.trim() ?? defaultTemperature
 }
 
 export default async function handler(req, res) {
@@ -67,8 +67,16 @@ export default async function handler(req, res) {
     
     return
   }
+  
+  const { body, headers, method, query } = req
 
-  const uuid = getUuid(req)
+  let uuid
+
+  if (headers['x-uuid'] && validateUuid(headers['x-uuid'])) {
+    uuid = headers['x-uuid']
+  } else {
+    console.error('NO UUID')
+  }
 
   if (!uuid) {
     res.status(400).json({
@@ -76,73 +84,94 @@ export default async function handler(req, res) {
         message: 'UUID not set; see instructions in README.md',
       }
     })
-
+    
     return
   }
+  
+  let isAdmin = headers['x-admin'] === MANAGE_PASS
+  
+  switch (method) {
+    case 'GET':
+    const adjective = getAdjective(query)
+    const genre = getGenre(query)
 
-  const isAdmin = headers['x-admin'] === MANAGE_PASS
-
-  const adjective = getAdjective(req)
-  const genre = getGenre(req)
-
-  if (!genre) {
-    res.status(400).json({
-      error: {
-        message: 'Genre type not valid; see instructions in README.md',
-      }
-    })
-
-    return
-  }
-
-  const openai = new OpenAIApi(configuration)
-
-  const model = getModel(req)
-  const temperature = getTemperature(req)
-
-  const artistNamePrompt = generateArtistNamePrompt(genre, adjective)
-  const songTitlePrompt = generateSongTitlePrompt(genre, adjective)
-
-  try {
-    const artistName = await openai.createCompletion({
-      model,
-      prompt: artistNamePrompt,
-      temperature,
-    })
-
-    const songTitle = await openai.createCompletion({
-      model,
-      prompt: songTitlePrompt,
-      temperature,
-    })
-
-    console.log(
-      artistNamePrompt, artistName
-    )
-
-    console.log(
-      songTitlePrompt, songTitle
-    )
-
-    res.status(200).json({ result: {
-      artistName: artistName.data.choices[0].text,
-      songTitle: songTitle.data.choices[0].text,
-      }
-    })
-  } catch(error) {
-    if (error.response) {
-      console.error(error.response.status, error.response.data)
-
-      res.status(error.response.status).json(error.response.data)
-    } else {
-      console.error(`Error from OpenAI API: ${error.message}`)
-
-      res.status(500).json({
+    if (!genre) {
+      res.status(400).json({
         error: {
-          message: 'An error occurred processing your request.',
+          message: 'Genre type not valid; see instructions in README.md',
         }
       })
+
+      return
     }
+
+    const openai = new OpenAIApi(configuration)
+
+    const model = getModel(req)
+    const temperature = getTemperature(req)
+
+    const artistNamePrompt = generateArtistNamePrompt(genre, adjective)
+    const songTitlePrompt = generateSongTitlePrompt(genre, adjective)
+
+    let result = {};
+    try {
+      const artistRes = await openai.createCompletion({
+        model,
+        prompt: artistNamePrompt,
+        temperature,
+      })
+
+      const titleRes = await openai.createCompletion({
+        model,
+        prompt: songTitlePrompt,
+        temperature,
+      })
+
+      result.artist = artistRes.data.choices[0].text
+      result.title = titleRes.data.choices[0].text
+
+      res.status(200).json(result)
+    } catch(error) {
+      console.error(error)
+      if (error.response) {
+        console.error(error.response.status, error.response.data)
+
+        res.status(error.response.status).json(error.response.data)
+      } else {
+        console.error(`Error from OpenAI API: ${error.message}`)
+
+        res.status(500).json({
+          error: {
+            message: 'An error occurred processing your request.',
+          }
+        })
+      }
+    }
+  break
+
+  case 'POST':
+    try {
+      const { tapeApiCollection } = await dbCollection('tapeAi')
+      const { headers, body } = req
+
+      if (!isAdmin && headers['x-uuid'] !== body.uuid) {
+        res.status(401).json({ success: false })
+        break
+      }
+
+      const result = await tapeApiCollection.save(body)
+
+      res.status(200).json({ success: true, data: result })
+    } catch (error) {
+      console.error(error)
+      res.status(400).json({ success: false })
+    }
+  break
+
+  default:
+    console.error(`Unexpected ${method} attempt on /api/songs`)
+    res.status(400).json({ success: false })
+  break
   }
 }
 
@@ -150,13 +179,12 @@ function generateArtistNamePrompt(genre, adjective = 'funny') {
   const capitalizedGenre =
     genre[0].toUpperCase() + genre.slice(1).toLowerCase()
 
-  return `Suggest three ${adjective ? `${adjective} ` : ''}} new names for a ${capitalizedGenre} Genre artist.
-
-Genre: Rock
-Names: The Beatles, School House Rockers, Rock Around The Clockers
-Genre: Jazz
-Names: Puff the Jazzy Dragon, Xena: Piano Princess, Miles Davis
-Genre: ${capitalizedGenre}
+  return `Suggest three ${adjective ? `${adjective} ` : ''}names for a music artist in the ${capitalizedGenre} Genre.
+Genre:Rock
+Names:The Beatles, School House Rockers, Rock Around The Clockers
+Genre:Jazz
+Names:Puff the Jazzy Dragon, Xena: Piano Princess, Miles Davis
+Genre:${capitalizedGenre}
 Names:`
 }
 
@@ -164,12 +192,11 @@ function generateSongTitlePrompt(genre, adjective = 'wild') {
   const capitalizedGenre =
     genre[0].toUpperCase() + genre.slice(1).toLowerCase()
 
-  return `Suggest three ${adjective ? `${adjective} ` : ''}} new titles for a ${capitalizedGenre} Genre song.
-
-Genre: Rock
-Titles: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-Genre: Jazz
-Titles: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-Genre: ${capitalizedGenre}
+  return `Suggest three ${adjective ? `${adjective} ` : ''} titles for a song in the ${capitalizedGenre} Genre.
+Genre:Rock
+Titles:Captain Sharpclaw, Agent Fluffball, The Incredible Feline
+Genre:Jazz
+Titles:Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
+Genre:${capitalizedGenre}
 Titles:`
 }

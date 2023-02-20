@@ -47,3 +47,15 @@ export async function dbConnect() {
 
   return cached.conn
 }
+
+export const dbCollection = async (collection) => {
+  try {
+    const { db } = await dbConnect()
+
+    return {
+      [`${collection}Collection`]: db.collection(collection),
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}

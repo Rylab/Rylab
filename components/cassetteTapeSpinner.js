@@ -42,7 +42,7 @@ const CassetteContainer = styled.div`
     .artistLine {
       bottom: 25px;
       left: 24px;
-      transition: 5s;
+      transition: 1s;
     }
     .artistLine:hover, .titleLine:hover {
       cursor: default;
@@ -54,18 +54,18 @@ const CassetteContainer = styled.div`
     }
       .artistLine.long:hover {
         left: 0px;
-        transition: 5s;
+        transition: 1s;
       }
     .titleLine {
       left: 24px;
       bottom: 46px;
-      transition: 5s;
+      transition: 1s;
     }
     .titleLine.long:hover {
       font-size: 11px;
       bottom: 47px;
       left: 0px;
-      transition: 5s;
+      transition: 1s;
     }
 
   .songIdLine {

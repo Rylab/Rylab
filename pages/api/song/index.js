@@ -1,23 +1,12 @@
-import { dbConnect } from '../../../utils/mongodb'
+import { dbCollection } from '../../../utils/mongodb'
 
 const { MANAGE_PASS } = process.env
-
-const initDatabase = async () => {
-  try {
-    const { db } = await dbConnect()
-
-    return {
-      songsCollection: db.collection('songs'),
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
 
 export default async function handler(req, res) {
   const { headers, method } = req
 
   let { order, sort } = req.query
+  let isAdmin = headers['x-admin'] === MANAGE_PASS
 
   switch (method) {
     case 'GET':
@@ -26,7 +15,7 @@ export default async function handler(req, res) {
         let sortObj = {}
         sortObj[sort] = order === 'desc' ? -1 : 1
 
-        const { songsCollection } = await initDatabase()
+        const { songsCollection } = await dbCollection('songs')
         const result = await songsCollection.find({}).sort(sortObj).toArray()
         const songs = JSON.parse(JSON.stringify(result))
 
@@ -39,10 +28,11 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { songsCollection } = await initDatabase()
-        const { headers, song } = req
+        const { songsCollection } = await dbCollection('songs')
+        const { headers, body } = req
+        const { song } = body
         
-        if (headers['x-admin'] !== MANAGE_PASS && headers['x-uuid'] !== song.uuid) {
+        if (!isAdmin && headers['x-uuid'] !== song.uuid) {
           res.status(401).json({ success: false })
           break
         }

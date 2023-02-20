@@ -1,19 +1,10 @@
-import { dbConnect } from '../../../utils/mongodb'
+import { dbCollection } from '../../../utils/mongodb'
 
-const initDatabase = async () => {
-  try {
-    const { db } = await dbConnect()
-
-    return {
-      selvesCollection: db.collection('selves'),
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
 
 export default async function handler(req, res) {
   const { headers, method } = req
+  
+  const { selvesCollection } = await dbCollection('selves')
 
   let { order, sort } = req.query
 
@@ -24,7 +15,6 @@ export default async function handler(req, res) {
         let sortObj = {}
         sortObj[sort] = order === 'desc' ? -1 : 1
 
-        const { selvesCollection } = await initDatabase()
         const result = await selvesCollection.find({}).sort(sortObj).toArray()
         const selves = JSON.parse(JSON.stringify(result))
 

@@ -39,6 +39,7 @@ const MAX_TAPES = Number.MAX_SAFE_INTEGER
 export default function SongDetail() {
   const [addedTapeCount, setaddedTapeCount] = useState(0)
   const [canAdd, setCanAdd] = useState(false)
+  const [isEmbedding, setIsEmbedding] = useState(false)
   const [song, setSong] = useState({})
   const [tape, setTape] = useState({})
   const [loading, setLoading] = useState(true)
@@ -87,6 +88,7 @@ export default function SongDetail() {
     if (router.isReady && router.query.id) {
       try {
         getSong(decodeURI(router.query.id))
+        setIsEmbedding(router.query.embed)
       } catch(e) {
         console.warn(e)
         setSong({
@@ -125,7 +127,7 @@ export default function SongDetail() {
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
       </Head>
-      <main>
+      <main className={isEmbedding ? 'embedding' : ''}>
         <Navigation path={`song/${song._id}`} />
         { song._id ? (
         <>
@@ -139,7 +141,7 @@ export default function SongDetail() {
           </TapeSpinner>
           <div id="embedCodeContainer" className="selectable">
             <h4 style={{ marginBottom: 10, marginTop: 20 }} onClick={() => selectText('embedCode')}>Click to copy embed code:</h4>
-            <span id="embedCode" onClick={() => selectText('embedCode')}>{`<iframe src="https://${baseUrl}/song/${song._id}/embed" />`}</span>
+            <span id="embedCode" onClick={() => selectText('embedCode')}>{`<iframe src="https://${baseUrl}/song/${song._id}?embed=true" />`}</span>
           </div>
         </>
         ) : (
