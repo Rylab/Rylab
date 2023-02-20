@@ -35,7 +35,12 @@ export default function AiPlayground() {
         setUuid(uuid)
       }
 
-      setPassword(localStorage.getItem('managePass'))
+      const base64pass = localStorage.getItem('managePass')
+      if (base64pass) {
+        const bufferpass = Buffer.from(base64pass, 'base64')
+        const managepass = bufferpass.toString('utf8')
+        if (managepass) setPassword(managepass)
+      }
     }
   }, [router])
 
@@ -59,8 +64,8 @@ export default function AiPlayground() {
       }
 
       const response = await fetch(`/api/tapeai?adjective=${adjectiveInput}&genre=${genreInput}`, {
-        method: 'GET',
         headers,
+        method: 'GET',
       })
 
       tapeInfo = await response.json()
@@ -79,6 +84,7 @@ export default function AiPlayground() {
       artistResults.forEach((artist, index) => {
         completions.push({
           artist,
+          style: { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] },
           title: titleResults[index] || '',
         })
       })
@@ -135,7 +141,7 @@ export default function AiPlayground() {
               const hasLongTitle = song.title.length > 25
 
               return (
-                <TapeSpinner key={index} style={{ backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }}>
+                <TapeSpinner key={index} style={ song.style }>
                   <div title={ song.title } onClick={() => getEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
                     { song.title }</div>
                   <div title={ song.artist } onClick={() => getEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>

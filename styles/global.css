@@ -147,7 +147,7 @@ p {
   input.dark {
     background-color: #111;
     border: 2px solid #222;
-    color: #666;
+    color: #aaa;
     border-radius: 10px;
     display: block;
     margin: 2px auto;
@@ -191,7 +191,7 @@ h3 {
   Font-weight: semi-bold;
 }
 h4 {
-  color: #222;
+  color: #444;
   font-size: 13pt;
   margin: 1px 0 2px 0;
 }

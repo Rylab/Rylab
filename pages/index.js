@@ -14,7 +14,13 @@ export default function Index() {
   const [uuid, setUuid] = useState('')
 
   useEffect(() => {
-    setPassword(localStorage.getItem('managePass'))
+    const base64pass = localStorage.getItem('managePass')
+    if (base64pass) {
+      const bufferpass = Buffer.from(base64pass, 'base64')
+      const managepass = bufferpass.toString('utf8')
+      if (managepass) setPassword(managepass)
+    }
+
     getSelves()
   }, [])
 
@@ -37,6 +43,7 @@ export default function Index() {
 
       const res = await fetch('/api/selves', {
         headers,
+        method: 'GET',
       })
       const selves = await res.json()
       setLoading(false)

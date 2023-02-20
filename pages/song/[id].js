@@ -43,6 +43,8 @@ export default function SongDetail() {
   const [song, setSong] = useState({})
   const [tape, setTape] = useState({})
   const [loading, setLoading] = useState(true)
+  const [password, setPassword] = useState('')
+  const [uuid, setUuid] = useState()
 
   const router = useRouter()
 
@@ -50,12 +52,21 @@ export default function SongDetail() {
     const getSong = async _id => {
       try {
         setLoading(true)
-  
+
+        const headers = {
+          accept: jsonContentType,
+          'content-type': jsonContentType,
+        }
+
+        if (password) {
+          headers['x-admin'] = password
+        }
+        if (uuid) {
+          headers['x-uuid'] = uuid
+        }
+
         const res = await fetch(`/api/song/${_id}`, {
-          headers: {
-            accept: jsonContentType,
-            'content-type': jsonContentType,
-          },
+          headers,
           data: {
             filter: {
               _id,
@@ -89,6 +100,18 @@ export default function SongDetail() {
       try {
         getSong(decodeURI(router.query.id))
         setIsEmbedding(router.query.embed)
+
+        if (!uuid) {
+          const uuid = initUuid()
+          setUuid(uuid)
+        }
+  
+        const base64pass = localStorage.getItem('managePass')
+        if (base64pass) {
+          const bufferpass = Buffer.from(base64pass, 'base64')
+          const managepass = bufferpass.toString('utf8')
+          if (managepass) setPassword(managepass)
+        }
       } catch(e) {
         console.warn(e)
         setSong({
