@@ -102,13 +102,13 @@ export default function Index() {
           </p>
           <LoadingSpinner />
           <div className="demo">
-            <Link href="/demos/tapespinner" title="Tape Spinner demo">
-              Animated SVG Cassette spinner
+            <Link href="/demos/tapespinner" title="Tape Spinner playground">
+              Animated SVG cassettes
             </Link>
           </div>
           <div className="demo">
-            <Link href="/demos/tapeai" title="Tape Spinner demo">
-              OpenAI Cassette generator
+            <Link href="/demos/tapeai" title="Tape AI playground">
+              AI cassette generators
             </Link>
           </div>
           <div id="digitalhaiku">
