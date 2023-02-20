@@ -7,7 +7,7 @@ export const jsonContentType = 'application/json';
 export const siteTitle = 'RyLaB';
 
 export default function Layout({ children }) {
-  const [password, setPassword] = useState(null)
+  const [password, setPassword] = useState('')
   const [uuid, setUuid] = useState('')
 
   const hasPassword = () => password && password.length > 0
