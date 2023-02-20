@@ -71,12 +71,24 @@ export default function SongsByUuid() {
     try {
       setLoading(true)
 
+      const headers = {
+        accept: jsonContentType,
+        'content-type': jsonContentType,
+      }
+      
+      if (uuid) {
+        headers['x-uuid'] = uuid
+      }
+
+      const base64pass = localStorage.getItem('managePass')
+      if (base64pass) {
+        const bufferpass = Buffer.from(base64pass, 'base64')
+        const managepass = bufferpass.toString('utf8')
+        if (managepass) headers['x-admin'] = managepass
+      }
+
       const res = await fetch(`/api/songs/${uuid}`, {
-        headers: {
-          accept: jsonContentType,
-          'content-type': jsonContentType,
-          'x-admin': localStorage.getItem('managePass'),
-        },
+        headers,
         data: {
           filter: {
             uuid,

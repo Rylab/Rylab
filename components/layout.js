@@ -14,11 +14,13 @@ export default function Layout({ children }) {
 
   const setManagePass = e => {
     const { value } = e.target
-  
-    setPassword(value)
-  
+
     if (value) {
-      localStorage.setItem('managePass', value)
+      const bufferpass = Buffer.from(value, 'utf8')
+      const base64pass = bufferpass.toString('base64')
+
+      setPassword(value)
+      localStorage.setItem('managePass', base64pass)
     }
   }
 
@@ -37,7 +39,12 @@ export default function Layout({ children }) {
         setUuid(uuid)
       }
 
-      setPassword(localStorage.getItem('managePass'))
+      const base64pass = localStorage.getItem('managePass')
+      if (base64pass) {
+        const bufferpass = Buffer.from(base64pass, 'base64')
+        const managepass = bufferpass.toString('utf8')
+        if (managepass) setPassword(managepass)
+      }
     }
   }, [router])
 
@@ -60,13 +67,13 @@ export default function Layout({ children }) {
           { hasPassword()
             ? <span className="lockish">&#x1F512;</span>
             :
-            <div className="adminCheck">
+            <form id="adminCheck">
               <input type="password"
                 className="dark"
                 name="managePassword"
                 style={{ marginTop: 20 }}
                 onKeyPress={onEnterKeyPress} />
-            </div>
+            </form>
           }
         </div>
     </>
