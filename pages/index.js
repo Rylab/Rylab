@@ -9,7 +9,7 @@ const pageTitle = `${siteTitle} :: Home`
 export default function Index() {
   const [editing, setEditing] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [password, setPassword] = useState({})
+  const [password, setPassword] = useState('')
   const [selves, setSelves] = useState({})
   const [uuid, setUuid] = useState('')
 

@@ -26,7 +26,7 @@ export default function AiPlayground() {
 
   const router = useRouter()
 
-  const [password, setPassword] = useState({})
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
     if (router.isReady) {
