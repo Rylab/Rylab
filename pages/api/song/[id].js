@@ -1,19 +1,8 @@
 import { ObjectId } from 'mongodb'
 import { validateUuid } from '../../../utils/helpers'
-import { dbConnect } from '../../../utils/mongodb'
+import { dbCollection } from '../../../utils/mongodb'
 
 const { MANAGE_PASS } = process.env
-
-const initDatabase = async () => {
-  try {
-    const { db } = await dbConnect()
-    return {
-      songCollection: db.collection('songs'),
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
 
 export default async function handler(req, res) {
   const {
@@ -34,8 +23,8 @@ export default async function handler(req, res) {
       try {
         _id = new ObjectId(id)
 
-        const { songCollection } = await initDatabase()
-        songRes = await songCollection.findOne({ _id })
+        const { songsCollection } = await dbCollection('songs')
+        songRes = await songsCollection.findOne({ _id })
 
         res.status(200).json({ success: true, data: songRes })
       } catch (error) {
@@ -50,9 +39,8 @@ export default async function handler(req, res) {
     break
       
     case 'PUT':
-      if (headers['x-uuid'] && validateUuid(uuid)) {
+      if (headers['x-uuid'] && validateUuid(headers['x-uuid'])) {
         uuid = headers['x-uuid']
-        validateUuid(uuid)
       } else {
         res.status(401).json({ success: false })
         break
@@ -65,7 +53,7 @@ export default async function handler(req, res) {
 
       try {
         _id = new ObjectId(id)
-        const { songCollection } = await initDatabase()
+        const { songsCollection } = await dbCollection('songs')
 
         if (_id && _guestId) {
           songUpdate = {
@@ -78,7 +66,7 @@ export default async function handler(req, res) {
           now = new Date()
           songUpdate.updated = now
 
-          songRes = await songCollection.updateOne({ _id }, { $set: songUpdate, new: true })
+          songRes = await songsCollection.updateOne({ _id }, { $set: songUpdate, new: true })
         }
         res.status(202).json({ success: true, data: songRes })
       } catch (error) {

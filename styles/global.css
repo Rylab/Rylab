@@ -51,6 +51,19 @@ img.icon {
 #footer {
   margin: 50px auto 30px auto;
 }
+  .embedding ~ #footer {
+    margin: 30px auto 0px auto;
+  }
+  .embedding ~ #footer .lockish {
+    display: none;
+  }
+  .hideFooter ~ #footer {
+    display: none
+  }
+
+.embedding #navUrl {
+  display: none;
+}
 
 #content {
   min-width: 280px;
@@ -88,17 +101,17 @@ a {
   a:active:not(.discreet) {
     color: #fff;
     text-decoration-color: #fff;
-    border-bottom: 1px #eee dotted;
+    border-bottom: 1px #8ccbdd dotted;
     transition: 0.22s;
   }
   a:hover:not(.discreet) {
     color: #dedede;
     text-decoration-color: #dedede;
-    border-bottom: 1px #ccc dotted;
+    border-bottom: 1px #9c9c9c dotted;
     transition: 0.22s;
   }
   a:visited:not(:hover) {
-    color: #aaa;
+    color: #7bafc3;
   }
   a.question {
     cursor: alias;

@@ -1,19 +1,7 @@
 import { ObjectId } from 'mongodb'
-import { dbConnect } from '../../../utils/mongodb'
+import { dbCollection } from '../../../utils/mongodb'
 
 const { MANAGE_PASS } = process.env
-
-const initDatabase = async () => {
-  try {
-    const { db } = await dbConnect()
-
-    return {
-      songsCollection: db.collection('songs'),
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
 
 export default async function handler(req, res) {
   const { headers, method } = req
@@ -23,6 +11,10 @@ export default async function handler(req, res) {
 
   let uuid
 
+  if (headers['x-uuid']) {
+    uuid = new ObjectId(headers['x-uuid'])
+  }
+
   switch (method) {
     case 'GET':
       try {
@@ -31,7 +23,7 @@ export default async function handler(req, res) {
         let sortObj = {}
         sortObj[sort] = order === 'desc' ? -1 : 1
 
-        const { songsCollection } = await initDatabase()
+        const { songsCollection } = await dbCollection('songs')
         const result = await songsCollection.find(filter).sort(sortObj).toArray()
         const songs = JSON.parse(JSON.stringify(result))
 
@@ -44,12 +36,10 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { songsCollection } = await initDatabase()
+        const { songsCollection } = await dbCollection('songs')
         const { song } = req
 
-        if (headers['x-uuid']) {
-          uuid = ObjectId(headers['x-uuid'])
-        } else {
+        if (!uuid) {
           console.warn('POST: ', song)
           res.status(401).json({ success: false })
           break

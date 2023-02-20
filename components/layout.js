@@ -8,7 +8,7 @@ export const siteTitle = 'RyLaB';
 
 export default function Layout({ children }) {
   const [password, setPassword] = useState(null)
-  const [uuid, setUuid] = useState(null)
+  const [uuid, setUuid] = useState('')
 
   const hasPassword = () => password && password.length > 0
 
@@ -43,10 +43,9 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <main>
         {children}
         <div id="footer">
-          <p className="small light lockish">
+          <p className="small light">
             <a href={`mailto:0@${baseUrl}`}>{ `1@${baseUrl}` }</a>
             &nbsp;&middot;&nbsp;
             <a
@@ -70,7 +69,6 @@ export default function Layout({ children }) {
             </div>
           }
         </div>
-      </main>
     </>
   )
 }

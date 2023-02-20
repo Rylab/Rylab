@@ -1,5 +1,9 @@
 import { v4 as uuidv4 } from 'uuid'
 
+// TODO: actual specific DB-side UUID validation, in addition to basic sanity check
+const MIN_UUID_LENGTH = 12
+const MAX_UUID_LENGTH = 36
+
 export function selectText(id) {
   let nav
   let sel
@@ -36,9 +40,14 @@ export const tapeColors = [
 ]
 
 export const getUuid = req => {
-  const uuid = req.body?.uuid?.trim()
+  let uuid = ''
 
-  return uuid ? validateUuid(uuid) : ''
+  if (req && req.uuid && req.uuid.length) {
+    return validateUuid(req.uuid.trim())
+  } else {
+    console.warn(req)
+    return ''
+  }
 }
 
 export const initUuid = () => {
@@ -60,5 +69,5 @@ export const initUuid = () => {
 }
 
 export const validateUuid = uuid => {
-  return (uuid?.length === UUID_LENGTH) ? uuid : false
+  return (uuid.length >= MIN_UUID_LENGTH && uuid.length <= MAX_UUID_LENGTH) ? uuid : ''
 }

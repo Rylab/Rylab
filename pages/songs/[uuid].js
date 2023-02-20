@@ -41,7 +41,7 @@ export default function SongsByUuid() {
   const [songs, setSongs] = useState({})
   const [tape, setTape] = useState({})
   const [targetUuid, setTargetUuid] = useState({})
-  const [uuid, setUuid] = useState({})
+  const [uuid, setUuid] = useState('')
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
