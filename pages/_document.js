@@ -1,7 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
-import { baseUrl } from '../components/layout'
+import { baseUrl } from '../components/Layout'
 
 export default class Rylab extends Document {
   static async getInitialProps(ctx) {

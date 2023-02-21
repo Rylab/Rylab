@@ -1,45 +1,33 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { baseUrl, jsonContentType, siteTitle } from '../components/layout'
+import { useContext, useEffect, useState } from 'react'
+
+import { AppContext, jsonType } from './_app'
+import { baseUrl, siteTitle } from '../components/Layout'
 import LoadingSpinner from '../components/LoadingSpinner'
 
 const pageTitle = `${siteTitle} :: Home`
 
 export default function Index() {
-  const [editing, setEditing] = useState(false)
+  const { password, uuid } = useContext(AppContext)
+
   const [loading, setLoading] = useState(true)
-  const [password, setPassword] = useState('')
   const [selves, setSelves] = useState({})
-  const [uuid, setUuid] = useState('')
-
-  useEffect(() => {
-    const base64pass = localStorage.getItem('managePass')
-    if (base64pass) {
-      const bufferpass = Buffer.from(base64pass, 'base64')
-      const managepass = bufferpass.toString('utf8')
-      if (managepass) setPassword(managepass)
-    }
-
-    getSelves()
-  }, [])
 
   const getSelves = async () => {
+    if (!uuid) return;
+
     try {
       setLoading(true)
   
       const headers = {
-        accept: jsonContentType,
-        'content-type': jsonContentType,
-        method: 'GET',
+        Accept: jsonType,
+        'Content-Type': jsonType,
+        Method: 'GET',
       };
 
-      if (password) {
-        headers['x-admin'] = password
-      }
-      if (uuid) {
-        headers['x-uuid'] = uuid
-      }
+      if (password) headers['X-Admin'] = password
+      if (uuid) headers['X-Uuid'] = uuid
 
       const res = await fetch('/api/selves', {
         headers,
@@ -59,18 +47,9 @@ export default function Index() {
     }
   }
 
-  // TODO update for song
-  const toggleEditing = e => {
-    setEditing({
-      data: [
-        ...guestList.data,
-      ],
-      editing: {
-        ...guestList.editing,
-        [e.target.name]: !guestList.editing[e.target.name],
-      },
-    })
-  }
+  useEffect(() => {
+    getSelves()
+  }, [password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -108,7 +87,7 @@ export default function Index() {
           </div>
           <div className="demo">
             <Link href="/demos/tapeai" title="Tape AI playground">
-              AI cassette generators
+              AI cassette generator
             </Link>
           </div>
           <div id="digitalhaiku">
@@ -123,7 +102,7 @@ export default function Index() {
             </a>
           </div>
           <br />
-          { selves.data?.length ? (
+          { !loading && selves.data?.length ? (
             <>
               <h1 style={{ marginBottom: 20 }}>Digital Selves</h1>
               <ul className="narrow list">
@@ -139,7 +118,7 @@ export default function Index() {
             <LoadingSpinner />
           )}
         </div>
-        <img className="bsd lockish" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" />
+        {!loading && <img className="bsd lockish" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" />}
       </main>
     </>
   )

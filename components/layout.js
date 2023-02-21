@@ -1,26 +1,36 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { initUuid } from '../utils/helpers'
+import { useContext } from 'react'
+import { AppContext } from '../pages/_app'
 
-export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'localhost'
-export const jsonContentType = 'application/json';
-export const siteTitle = 'RyLaB';
+export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'localhost:3000'
+export const siteTitle = 'RyLaB'
+
+export const tapeColors = [
+  '#777',
+  'rgb(238, 231, 200)',
+  'rgb(111, 231, 200)',
+  'rgb(198, 131, 200)',
+  'rgb(198, 231, 100)',
+  '#999',
+  'rgba(255, 0, 0, 0.3)',
+  'rgba(0, 255, 0, 0.3)',
+  'rgba(0, 0, 255, 0.3)',
+]
 
 export default function Layout({ children }) {
-  const [password, setPassword] = useState('')
-  const [uuid, setUuid] = useState('')
-
-  const hasPassword = () => password && password.length > 0
+  const { password, setPassword } = useContext(AppContext)
 
   const setManagePass = e => {
     const { value } = e.target
 
     if (value) {
-      const bufferpass = Buffer.from(value, 'utf8')
-      const base64pass = bufferpass.toString('base64')
+      const bufferPass = Buffer.from(value, 'utf8')
+      const base64Pass = bufferPass.toString('base64')
 
       setPassword(value)
-      localStorage.setItem('managePass', base64pass)
+      localStorage.setItem('managePass', base64Pass)
+    } else {
+      setPassword(null)
+      localStorage.removeItem('managePass')
     }
   }
 
@@ -30,52 +40,34 @@ export default function Layout({ children }) {
     }
   }
 
-  const router = useRouter()
-
-  useEffect(() => {
-    if (router.isReady) {
-      if (!uuid) {
-        const uuid = initUuid()
-        setUuid(uuid)
-      }
-
-      const base64pass = localStorage.getItem('managePass')
-      if (base64pass) {
-        const bufferpass = Buffer.from(base64pass, 'base64')
-        const managepass = bufferpass.toString('utf8')
-        if (managepass) setPassword(managepass)
-      }
-    }
-  }, [router])
-
   return (
     <>
-        {children}
-        <div id="footer">
-          <p className="small light">
-            <a href={`mailto:0@${baseUrl}`}>{ `1@${baseUrl}` }</a>
-            &nbsp;&middot;&nbsp;
-            <a
-              alt="Content license URL alias for: CC BY-NC-SA 4.0"
-              className="question"
-              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-              rel="noreferrer"
-              target="_blank"
-              title="Creative Commons BY-NC-SA 4.0">
-              some rights reserved</a>
-          </p>
-          { hasPassword()
-            ? <span className="lockish">&#x1F512;</span>
-            :
-            <form id="adminCheck">
-              <input type="password"
-                className="dark"
-                name="managePassword"
-                style={{ marginTop: 20 }}
-                onKeyPress={onEnterKeyPress} />
-            </form>
-          }
-        </div>
+      {children}
+      <div id="footer">
+        <p className="small light">
+          <a href={`mailto:0@${baseUrl}`}>{ `1@${baseUrl}` }</a>
+          &nbsp;&middot;&nbsp;
+          <a
+            alt="Content license URL alias for: CC BY-NC-SA 4.0"
+            className="question"
+            href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            rel="noreferrer"
+            target="_blank"
+            title="Creative Commons BY-NC-SA 4.0">
+            some rights reserved</a>
+        </p>
+        { password
+          ? <span className="lockish">&#x1F512;</span>
+          :
+          <form id="adminCheck">
+            <input type="password"
+              className="dark"
+              name="managePassword"
+              style={{ marginTop: 20 }}
+              onKeyPress={onEnterKeyPress} />
+          </form>
+        }
+      </div>
     </>
   )
 }

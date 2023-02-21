@@ -2,10 +2,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { baseUrl, jsonContentType, siteTitle } from '../../components/layout'
-import Navigation from '../../components/navigation'
-import TapeSpinner from '../../components/cassetteTapeSpinner'
-import { tapeColors } from '../../utils/helpers'
+
+import { AppContext, jsonType } from '../_app'
+import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
+import Navigation from '../../components/Navigation'
+import TapeSpinner from '../../components/TapeSpinner'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo :: Hot Songs`
 
@@ -37,7 +38,7 @@ const MAX_TAPES = Number.MAX_SAFE_INTEGER
 export default function SongDetail() {
   const [addedTapeCount, setaddedTapeCount] = useState(0)
   const [canAdd, setCanAdd] = useState(false)
-  const [song, setSong] = useState({})
+  const [songs, setSongs] = useState({})
   const [tape, setTape] = useState({})
   const [loading, setLoading] = useState(true)
 
@@ -48,26 +49,30 @@ export default function SongDetail() {
   const getSongs = async () => {
     try {
       setLoading(true)
-  
+
       const res = await fetch('/api/songs', {
         headers: {
-          accept: jsonContentType,
-          'content-type': jsonContentType,
+          accept: jsonType,
+          'content-type': jsonType,
+          'x-admin': password,
+          'x-uuid': uuid,
         },
         method: 'GET',
       })
-      const songs = await res.json()
-      setLoading(false)
-  
-      if (songs.data) {
-        songs.data.map(song => {
-          if (tapeColors.length && !song.style) song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
+
+      const songRes = await res.json()
+      
+      if (songRes.data) {
+        songRes.data.map(song => {
+          if (!song.style) song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })
 
-        setSongs({ data: songs.data })
+        setSongs({ data: songRes.data })
       } else {
         console.error(res)
       }
+
+      setLoading(false)
     } catch (error) {
       setLoading(false)
       console.error(error)
@@ -134,9 +139,6 @@ export default function SongDetail() {
     setCanAdd(true)
     getSongs()
   }, [])
-
-  const hasLongArtist = song.artist?.length > 25
-  const hasLongTitle = song.title?.length > 25
   
   return (
     <>
@@ -148,16 +150,22 @@ export default function SongDetail() {
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
       </Head>
       <main>
-        <Navigation path={`song/${song._id}`} />
-        <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
-          <div title={ song.title } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-            { song.title }</div>
-          <div title={ song.artist } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-            { song.artist }</div>
-          <div className="songIdLine" onClick={() => openEmbedLink(song._id)}>{ song._id }</div>
-          <Link href={`/songs/${song.uuid}`}><div className="uuidLine" onClick={() => getUserTapes(song)}>{ song.uuid }</div></Link>
-        </TapeSpinner>
+        <Navigation path={'songs'} />
+        {songs.data && songs.map(song => {
+          const hasLongArtist = song.artist?.length > 25
+          const hasLongTitle = song.title?.length > 25
 
+          return (
+            <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
+              <div title={ song.title } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+                { song.title }</div>
+              <div title={ song.artist } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                { song.artist }</div>
+              <div className="songIdLine" onClick={() => openEmbedLink(song._id)}>{ song._id }</div>
+              <Link href={`/songs/${song.uuid}`}><div className="uuidLine" onClick={() => getUserTapes(song)}>{ song.uuid }</div></Link>
+            </TapeSpinner>
+          )
+        })}
         {canAdd && (
         <div style={{ marginTop: 50 }}>
           <h3>Add a tape to the collection</h3>

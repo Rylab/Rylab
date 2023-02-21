@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { baseUrl, siteTitle } from '../components/layout'
+import { baseUrl, siteTitle } from '../components/Layout'
 
 const pageTitle = `${siteTitle} :: Not Found`
 

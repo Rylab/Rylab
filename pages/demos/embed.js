@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styled from 'styled-components'
-import { siteTitle } from '../../components/layout'
+import { baseUrl, siteTitle } from '../../components/Layout'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React Component Embedding Demo`
 
@@ -20,14 +20,14 @@ export default function EmbedDemo() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`https://rylab.com/demos/embed`} />
+        <link rel="canonical" href={`https://${baseUrl}/demos/embed`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component iframe embedding demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component embedding example." />
       </Head>
       <main className="embedding hideFooter" style={{ marginTop: 50 }}>
-        <TapeEmbed className="tapeEmbed" src={`http://rylab.loc:3007/song/${sampleSongId}?embed=true`} />
+        <TapeEmbed className="tapeEmbed" src={`http://${baseUrl}/song/${sampleSongId}?embed=true`} />
       </main>
     </>
   )
