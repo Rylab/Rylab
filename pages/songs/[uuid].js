@@ -3,10 +3,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import TapeSpinner from '../../components/cassetteTapeSpinner'
-import { baseUrl, jsonContentType, siteTitle } from '../../components/layout'
-import Navigation from '../../components/navigation'
-import { initUuid, tapeColors } from '../../utils/helpers'
+
+import { AppContext, jsonType } from '../_app'
+import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
+import Navigation from '../../components/Navigation'
+import TapeSpinner from '../../components/TapeSpinner'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
 
@@ -35,33 +36,28 @@ const AddButton = styled.button`
 const ALLOWED_TAPE_PROPS = ['artist', 'title']
 const MAX_TAPES = Number.MAX_SAFE_INTEGER
 
-export default function SongsByUuid() {
+export default function SongsByUuid({uuid}) {
+  console.log(`props $uuid: ${uuid}`)
   const [addedTapeCount, setaddedTapeCount] = useState(0)
   const [canAdd, setCanAdd] = useState(false)
   const [songs, setSongs] = useState({})
   const [tape, setTape] = useState({})
-  const [targetUuid, setTargetUuid] = useState({})
-  const [uuid, setUuid] = useState('')
+  const [pageUuid, setTargetUuid] = useState({})
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
 
   useEffect(() => {
     if (router.isReady) {
-      const targetUuid = router.query.uuid
+      const pageUuid = router.query.uuid
 
-      if (!uuid) {
-        const uuid = initUuid()
-        setUuid(uuid)
-      }
-
-      if (targetUuid) {
-        setTargetUuid(decodeURI(targetUuid))
-        getSongs(targetUuid)
-        setCanAdd(targetUuid === uuid)
+      if (pageUuid) {
+        setTargetUuid(decodeURI(pageUuid))
+        getSongs(pageUuid)
+        setCanAdd(pageUuid === uuid)
       }
     }
-  }, [router])
+  }, [router, uuid])
 
   const getEmbed = songId => {
     window.open(`/song/${songId}`, 'rylab', 'menubar=1,resizable=1,width=600,height=420');
@@ -72,8 +68,8 @@ export default function SongsByUuid() {
       setLoading(true)
 
       const headers = {
-        accept: jsonContentType,
-        'content-type': jsonContentType,
+        accept: jsonType,
+        'content-type': jsonType,
       }
       
       if (uuid) {
@@ -130,15 +126,15 @@ export default function SongsByUuid() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`https://${ baseUrl }/songs/${targetUuid}`} />
+        <link rel="canonical" href={`https://${ baseUrl }/songs/${pageUuid}`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
       </Head>
       <main>
-        <Navigation path={`songs/${targetUuid}`} />
-        {songs.data?.map(song => {
+        <Navigation path={`songs/${pageUuid}`} />
+        {!loading && songs.data?.map(song => {
           const hasLongArtist = song.artist.length > 25
           const hasLongTitle = song.title.length > 25
 

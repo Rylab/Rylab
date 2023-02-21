@@ -27,18 +27,6 @@ export function selectText(id) {
   }
 }
 
-export const tapeColors = [
-  '#777',
-  'rgb(238, 231, 200)',
-  'rgb(111, 231, 200)',
-  'rgb(198, 131, 200)',
-  'rgb(198, 231, 100)',
-  '#999',
-  'rgba(255, 0, 0, 0.3)',
-  'rgba(0, 255, 0, 0.3)',
-  'rgba(0, 0, 255, 0.3)',
-]
-
 export const getUuid = req => {
   let uuid = ''
 

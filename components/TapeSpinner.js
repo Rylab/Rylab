@@ -61,11 +61,12 @@ const CassetteContainer = styled.div`
       bottom: 46px;
       transition: 1s;
     }
-    .titleLine.long:hover {
+    .titleLine.long {
       font-size: 11px;
       bottom: 47px;
-      left: 0px;
-      transition: 1s;
+    }
+    .titleLine.long:hover {
+      left: 20px;
     }
 
   .songIdLine {
@@ -133,15 +134,15 @@ const CassetteContainer = styled.div`
     }
       .artistLine.long {
         bottom: 41px;
-        font-size: 17px;
+        font-size: 16px;
       }
     .titleLine {
       bottom: 76px;
       font-weight: 600;
     }
       .titleLine.long {
-        bottom: 76px;
-        font-size: 17px;
+        bottom: 75px;
+        font-size: 16px;
       }
 
     .notesInput {

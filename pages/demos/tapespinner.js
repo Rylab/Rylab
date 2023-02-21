@@ -2,10 +2,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import TapeSpinner from '../../components/cassetteTapeSpinner'
-import { baseUrl, jsonContentType, siteTitle } from '../../components/layout'
-import Navigation from '../../components/navigation'
-import { tapeColors } from '../../utils/helpers'
+
+import { AppContext, jsonType } from '../_app'
+import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
+import Navigation from '../../components/Navigation'
+import TapeSpinner from '../../components/TapeSpinner'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
 
@@ -43,6 +44,8 @@ export default function SpinnerDemo() {
   const [loading, setLoading] = useState(true)
 
   const addTape = ({ id, artist, title, spin = true, style }) => {
+    if (!canAdd) return;
+
     tapes[id] = {
       artist,
       title,
@@ -50,7 +53,7 @@ export default function SpinnerDemo() {
       style,
     }
 
-    if (typeof tapeColors !== 'undefined' && !tapes[id].style) {
+    if (!tapes[id].style) {
       tapes[id].style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
     }
 
@@ -111,8 +114,8 @@ export default function SpinnerDemo() {
   
       const res = await fetch('/api/songs', {
         headers: {
-          accept: jsonContentType,
-          'content-type': jsonContentType,
+          accept: jsonType,
+          'content-type': jsonType,
         },
         method: 'GET',
       })
@@ -136,48 +139,51 @@ export default function SpinnerDemo() {
   }
 
   useEffect(() => {
-    addTape({
-      _id: 'fake-uuid-0001',
-      title: 'The Best Song',
-      artist: 'The Worst Band',
-    })
+    if (!addedTapeCount) {
+      addTape({
+        _id: 'fake-uuid-0001',
+        title: 'The Best Song',
+        artist: 'The Worst Band',
+      })
 
-    addTape({
-      _id: 'fake-uuid-0010',
-      title: 'The Worst Snog',
-      artist: 'The Best Band',
-      spin: false,
-    })
+      addTape({
+        _id: 'fake-uuid-0010',
+        title: 'The Worst Snog',
+        artist: 'The Best Band',
+        spin: false,
+      })
 
-    addTape({
-      _id: 'fake-uuid-0011',
-      title: 'The Worst Snog With The Best Super Long Name',
-      artist: 'The Best Band With The Worst Terrible Long Name',
-      spin: false,
-    })
+      addTape({
+        _id: 'fake-uuid-0011',
+        title: 'The Worst Snog With The Best Super Long Name',
+        artist: 'The Best Band With The Worst Terrible Long Name',
+        spin: false,
+      })
 
-    addTape({
-      _id: 'fake-uuid-0100',
-      title: 'Loser',
-      artist: 'Beck',
-    })
+      addTape({
+        _id: 'fake-uuid-0100',
+        title: 'Loser',
+        artist: 'Beck',
+      })
 
-    addTape({
-      _id: 'fake-uuid-0101',
-      title: 'Once Upon a Thyme',
-      artist: 'Pun in the Oven',
-    })
+      addTape({
+        _id: 'fake-uuid-0101',
+        title: 'Once Upon a Thyme',
+        artist: 'Pun in the Oven',
+      })
 
-    addTape({
-      _id: 'fake-uuid-0110',
-      title: '<script>alert("nice try")</script>',
-      artist: 'Failed Hacker #2',
-      spin: false,
-    })
+      addTape({
+        _id: 'fake-uuid-0110',
+        title: '<script>alert("nice try")</script>',
+        artist: 'Failed Hacker #2',
+        spin: false,
+      })
 
-    setCanAdd(true)
-    getSongs()
-  }, [])
+      setCanAdd(true)
+
+      getSongs()
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

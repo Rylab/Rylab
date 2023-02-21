@@ -1,48 +1,28 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import styles from '../../styles/ai.module.css'
+import { useContext, useState } from 'react'
 
-import TapeSpinner from '../../components/cassetteTapeSpinner'
+import { AppContext, jsonType } from '../_app'
+import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
+
+import TapeSpinner from '../../components/TapeSpinner'
 import LoadingSpinner from '../../components/LoadingSpinner'
-import { baseUrl, jsonContentType, siteTitle } from '../../components/layout'
-import Navigation from '../../components/navigation'
-import { initUuid, tapeColors } from '../../utils/helpers'
+import Navigation from '../../components/Navigation'
+
+import styles from '../../styles/ai.module.css'
 
 const pageTitle = `${siteTitle} :: Animated AI Cassette Playground`
 
 export default function AiPlayground() {
+  const { password, uuid } = useContext(AppContext)
   const [adjectiveInput, setAdjectiveInput] = useState('')
   const [genreInput, setGenreInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState([])
-  const [uuid, setUuid] = useState('')
 
   const getEmbed = _id => {
     window.open(`/song/${_id}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450');
   }
-
-  const router = useRouter()
-
-  const [password, setPassword] = useState('')
-
-  useEffect(() => {
-    if (router.isReady) {
-      if (!uuid) {
-        const uuid = initUuid()
-        setUuid(uuid)
-      }
-
-      const base64pass = localStorage.getItem('managePass')
-      if (base64pass) {
-        const bufferpass = Buffer.from(base64pass, 'base64')
-        const managepass = bufferpass.toString('utf8')
-        if (managepass) setPassword(managepass)
-      }
-    }
-  }, [router])
 
   async function onSubmit(event) {
     event.preventDefault()
@@ -52,8 +32,8 @@ export default function AiPlayground() {
 
     try {
       const headers = {
-        accept: jsonContentType,
-        'content-type': jsonContentType,
+        accept: jsonType,
+        'content-type': jsonType,
       }
 
       if (password) {
@@ -121,14 +101,14 @@ export default function AiPlayground() {
           <input
             type="text"
             name="genre"
-            placeholder="Enter a genre"
+            placeholder="Set genre or musical type"
             value={genreInput}
             onChange={(e) => setGenreInput(e.target.value)}
           />
           <input
             type="text"
             name="adjective"
-            placeholder="Enter at least one stylstic adjective"
+            placeholder="Add at least one adjective for flavor"
             value={adjectiveInput}
             onChange={(e) => setAdjectiveInput(e.target.value)}
           />

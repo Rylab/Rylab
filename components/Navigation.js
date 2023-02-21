@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { baseUrl } from './layout'
+import { baseUrl } from './Layout'
 import { selectText } from '../utils/helpers'
 
 export default function Navigation({ path = '' }) {
