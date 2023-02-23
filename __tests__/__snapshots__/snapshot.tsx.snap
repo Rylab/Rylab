@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <main>
+    <div
+      class="hoverborder lockish"
+      id="header"
+    >
+      <img
+        alt="A very pretty building in Golden Gate Park, San Francisco"
+        class="rylab"
+        src="/img/rylab_extrovert.png"
+        title="A very pretty building in Golden Gate Park."
+      />
+    </div>
+    <div
+      class="lockish"
+      id="rylab"
+    >
+      (: hello :)
+    </div>
+    <div
+      class="lockish"
+      id="content"
+    >
+      <p
+        class="large light"
+        id="haiku-today"
+      >
+        someday I will make,
+        <br />
+        a great personal website;
+        <br />
+        it may be today
+      </p>
+      <p
+        class="small dark hoverlight"
+        id="haiku-tomorrow"
+      >
+        perhaps tomorrow?
+        <br />
+        probably not then either...
+        <br />
+        our planet still spins
+        <br />
+      </p>
+      <div
+        class="sc-bcXHqe bGNAom"
+      >
+        <svg
+          class="spinner"
+          viewBox="0 0 50 50"
+        >
+          <lineargradient
+            gradientTransform="rotate(120)"
+            id="linear"
+            x1="0%"
+            x2="100%"
+            y1="0%"
+            y2="0%"
+          >
+            <stop
+              offset="5%"
+              stop-color="#010101"
+            />
+            <stop
+              offset="95%"
+              stop-color="#343434"
+            />
+          </lineargradient>
+          <circle
+            class="path"
+            cx="25"
+            cy="25"
+            fill="url(#linear)"
+            r="20"
+            stroke-width="2"
+          />
+        </svg>
+      </div>
+      <div
+        class="demo"
+      >
+        <a
+          href="/demos/tapespinner"
+          title="Tape Spinner playground"
+        >
+          Animated SVG cassettes
+        </a>
+      </div>
+      <div
+        class="demo"
+      >
+        <a
+          href="/demos/tapeai"
+          title="Tape AI playground"
+        >
+          AI cassette generator
+        </a>
+      </div>
+      <div
+        id="digitalhaiku"
+      >
+        <a
+          href="https://medium.com/@rylab/abc-digitally-evolving-futurist-goals-9b11bd0f54d2"
+          rel="noreferrer"
+          target="_medium"
+          title="My Haiku on Medium"
+        >
+          #digitalhaiku
+        </a>
+      </div>
+      <div
+        id="saxylab"
+      >
+        <a
+          href="https://saxylab.com"
+          target="_saxylab"
+          title="Saxy and Ryan :: SaxyLab"
+        >
+          SaxyLab
+        </a>
+      </div>
+      <br />
+      <div
+        class="sc-bcXHqe bGNAom"
+      >
+        <svg
+          class="spinner"
+          viewBox="0 0 50 50"
+        >
+          <lineargradient
+            gradientTransform="rotate(120)"
+            id="linear"
+            x1="0%"
+            x2="100%"
+            y1="0%"
+            y2="0%"
+          >
+            <stop
+              offset="5%"
+              stop-color="#010101"
+            />
+            <stop
+              offset="95%"
+              stop-color="#343434"
+            />
+          </lineargradient>
+          <circle
+            class="path"
+            cx="25"
+            cy="25"
+            fill="url(#linear)"
+            r="20"
+            stroke-width="2"
+          />
+        </svg>
+      </div>
+    </div>
+  </main>
+</div>
+`;
