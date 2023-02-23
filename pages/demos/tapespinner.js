@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { AppContext, jsonType } from '../_app'
@@ -36,6 +36,7 @@ const ALLOWED_TAPE_PROPS = ['artist', 'title']
 const MAX_TAPES = Number.MAX_SAFE_INTEGER
 
 export default function SpinnerDemo() {
+  const { password, uuid } = useContext(AppContext)
   const [addedTapeCount, setaddedTapeCount] = useState(0)
   const [canAdd, setCanAdd] = useState(false)
   const [songs, setSongs] = useState({})
