@@ -6,9 +6,9 @@ if (!process.env.MONGODB_URI) {
   )
 }
 
-if (!process.env.MONGODB_DB) {
+if (!process.env.MONGODB) {
   throw new Error(
-    'Please define the MONGODB_DB environment variable inside .env'
+    'Please define the MONGODB environment variable inside .env'
   )
 }
 
@@ -37,7 +37,7 @@ export async function dbConnect() {
     cached.promise = MongoClient.connect(process.env.MONGODB_URI, opts).then((client) => {
       return {
         client,
-        db: client.db(process.env.MONGODB_DB),
+        db: client.db(process.env.MONGODB),
       }
     })
   }
