@@ -1,12 +1,10 @@
 import { dbCollection } from '../../../utils/mongodb'
 
-const { MANAGE_PASS } = process.env
-
 export default async function handler(req, res) {
   const { headers, method } = req
 
   let { order, sort } = req.query
-  let isAdmin = headers['x-admin'] === MANAGE_PASS
+  let isAdmin = headers['x-admin'] === process.env.MANAGE_PASS
 
   switch (method) {
     case 'GET':

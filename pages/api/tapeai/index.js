@@ -1,14 +1,10 @@
-import { Configuration, OpenAIApi } from 'openai'
+import { NextResponse } from 'next/server'
+
 import { validateUuid } from '../../../utils/helpers'
-import { dbCollection } from '../../../utils/mongodb'
-
-const { MANAGE_PASS } = process.env
-
-// TODO: make defaults more dynamic? base on previously submitted values?
 
 const defaultModel = 'text-davinci-003'
-
-const defaultTemperature = 0.6
+const defaultTemperature = 0.5
+const max_tokens = 400
 
 const defaultAdjectives = [
   'cheesy',
@@ -37,166 +33,156 @@ const defaultGenres = [
   'rock',
 ]
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API,
-})
 
-const getAdjective = query => {
-  return query.adjective?.trim() || defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
+// const jsonCoercionWithBio = ` Respond only with an array of 3 valid JSON objects, each having artist, title, and biography properties. `
+const jsonCoercion = ` Respond only with an array of 3 valid JSON objects with unique artist, title, and biography properties. ` +
+  `JSON format: ` +
+  `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
+
+
+const getAdjectives = adjectives => {
+  const trimmedAdjectives = adjectives.trim().replace(/^"(.+(?="$))"$/, '$1')
+
+  return trimmedAdjectives ?? defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
 }
 
-const getGenre = query => {
-  return query.genre?.trim() || defaultGenres[~~(Math.random() * defaultGenres.length)]
+const getGenre = genre => {
+  const trimmedGenre = genre.trim().replace(/^"(.+(?="$))"$/, '$1')
+
+  return trimmedGenre ?? defaultGenres[~~(Math.random() * defaultGenres.length)]
 }
 
-const getModel = query => {
-  return query.model?.trim() ?? defaultModel
+const getModel = model => {
+  if (model && model.trim()) return model.trim()
+
+  return defaultModel
 }
 
-const getTemperature = query => {
-  return query.temperature?.trim() ?? defaultTemperature
+const getTemperature = temperature => {
+  if (temperature && temperature.trim()) return temperature.trim() ?? defaultTemperature
+
+  return defaultTemperature
 }
 
-export default async function handler(req, res) {
-  if (!configuration.apiKey) {
-    res.status(500).json({
+export const config = {
+  runtime: 'edge',
+}
+
+export default async function handler(req) {
+  if (!process.env.OPENAI_KEY) {
+    return NextResponse.json(JSON.stringify({
       error: {
         message: 'OpenAI API key not set; see instructions in README.md',
       }
-    })
-    
-    return
+    }), { status: 500 })
+  }
+
+  const { headers, method, nextUrl } = req
+  const uuidHeader = headers.get('x-uuid')
+  let uuid
+  
+  if (uuidHeader && validateUuid(uuidHeader)) {
+    uuid = uuidHeader
+  } else {
+    console.warn('Invalid or empty UUID:')
+    console.warn(uuidHeader)
   }
   
-  const { body, headers, method, query } = req
-
-  let uuid
-
-  if (headers['x-uuid'] && validateUuid(headers['x-uuid'])) {
-    uuid = headers['x-uuid']
-  } else {
-    console.error('NO UUID')
-  }
-
   if (!uuid) {
-    res.status(400).json({
+    return NextResponse.json(JSON.stringify({
       error: {
         message: 'UUID not set; see instructions in README.md',
       }
-    })
-    
-    return
+    }), { status: 400 })
   }
   
-  let isAdmin = headers['x-admin'] === MANAGE_PASS
-  
+  const isAdmin = headers.get('x-admin') === process.env.MANAGE_PASS
+  const searchParams = new URLSearchParams(decodeURI(nextUrl.search))
+
   switch (method) {
     case 'GET':
-    const adjective = getAdjective(query)
-    const genre = getGenre(query)
+    const adjectives = getAdjectives(searchParams.get('adjectives'))
+    const genre = getGenre(searchParams.get('genre'))
 
     if (!genre) {
-      res.status(400).json({
+      return NextResponse.json(JSON.stringify({
         error: {
           message: 'Genre type not valid; see instructions in README.md',
         }
-      })
-
-      return
+      }), { status: 400 })
     }
 
-    const openai = new OpenAIApi(configuration)
 
-    const model = getModel(req)
-    const temperature = getTemperature(req)
+    const model = getModel(searchParams.get('model'))
+    const temperature = getTemperature(searchParams.get('temperature'))
 
-    const artistNamePrompt = generateArtistNamePrompt(genre, adjective)
-    const songTitlePrompt = generateSongTitlePrompt(genre, adjective)
+    const prompt = generateCassettePrompt(genre, adjectives)
 
-    let result = {};
+    const completionRequest = {
+      max_tokens,
+      model,
+      prompt,
+      temperature,
+      user: uuid,
+    }
+
     try {
-      const artistRes = await openai.createCompletion({
-        model,
-        prompt: artistNamePrompt,
-        temperature,
+      const cassettesResult = await fetch('https://api.openai.com/v1/completions', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.OPENAI_KEY}`,
+          'OpenAI-Organization': process.env.OPENAI_ORG ?? '',
+        },
+        method: 'POST',
+        body: JSON.stringify(completionRequest),
       })
 
-      const titleRes = await openai.createCompletion({
-        model,
-        prompt: songTitlePrompt,
-        temperature,
-      })
+      const cassettesJson = await cassettesResult.json()
 
-      result.artist = artistRes.data.choices[0].text
-      result.title = titleRes.data.choices[0].text
-
-      res.status(200).json(result)
+      if (cassettesJson && cassettesJson.choices) {
+        console.log(JSON.parse(cassettesJson.choices[0].text.trim()))
+        return NextResponse.json(cassettesJson.choices[0].text.trim(), { status: 200 })
+      } else {
+        console.warn(cassettesResult)
+        return NextResponse.json(JSON.stringify({ error: { message: 'Missing expected completion data' }}), { status: 400 })
+      }
     } catch(error) {
       console.error(error)
+
       if (error.response) {
-        console.error(error.response.status, error.response.data)
-
-        res.status(error.response.status).json(error.response.data)
+        return NextResponse.json(JSON.stringify(error.response), { status: 400 })
       } else {
-        console.error(`Error from OpenAI API: ${error.message}`)
-
-        res.status(500).json({
+        return nNextResponse.json(JSON.stringify({
           error: {
-            message: 'An error occurred processing your request.',
+            message: 'An unexpected error occurred processing your request.',
           }
-        })
+        }), { status: 400 })
       }
-    }
-  break
-
-  case 'POST':
-    try {
-      const { tapeApiCollection } = await dbCollection('tapeAi')
-      const { headers, body } = req
-
-      if (!isAdmin && headers['x-uuid'] !== body.uuid) {
-        res.status(401).json({ success: false })
-        break
-      }
-
-      const result = await tapeApiCollection.save(body)
-
-      res.status(200).json({ success: true, data: result })
-    } catch (error) {
-      console.error(error)
-      res.status(400).json({ success: false })
     }
   break
 
   default:
-    console.error(`Unexpected ${method} attempt on /api/songs`)
-    res.status(400).json({ success: false })
+    return NextResponse.json(JSON.stringify({
+      error: {
+        message: `Unexpected ${method} attempt on /api/songs`,
+      }
+    }), { status: 400 })
   break
   }
 }
 
-function generateArtistNamePrompt(genre, adjective = 'funny') {
+function generateCassettePrompt(genre, adjectives) {
+  const capitalizedAdjectives =
+    adjectives[0].toUpperCase() + adjectives.slice(1)
+
   const capitalizedGenre =
     genre[0].toUpperCase() + genre.slice(1).toLowerCase()
 
-  return `Suggest three ${adjective ? `${adjective} ` : ''}names for a music artist in the ${capitalizedGenre} Genre.
-Genre:Rock
-Names:The Beatles, School House Rockers, Rock Around The Clockers
-Genre:Jazz
-Names:Puff the Jazzy Dragon, Xena: Piano Princess, Miles Davis
-Genre:${capitalizedGenre}
-Names:`
-}
+  const generatedPrompt =
+    `Create 3 unique music artist names in the "${capitalizedGenre}" genre, ` +
+    `and their "${capitalizedAdjectives}" style distinct album titles.`
 
-function generateSongTitlePrompt(genre, adjective = 'wild') {
-  const capitalizedGenre =
-    genre[0].toUpperCase() + genre.slice(1).toLowerCase()
+  console.log(`\n\n${generatedPrompt}..`)
 
-  return `Suggest three ${adjective ? `${adjective} ` : ''} titles for a song in the ${capitalizedGenre} Genre.
-Genre:Rock
-Titles:Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-Genre:Jazz
-Titles:Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-Genre:${capitalizedGenre}
-Titles:`
+  return generatedPrompt + jsonCoercion
 }

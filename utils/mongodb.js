@@ -1,14 +1,12 @@
 import { MongoClient } from 'mongodb'
 
-const { MONGODB_URI, MONGODB_DB } = process.env
-
-if (!MONGODB_URI) {
+if (!process.env.MONGODB_URI) {
   throw new Error(
     'Please define the MONGODB_URI environment variable inside .env'
   )
 }
 
-if (!MONGODB_DB) {
+if (!process.env.MONGODB_DB) {
   throw new Error(
     'Please define the MONGODB_DB environment variable inside .env'
   )
@@ -36,10 +34,10 @@ export async function dbConnect() {
       useUnifiedTopology: true,
     }
 
-    cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {
+    cached.promise = MongoClient.connect(process.env.MONGODB_URI, opts).then((client) => {
       return {
         client,
-        db: client.db(MONGODB_DB),
+        db: client.db(process.env.MONGODB_DB),
       }
     })
   }

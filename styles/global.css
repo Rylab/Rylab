@@ -21,67 +21,73 @@ img {
 
 img.icon {
   display: block;
-  margin: 20px auto;
+  margin: 0 auto;
+  padding: 20px 0;
   width: 32px;
 }
 
-#header {
+.header {
   background: #000 url(/img/header_extrovert.png) top left no-repeat;
   background-size: cover;
   cursor: grab;
   margin: 0px;
   min-height: 175px;
-  min-width: 320px;
+  min-width: 280px;
   overflow: hidden;
   opacity: 1.0;
   padding: 0px;
   position: relative;
   text-align: left;
   width: 100%;
-  transition: background-imaage 0.2s;
-  transition: background-position 1.0s;
+  transition: 0.3s;
   transition-timing-function: ease;
 }
-  #header:hover {
+  .header:hover {
     background-image: url(/img/header_introvert.png);
     opacity: .77;
-    transition: background-image 0.5s;
+    transition: 0.5s;
   }
 
-#footer {
-  margin: 50px auto 30px auto;
+.mobile-only {
+  display: block;
 }
-  .embedding ~ #footer {
+
+.footer {
+  text-align: center;
+  margin: 70px auto 30px auto;
+}
+  .embedding ~ .footer {
     margin: 30px auto 0px auto;
   }
-  .embedding ~ #footer .lockish {
+  .embedding ~ .footer .lockish {
     display: none;
   }
-  .hideFooter ~ #footer {
+  .hideFooter ~ .footer {
     display: none
   }
 
-.embedding #navUrl {
+.embedding .navUrl {
   display: none;
 }
 
-#content {
+.content {
   min-width: 280px;
   max-width: 700px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-#embedCodeContainer {
+.embedCodeContainer {
   color: #666;
-  display: inline-block;
+  display: block;
   margin: 0 auto;
   word-wrap: break-word;
   text-align: center;
-  width: 75%;
+  width: 90%;
+  max-width: 800px;
 }
 
-#embedCode {
+.embedCode {
   border: 3px solid #777;
   border-radius: 3px;
   color: #666;
@@ -110,12 +116,10 @@ a {
     border-bottom: 1px #9c9c9c dotted;
     transition: 0.22s;
   }
-  a:visited:not(:hover) {
-    color: #7bafc3;
-  }
-  a.question {
+  .question a, a.question {
     cursor: alias;
   }
+
 p {
   font-size: 11pt;
 }
@@ -193,7 +197,7 @@ h3 {
 h4 {
   color: #444;
   font-size: 13pt;
-  margin: 1px 0 2px 0;
+  margin: 20px 0 10px 0;
 }
 
 ul.list {
@@ -221,7 +225,7 @@ ul.narrow {
   border: 3px dashed #222;
   border-radius: 16px;
   margin: 10px auto;
-  max-width: 300px;
+  max-width: 230px;
   transition: border 0.3s;
   transition-timing-function: ease;
 }
@@ -232,7 +236,7 @@ ul.narrow {
     transition-timing-function: ease;
   }
 
-#aeq, #aeq:hover {
+.aeq, .aeq:hover {
   border-bottom: none;
   text-decoration: none;
 }
@@ -241,13 +245,14 @@ ul.narrow {
   background: url(/img/bsd_introvert.png) center center no-repeat;
   background-size: 3%;
   box-sizing: content-box;
-  opacity: 1.0;
   border: 3px dashed #222;
   border-radius: 77%;
   display: block;
   height: 77px;
-  margin: 47px auto 27px auto;
   width: 77px;
+  margin: 47px auto 27px auto;
+  padding: 80px;
+  opacity: 1.0;
   transition: 0.9s;
   transition-timing-function: ease;
 }
@@ -271,14 +276,16 @@ ul.narrow {
 }
 
 .hoverborder {
-  border: 4px solid #123;
-  transition: border 0.5s;
+  border-bottom: 4px solid #123;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  transition: 0.5s;
   transition-timing-function: ease;
 }
   .hoverborder:hover {
-    border: 4px solid #321;
-    transition: border 0.9s;
-    transition-timing-function: ease;
+    border-color: #321;
+    transition: 0.9s;
   }
 
 .selectable {
@@ -299,20 +306,20 @@ ul.narrow {
   background: #333;
 }
 
-#navigation {
+.navigation {
   color: #aaa;
-  font-size: 12px;
+  font-size: 11px;
   margin-bottom: 15px;
-  margin-top: 25px;
+  margin-top: 5px;
 }
-  #navigation .protocol {
-    display: none
+  .navigation .protocol {
+    color: #666;
   }
 
-  #navigation a {
+  .navigation a {
     text-decoration: none;
   }
-  #navigation a:hover {
+  .navigation a:hover {
     cursor: url(/img/bsd_cursor_invert.png) 20 20, progress;
   }
 
@@ -338,41 +345,40 @@ ul.narrow {
     transition: 0.22s;
   }
   
-  #digitalhaiku {
+  .digitalhaiku {
     margin-top: 20px;
   }
-  #digitalhaiku a {
+  .digitalhaiku a {
     color: rgb(58, 14, 116);
     cursor: crosshair;
     text-decoration: none;
     transition: 0.2s;
     transition-timing-function: ease;
   }
-  #digitalhaiku a:hover {
+  .digitalhaiku a:hover {
     color: rgb(136, 0, 226);
     transition: 0.2s;
   }
-  #digitalhaiku a:active, #digitalhaiku a:focus {
+  .digitalhaiku a:active, .digitalhaiku a:focus {
     color: rgb(136, 0, 226);
     transition: 0.2s;
   }
 
-.rylab {
+.rylab-image {
   background-image: url(/img/rylab_introvert.png);
   background-position: 0px 0px;
   background-size: contain;
-  opacity: 77%;
+  opacity: 99%;
   position: absolute;
   bottom: 0;
   left: 0;
   min-height: 20px;
   max-width: 97%;
-  transition: background-image 0.7s;
-  transition: background-position 0.3s;
+  transition: 0.7s;
   transition-timing-function: ease;
 }
 
-#rylab {
+.rylab-copy {
   color: #255;
   margin: 0px auto;
   opacity: 0.1;
@@ -380,7 +386,7 @@ ul.narrow {
   transition: 0.9s;
   transition-timing-function: ease;
 }
-  #rylab:hover {
+  .rylab-copy:hover {
     cursor: all-scroll;
     color: #777;
     opacity: 1.0;
@@ -398,10 +404,10 @@ ul.narrow {
     transition: 0.3s;
   }
 
-#saxylab {
+.saxylab {
   margin: 25px auto 0px auto;
 }
-  #saxylab a {
+  .saxylab a {
     color: #319c00;
     cursor: crosshair;
     opacity: 0.5;
@@ -410,41 +416,42 @@ ul.narrow {
     transition: 0.42s;
     transition-timing-function: ease;
   }
-    #saxylab a:active, #saxylab a:focus {
+    .saxylab a:active, .saxylab a:focus {
       color: rgb(107, 221, 103);
       opacity: 1.0;
       transition: 0.2s;
     }
-    #saxylab a:hover {
+    .saxylab a:hover {
       color: rgb(5, 160, 0);
       opacity: 1.0;
       transition: 0.2s;
     }
 
-/* responsive core */
-@media(max-width: 568px) {
+@media(min-width: 569px) {
   .bsd {
-    padding: 80px;
+    max-width: 250px;
+    padding: 15%;
   }
-  ul.narrow {
-    max-width: 230px;
-  }
-}
-
-@media(min-width: 569px) and (max-width: 1016px) {
-  #header {
+  .header {
     background-position: 0px 0px;
     border-radius: 17px;
     height: 255px;
     margin: 27px auto 7px auto;
     max-width: 500px;
   }
-
-  #navigation {
-    font-size: 13px;
+  .hoverborder {
+    border: 4px solid #123;
+  }
+  .mobile-only {
+    display: none;
+  }
+  .navigation {
+    font-size: 12px;
+    margin-bottom: 20px;
+    margin-top: 10px;
   }
   ul.narrow {
-    max-width: 222px;
+    max-width: 280px;
   }
   ul.list {
     padding: 16px 18px;
@@ -453,39 +460,47 @@ ul.narrow {
     ul.list li {
       margin-bottom: 15px;
     }
-  .bsd {
-    max-width: 250px;
-    padding: 15%;
-  }
 }
 
-@media(min-width: 1017px) and (max-width: 1316px) {
-  #header {
+@media(min-width: 1017px) {
+  .header {
     background-position: 0px -40px;
+    border-radius: 0;
+    margin: 0 0 10px 0;
+    max-width: 100%;
   }
-  #navigation {
-    font-size: 12px;
+  .hoverborder {
+    border-bottom: 4px solid #123;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
   }
-
-  .bsd {
-    padding: 16%;
+  .navigation {
+    font-size: 13px;
   }
-  .rylab {
-    margin-left: 10%;
+  .rylab-image {
+    margin-left: 11%;
+    opacity: 77%;
   }
 }
 
 @media(min-width: 1317px) {
-  #header {
+  .footer {
+    text-align: right;
+    margin: 80px 50px 30px 0px;
+  }
+  .adminCheck input {
+    margin: 20px 0 0 auto;
+  }
+  .header {
     background-position: 0px -70px;
   }
-
-  .bsd {
-    padding: 17%;
+  .navigation {
+    font-size: 14px;
   }
-
-  .rylab {
-    margin-left: 20%;
+  .rylab-image {
+    margin-left: 21%;
+    opacity: 69%;
   }
 }
 

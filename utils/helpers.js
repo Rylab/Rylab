@@ -4,13 +4,14 @@ import { v4 as uuidv4 } from 'uuid'
 const MIN_UUID_LENGTH = 12
 const MAX_UUID_LENGTH = 36
 
-export function selectText(id) {
+export function selectText(className) {
   let nav
   let sel
 
   try {
-    if (window.getSelection && document.createRange) {
-      nav = document.getElementById(id)
+    // basic browser compatibility check
+    if (window.getSelection && document.getElementsByClassName && document.createRange) {
+      nav = document.getElementsByClassName(className)[0]
       sel = window.getSelection()
 
       window.setTimeout(() => {
@@ -23,7 +24,7 @@ export function selectText(id) {
       })
     }
   } catch (e) {
-    console.warn('Text selection or clipboard usage not supported.')
+    console.warn('Text selection or clipboard usage not fully supported.')
   }
 }
 
@@ -31,11 +32,19 @@ export const getUuid = req => {
   let uuid = ''
 
   if (req && req.uuid && req.uuid.length) {
-    return validateUuid(req.uuid.trim())
+    return validateUuid(req.uuid)
   } else {
     console.warn(req)
     return ''
   }
+}
+
+export const getSongEmbed = _id => {
+  window.open(`/song/${_id}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450');
+}
+
+export const getUserEmbed = _uuid => {
+  window.open(`/songs/${_uuid}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450');
 }
 
 export const initUuid = () => {
@@ -57,5 +66,11 @@ export const initUuid = () => {
 }
 
 export const validateUuid = uuid => {
-  return (uuid.length >= MIN_UUID_LENGTH && uuid.length <= MAX_UUID_LENGTH) ? uuid : ''
+  let trimUuid = ''
+
+  if (!uuid || typeof uuid !== 'string') return trimUuid
+
+  trimUuid = uuid.trim()
+
+  return (trimUuid.length >= MIN_UUID_LENGTH && trimUuid.length <= MAX_UUID_LENGTH) ? trimUuid : ''
 }

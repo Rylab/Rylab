@@ -2,8 +2,6 @@ import { ObjectId } from 'mongodb'
 import { validateUuid } from '../../../utils/helpers'
 import { dbCollection } from '../../../utils/mongodb'
 
-const { MANAGE_PASS } = process.env
-
 export default async function handler(req, res) {
   const {
     headers,
@@ -11,7 +9,7 @@ export default async function handler(req, res) {
     method,
   } = req
 
-  const isAdmin = headers['x-admin'] === MANAGE_PASS
+  const isAdmin = headers['x-admin'] === process.env.MANAGE_PASS
 
   let now = new Date()
   let songRes
@@ -33,8 +31,8 @@ export default async function handler(req, res) {
 
         res.status(400).json({ success: false, data: {
           '_id': 404,
-          'artist': 'Try Again',
-          'title': 'Song Not Found',
+          artist: 'Try Again',
+          title: 'Song Not Found',
         } })
       }
     break

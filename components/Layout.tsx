@@ -1,9 +1,16 @@
 import { ReactNode, useContext } from 'react'
 import { AppContext } from '../pages/_app'
 
-export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'localhost:3000'
+export const baseDomain = process.env.NEXT_PUBLIC_BASE_URI
+  ? process.env.NEXT_PUBLIC_BASE_URI.toString().trim() : 'localhost'
+export const basePort = process.env.NEXT_PUBLIC_BASE_PORT
+  ? parseInt(process.env.NEXT_PUBLIC_BASE_PORT, 10) : 443
+
+export const baseUrl = `http${basePort === 443 ? 's':''}://${baseDomain}${[80,443].includes(basePort) ? '': `:${basePort }`}`
+
 export const siteTitle = 'RyLaB'
 
+// NOTE: should consolidate style defaults elsewhere if adding more
 export const tapeColors = [
   '#777',
   'rgb(238, 231, 200)',
@@ -27,7 +34,9 @@ export default function Layout({ children }: Props) {
   const { password, setPassword } = useContext(AppContext)
 
   const setManagePass = e => {
-    const { value } = e.target
+    if (typeof e.preventDefault === 'function') e.preventDefault()
+
+    const value = e.target?.value ? e.target.value.trim() : false
 
     if (value) {
       const bufferPass = Buffer.from(value, 'utf8')
@@ -47,12 +56,16 @@ export default function Layout({ children }: Props) {
     }
   }
 
+  const onLockPress = l => {
+    setManagePass({ target: {} })
+  }
+
   return (
     <>
       {children}
-      <div id="footer">
-        <p className="small light">
-          <a href={`mailto:0@${baseUrl}`}>{ `1@${baseUrl}` }</a>
+      <div className="footer">
+        <p className="light question small">
+          <a href={`mailto:0@${baseDomain}`} title="Mail Me?">{ `1@${baseDomain}` }</a>
           &nbsp;&middot;&nbsp;
           <a
             className="question"
@@ -63,9 +76,9 @@ export default function Layout({ children }: Props) {
             some rights reserved</a>
         </p>
         { password
-          ? <span className="lockish">&#x1F512;</span>
+          ? <span className="adminCheck lockish" onClick={onLockPress}>&#x1F512;</span>
           :
-          <form id="adminCheck">
+          <form className="adminCheck" onSubmit={setManagePass}>
             <input type="password"
               className="dark"
               name="managePassword"

@@ -1,83 +1,54 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import { useContext, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 
-import { AppContext, jsonType } from '../_app'
+import { AppContext, getHeaders } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
-
-import TapeSpinner from '../../components/TapeSpinner'
-import LoadingSpinner from '../../components/LoadingSpinner'
-import Navigation from '../../components/Navigation'
+import { TapeSpinner, LoadingSpinner, Navigation } from '../../components'
+import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
 import styles from '../../styles/ai.module.css'
 
 const pageTitle = `${siteTitle} :: Animated AI Cassette Playground`
 
-export default function AiPlayground() {
+export default function TapeAiDemo() {
   const { password, uuid } = useContext(AppContext)
-  const [adjectiveInput, setAdjectiveInput] = useState('')
+  const [adjectivesInput, setAdjectivesInput] = useState('')
   const [genreInput, setGenreInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState([])
-
-  const getEmbed = _id => {
-    window.open(`/song/${_id}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450');
-  }
+  const [tapes, setTapes] = useState([])
 
   async function onSubmit(event) {
     event.preventDefault()
 
-    let tapeInfo = {}
+    let tapesInfo = []
     setLoading(true)
 
     try {
-      const headers = {
-        accept: jsonType,
-        'content-type': jsonType,
-      }
-
-      if (password) {
-        headers['x-admin'] = password
-      }
-      if (uuid) {
-        headers['x-uuid'] = uuid
-      }
-
-      const response = await fetch(`/api/tapeai?adjective=${adjectiveInput}&genre=${genreInput}`, {
-        headers,
+      const response = await fetch(`/api/tapeai?adjectives=${adjectivesInput}&genre=${genreInput}`, {
+        headers: getHeaders({ uuid, password }),
         method: 'GET',
       })
+      
+      const responseJson = await response.json()
+      tapesInfo = JSON.parse(responseJson) ?? []
 
-      tapeInfo = await response.json()
+      if (response.status !== 200) {       
+        let message = tapesInfo.error?.message ?? 'GET request failed'
 
-      if (response.status !== 200) {
-        console.warn(response)
-
-        if (response?.error) throw response.error
-        else throw new Error(`GET request failed [status ${response?.status}]`)
+        throw new Error(`${message} [status: ${response.status}]`)
       }
 
-      const completions = []
-      const artistResults = tapeInfo.artist.split(',')
-      const titleResults = tapeInfo.title.split(',')
-
-      artistResults.forEach((artist, index) => {
-        completions.push({
-          artist,
-          style: { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] },
-          title: titleResults[index] || '',
-        })
+      tapesInfo.map(tape => {
+        tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
       })
 
-      setResults(completions)
+      tapes.unshift(...tapesInfo)
+      setTapes(tapes)
       setLoading(false)
     } catch(error) {
       console.error(error)
 
       setLoading(false)
-
-      if (tapeInfo) console.warn(tapeInfo)
-      setResults([])
 
       alert(error.message ?? 'Unexpected Error (with no message)')
     }
@@ -87,51 +58,64 @@ export default function AiPlayground() {
     <>
       <Head>
         <title>{ pageTitle }</title>
-        <link rel="canonical" href={`https://${baseUrl}/demos/tapeai`} />
+        <link rel="canonical" href={`${baseUrl}/demos/tapeai`} />
         <link rel="icon" href="/img/bsd_introvert.png" />
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner: animated AI Cassette Tape playground." />
         <meta property="og:description" content="RyLaB TapeSpinner: animated AI cassette playground." />
       </Head>
-
       <main className={styles.main}>
         <Navigation path='demos/tapeai' />
-        <h1 style={{ marginBottom: 30, marginTop: 25 }}>AI Cassette Tape Generator</h1>
+        <h1 style={{ marginBottom: 0, marginTop: 25 }}>AI Cassette Tape&nbsp;Generator</h1>
+        <div className="light" style={{ padding: 30 }}>Uses OpenAI completion with this prompt:<br />
+        <br /><i>Create 3 unique music artist names in the &quot;Genre&quot; genre, and their
+          &quot;Adjectives&quot; style distinct album&nbsp;titles.</i></div>
         <form onSubmit={onSubmit}>
           <input
             type="text"
             name="genre"
-            placeholder="Set genre or musical type"
+            maxLength={45}
+            placeholder="Genre"
             value={genreInput}
             onChange={(e) => setGenreInput(e.target.value)}
           />
           <input
             type="text"
-            name="adjective"
-            placeholder="Add at least one adjective for flavor"
-            value={adjectiveInput}
-            onChange={(e) => setAdjectiveInput(e.target.value)}
+            name="adjectives"
+            maxLength={45}
+            placeholder="Adjectives"
+            value={adjectivesInput}
+            onChange={(e) => setAdjectivesInput(e.target.value)}
           />
-          <input type="submit" value="Generate Cassettes" disabled={ loading || !genreInput || !adjectiveInput } />
+          <input type="submit" value={`Generate ${tapes.length ? 'More ' : ''}Cassettes`} disabled={ loading || !genreInput || !adjectivesInput } />
         </form>
         <div className={styles.result}>
-          { results.length && !loading ? (
-            results.map((song, index) => {
-              const hasLongArtist = song.artist.length > 25
-              const hasLongTitle = song.title.length > 25
+          { loading &&
+            <div className="small dark">
+              <LoadingSpinner />
+              <div style={{ marginTop: -15, marginBottom: 30 }}>
+                Generating...
+              </div>
+          </div> }
+          { tapes && tapes.map((tape, index) => {
+              const hasLongArtist = tape.artist.length > 25
+              const hasLongTitle = tape.title.length > 25
 
               return (
-                <TapeSpinner key={index} style={ song.style }>
-                  <div title={ song.title } onClick={() => getEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-                    { song.title }</div>
-                  <div title={ song.artist } onClick={() => getEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-                    { song.artist }</div>
-                  <div className="songIdLine" onClick={() => getEmbed(song._id)}>{ song._id }</div>
-                  <div className="uuidLine"><Link href={`/songs/${song.uuid}`}>{ song.uuid }</Link></div>
-                </TapeSpinner>
+                <Fragment key={index}>
+                  <TapeSpinner style={ tape.style }>
+                    <div title={ tape.title } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+                      { tape.title }</div>
+                    <div title={ tape.bio ?? tape.artist } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                      { tape.artist }</div>
+                    <div className="uuidLine" onClick={()=> getUserEmbed(tape.uuid)}>{ tape.uuid }</div>
+                    <div className="songIdLine" onClick={() => getSongEmbed(tape._id)}>{ tape._id }</div>
+                  </TapeSpinner>
+                  { tape.bio && <div className="small light mobile-only" style={{ paddingLeft: 30, paddingRight: 30, marginTop: -10, marginBottom: 10 }}>{ tape.bio }</div> }
+                </Fragment>
               )
             })
-          ) : (loading ? <LoadingSpinner /> : '' ) }
+          }
         </div>
       </main>
     </>

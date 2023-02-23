@@ -23,16 +23,15 @@ node_modules/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables files
-.env
+# local/secret dotenvs
 .env.local
-.env.test
+.env
 
-# Next.js build output and export
+# Next.js builds and exports
 .next
 out/
 
-# Nuxt.js build / generate output
+# Nuxt.js builds and exports
 .nuxt
 dist/
 
