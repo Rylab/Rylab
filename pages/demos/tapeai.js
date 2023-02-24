@@ -13,7 +13,6 @@ const pageTitle = `${siteTitle} :: Animated AI Cassette Playground`
 export default function TapeAiDemo() {
   const { password, uuid } = useContext(AppContext)
   const [adjectivesInput, setAdjectivesInput] = useState('')
-  const [dots, setDots] = useState('.')
   const [genreInput, setGenreInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [tapes, setTapes] = useState([])
@@ -93,7 +92,7 @@ export default function TapeAiDemo() {
           { loading &&
             <div className="small dark">
               <LoadingSpinner />
-              <div style={{ marginTop: -15 }}>
+              <div style={{ marginTop: -15, marginBottom: 30 }}>
                 Generating...
               </div>
           </div> }
@@ -106,12 +105,12 @@ export default function TapeAiDemo() {
                   <TapeSpinner style={ tape.style }>
                     <div title={ tape.title } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
                       { tape.title }</div>
-                    <div title={ tape.biography } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                    <div title={ tape.biography ?? tape.artist } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
                       { tape.artist }</div>
                     <div className="uuidLine" onClick={()=> getUserEmbed(tape.uuid)}>{ tape.uuid }</div>
                     <div className="songIdLine" onClick={() => getSongEmbed(tape._id)}>{ tape._id }</div>
                   </TapeSpinner>
-                  <div className="small light mobile-only" style={{ paddingLeft: 30, paddingRight: 30, marginTop: -10, marginBottom: 10 }}>{ tape.biography }</div>
+                  { tape.biography && <div className="small light mobile-only" style={{ paddingLeft: 30, paddingRight: 30, marginTop: -10, marginBottom: 10 }}>{ tape.biography }</div> }
                 </Fragment>
               )
             })

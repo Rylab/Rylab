@@ -4,48 +4,17 @@ import { dbCollection } from '../../../utils/mongodb'
 
 const { MANAGE_PASS } = process.env
 
-// TODO: make defaults more dynamic? base on previously submitted values?
-
 const defaultModel = 'text-davinci-003'
-const max_tokens = 350
-
-const defaultTemperature = 0.6
-
-const defaultAdjectives = [
-  'cheesy',
-  'funny',
-  'intelligent',
-  'popular',
-  'serious',
-  'silly',
-  'surprising',
-  'weird',
-  'wild',
-]
-
-const defaultGenres = [
-  'alternative',
-  'ambient',
-  'country',
-  'house',
-  'indie',
-  'jazz',
-  'metal',
-  'opera',
-  'pop',
-  'rap',
-  'rockabilly',
-  'rock',
-]
+const defaultTemperature = 0.5
+const max_tokens = 400
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_KEY,
   organization: process.env.OPENAI_ORG,
 })
 
-const jsonCoercion = ` Respond only with an array of 3 valid JSON objects, each having artist, title, and biography properties. `
-  + `The JSON response should be in this format: `
-  + `[{"artist":"string","title":"string"},{"artist":"string","title":"string"},{"artist":"string","title":"string"}]`
+const jsonCoercion = ` Respond only with an array of 3 valid JSON objects, each having artist and title properties. `
+const jsonCoercionWithBio = ` Respond only with an array of 3 valid JSON objects, each having artist, title, and biography properties. `
 
 const getAdjectives = query => {
   return query.adjectives?.trim() || defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
@@ -136,10 +105,6 @@ export default async function handler(req, res) {
       res.status(200).json(cassetteJson)
     } catch(error) {
       console.error(error)
-
-      if (cassetteRes) {
-        console.log(cassetteRes.data)
-      }
 
       if (error.response) {
         res.status(error.response.status).json(error.response.data)
