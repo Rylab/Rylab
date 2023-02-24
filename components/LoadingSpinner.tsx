@@ -47,7 +47,12 @@ const LoaderContainer = styled.div`
   }
 `
 
-const LoadingSpinner = ({children, style}) => {
+interface LoadingSpinnerProps { 
+  children?: any; 
+  style?: any; 
+}
+
+const LoadingSpinner = ({children, style}: LoadingSpinnerProps) => {
   return (
     <LoaderContainer style={style}>
       <svg className="spinner" viewBox="0 0 50 50">

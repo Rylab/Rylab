@@ -156,7 +156,14 @@ const CassetteContainer = styled.div`
   }
 `
 
-export default function TapeSpinner({children, spin = true, style, id}) {
+interface TapeProps {
+  children: any
+  spin: boolean
+  style: any
+  id: any
+}
+
+export default function TapeSpinner({children, spin = true, style, id}: TapeProps) {
   const leftWheel = useRef(null)
   const rightWheel = useRef(null)
 

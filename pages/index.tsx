@@ -12,7 +12,9 @@ export default function Index() {
   const { password, uuid } = useContext(AppContext)
 
   const [loading, setLoading] = useState(true)
-  const [selves, setSelves] = useState({})
+  const [selves, setSelves] = useState({
+    data: [],
+  })
 
   const getSelves = async () => {
     if (!uuid) return;

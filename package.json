@@ -16,12 +16,22 @@
   "scripts": {
     "dev": "next dev -p 7007",
     "build": "next build",
-    "start": "next start -p 3000"
+    "start": "next start -p 3000",
+    "test": "jest --watch",
+    "test:snap": "jest -u",
+    "test:ci": "jest --ci"
   },
   "version": "0.2.0",
   "devDependencies": {
-    "@types/react": "18.0.28",
+    "@types/react": "^18.0.28",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^14.2.0",
+    "@types/testing-library__jest-dom": "^5.14.5",
     "eslint": "^8.34.0",
-    "eslint-config-next": "13.1.6"
+    "eslint-config-next": "^13.1.6",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "typescript": "^4.6.4"
   }
 }

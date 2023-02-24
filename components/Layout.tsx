@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { ReactNode, useContext } from 'react'
 import { AppContext } from '../pages/_app'
 
 export const baseDomain = process.env.NEXT_PUBLIC_BASE_URI
@@ -23,7 +23,14 @@ export const tapeColors = [
   'rgba(0, 0, 255, 0.3)',
 ]
 
-export default function Layout({ children }) {
+type Props = {
+  children?: ReactNode
+  password?: string
+  setPassword?: any
+  title?: string
+}
+
+export default function Layout({ children }: Props) {
   const { password, setPassword } = useContext(AppContext)
 
   const setManagePass = e => {
@@ -35,7 +42,7 @@ export default function Layout({ children }) {
       const bufferPass = Buffer.from(value, 'utf8')
       const base64Pass = bufferPass.toString('base64')
 
-      setPassword(value)
+      setPassword('')
       localStorage.setItem('managePass', base64Pass)
     } else {
       setPassword('')
@@ -61,11 +68,11 @@ export default function Layout({ children }) {
           <a href={`mailto:0@${baseDomain}`} title="Mail Me?">{ `1@${baseDomain}` }</a>
           &nbsp;&middot;&nbsp;
           <a
-            alt="Content license URL alias for: CC BY-NC-SA 4.0"
+            className="question"
             href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
             rel="noreferrer"
             target="_blank"
-            title="Creative Commons BY-NC-SA 4.0">
+            title="Content license URL alias for: CC BY-NC-SA 4.0">
             some rights reserved</a>
         </p>
         { password
