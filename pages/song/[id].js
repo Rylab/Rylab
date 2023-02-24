@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { AppContext, getHeaders, jsonType } from '../_app'
+import { AppContext, getHeaders } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import Navigation from '../../components/Navigation'
