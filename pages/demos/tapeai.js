@@ -12,7 +12,7 @@ const pageTitle = `${siteTitle} :: Animated AI Cassette Playground`
 
 export default function TapeAiDemo() {
   const { password, uuid } = useContext(AppContext)
-  const [adjectiveInput, setAdjectiveInput] = useState('')
+  const [adjectivesInput, setAdjectivesInput] = useState('')
   const [genreInput, setGenreInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [tapes, setTapes] = useState([])
@@ -24,7 +24,7 @@ export default function TapeAiDemo() {
     setLoading(true)
 
     try {
-      const response = await fetch(`/api/tapeai?adjective=${adjectiveInput}&genre=${genreInput}`, {
+      const response = await fetch(`/api/tapeai?adjectives=${adjectivesInput}&genre=${genreInput}`, {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
       })
@@ -70,7 +70,7 @@ export default function TapeAiDemo() {
         <Navigation path='demos/tapeai' />
         <h1 style={{ marginBottom: 0, marginTop: 25 }}>AI Cassette Tape Generator</h1>
         <div className="light" style={{ padding: 30 }}>Uses OpenAI with this simple prompt:<br />
-        <br /><i>Come up with 3 unique names for music artists in the &quot;genre&quot; genre, and &quot;adjective&quot; unique album&nbsp;titles.</i></div>
+        <br /><i>Come up with 3 unique names for music artists in the &quot;genre&quot; genre and their &quot;adjectives&quot; style album&nbsp;titles.</i></div>
         <form onSubmit={onSubmit}>
           <input
             type="text"
@@ -81,27 +81,27 @@ export default function TapeAiDemo() {
           />
           <input
             type="text"
-            name="adjective"
-            placeholder="Set &quot;adjective&quot;"
-            value={adjectiveInput}
-            onChange={(e) => setAdjectiveInput(e.target.value)}
+            name="adjectives"
+            placeholder="Set &quot;adjectives&quot;"
+            value={adjectivesInput}
+            onChange={(e) => setAdjectivesInput(e.target.value)}
           />
-          <input type="submit" value={`Generate ${tapes.length ? 'More ' : ''}Cassettes`} disabled={ loading || !genreInput || !adjectiveInput } />
+          <input type="submit" value={`Generate ${tapes.length ? 'More ' : ''}Cassettes`} disabled={ loading || !genreInput || !adjectivesInput } />
         </form>
         <div className={styles.result}>
           { loading && <div><LoadingSpinner /></div> }
-          { tapes && tapes.map((song, index) => {
-              const hasLongArtist = song.artist.length > 25
-              const hasLongTitle = song.title.length > 25
+          { tapes && tapes.map((tape, index) => {
+              const hasLongArtist = tape.artist.length > 25
+              const hasLongTitle = tape.title.length > 25
 
               return (
-                <TapeSpinner key={index} style={ song.style }>
-                  <div title={ song.title } onClick={() => getSongEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-                    { song.title }</div>
-                  <div title={ song.artist } onClick={() => getSongEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-                    { song.artist }</div>
-                  <div className="uuidLine" onClick={()=> getUserEmbed(song.uuid)}>{ song.uuid }</div>
-                  <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{ song._id }</div>
+                <TapeSpinner key={index} style={ tape.style }>
+                  <div title={ tape.title } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+                    { tape.title }</div>
+                  <div title={ tape.biography } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                    { tape.artist }</div>
+                  <div className="uuidLine" onClick={()=> getUserEmbed(tape.uuid)}>{ tape.uuid }</div>
+                  <div className="songIdLine" onClick={() => getSongEmbed(tape._id)}>{ tape._id }</div>
                 </TapeSpinner>
               )
             })
