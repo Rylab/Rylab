@@ -70,7 +70,7 @@ export default function TapeAiDemo() {
         <Navigation path='demos/tapeai' />
         <h1 style={{ marginBottom: 30, marginTop: 25 }}>AI Cassette Tape Generator</h1>
         <div className="light" style={{ marginBottom: 30 }}>Uses OpenAI with a simple prompt:<br />
-        <br /><i>Come up with 3 unique names for music artists in the "genre" genre, and "adjective" unique album titles.</i></div>
+        <br /><i>Come up with 3 unique names for music artists in the &quot;genre&quot; genre, and &quot;adjective&quot; unique album titles.</i></div>
         <form onSubmit={onSubmit}>
           <input
             type="text"
