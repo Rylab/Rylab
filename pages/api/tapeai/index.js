@@ -139,8 +139,6 @@ export default async function handler(req) {
 
       const cassettesJson = await cassettesResult.json()
 
-      console.log(`Genre: ${genre}`)
-      console.log(`Adjectives: ${adjectives}`)
       if (cassettesJson && cassettesJson.choices) {
         console.log(JSON.parse(cassettesJson.choices[0].text.trim()))
         return NextResponse.json(cassettesJson.choices[0].text.trim(), { status: 200 })
@@ -174,10 +172,16 @@ export default async function handler(req) {
 }
 
 function generateCassettePrompt(genre, adjectives) {
-  const generatedPrompt =
-    `Come up with 3 unique names for music artists in the "${genre}" genre and their "${adjectives}" style album title.`
+  const capitalizedAdjectives =
+    adjectives[0].toUpperCase() + adjectives.slice(1)
 
-  console.log(`\n\n${generatedPrompt}`)
+  const capitalizedGenre =
+    genre[0].toUpperCase() + genre.slice(1).toLowerCase()
+
+  const generatedPrompt =
+    `Make up 3 unique band names in the "${capitalizedGenre}" genre, and their "${capitalizedAdjectives}" album titles.`
+
+  console.log(`\n\n${generatedPrompt}..`)
 
   return generatedPrompt + jsonCoercion
 }
