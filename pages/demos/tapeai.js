@@ -66,26 +66,27 @@ export default function TapeAiDemo() {
         <meta name="description" content="TapeSpinner: animated AI Cassette Tape playground." />
         <meta property="og:description" content="RyLaB TapeSpinner: animated AI cassette playground." />
       </Head>
-
       <main className={styles.main}>
         <Navigation path='demos/tapeai' />
         <h1 style={{ marginBottom: 30, marginTop: 25 }}>AI Cassette Tape Generator</h1>
+        <div className="light" style={{ marginBottom: 30 }}>Uses OpenAI with a simple prompt:<br />
+        <br /><i>Come up with 3 unique names for music artists in the "genre" genre, and "adjective" unique album titles.</i></div>
         <form onSubmit={onSubmit}>
           <input
             type="text"
             name="genre"
-            placeholder="Set genre or musical type"
+            placeholder="Set &quot;genre&quot;"
             value={genreInput}
             onChange={(e) => setGenreInput(e.target.value)}
           />
           <input
             type="text"
             name="adjective"
-            placeholder="Add at least one adjective for flavor"
+            placeholder="Set &quot;adjective&quot;"
             value={adjectiveInput}
             onChange={(e) => setAdjectiveInput(e.target.value)}
           />
-          <input type="submit" value="Generate Cassettes" disabled={ loading || !genreInput || !adjectiveInput } />
+          <input type="submit" value={`Generate ${tapes.length ? 'More ' : ''}Cassettes`} disabled={ loading || !genreInput || !adjectiveInput } />
         </form>
         <div className={styles.result}>
           { loading && <div><LoadingSpinner /></div> }
