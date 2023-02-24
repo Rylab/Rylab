@@ -27,7 +27,7 @@ export default function TapeAiDemo() {
   async function onSubmit(event) {
     event.preventDefault()
 
-    let tapeInfo = {}
+    let tapes = []
     setLoading(true)
 
     try {
@@ -35,29 +35,23 @@ export default function TapeAiDemo() {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
       })
-
-      tapeInfo = await response.json()
-
+      
       if (response.status !== 200) {
         console.warn(response)
-
+        
         if (response?.error) throw response.error
         else throw new Error(`GET request failed [status ${response?.status}]`)
       }
 
-      const completions = []
-      const artistResults = tapeInfo.artist.split(',')
-      const titleResults = tapeInfo.title.split(',')
+      tapes = await response.json() ?? []
 
-      artistResults.forEach((artist, index) => {
-        completions.push({
-          artist,
-          style: { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] },
-          title: titleResults[index] || '',
+      if (tapes.length) {
+        tapes.map(tape => {
+          tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })
-      })
+      }
 
-      setResults(completions)
+      setResults(tapes)
       setLoading(false)
     } catch(error) {
       console.error(error)

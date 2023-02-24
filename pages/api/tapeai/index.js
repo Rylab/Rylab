@@ -7,6 +7,7 @@ const { MANAGE_PASS } = process.env
 // TODO: make defaults more dynamic? base on previously submitted values?
 
 const defaultModel = 'text-davinci-003'
+const max_tokens = 350
 
 const defaultTemperature = 0.6
 
@@ -38,7 +39,8 @@ const defaultGenres = [
 ]
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API,
+  apiKey: process.env.OPENAI_KEY,
+  organization: process.env.OPENAI_ORG,
 })
 
 const getAdjective = query => {
@@ -111,39 +113,36 @@ export default async function handler(req, res) {
     const model = getModel(req)
     const temperature = getTemperature(req)
 
-    const artistNamePrompt = generateArtistNamePrompt(genre, adjective)
-    const songTitlePrompt = generateSongTitlePrompt(genre, adjective)
+    const cassettePrompt = generateCassettePrompt(genre, adjective)
 
-    let result = {};
     try {
-      const artistRes = await openai.createCompletion({
+      const cassetteRes = await openai.createCompletion({
+        max_tokens,
         model,
-        prompt: artistNamePrompt,
+        prompt: cassettePrompt,
         temperature,
+        user: uuid,
       })
 
-      const titleRes = await openai.createCompletion({
-        model,
-        prompt: songTitlePrompt,
-        temperature,
-      })
+      const cassetteJson = JSON.parse(cassetteRes.data.choices[0].text)
+      console.log(`\nGenre: ${genre}`)
+      console.log(`Adjective: ${adjective}`)
+      console.log(cassetteJson)
 
-      result.artist = artistRes.data.choices[0].text
-      result.title = titleRes.data.choices[0].text
-
-      res.status(200).json(result)
+      res.status(200).json(cassetteJson)
     } catch(error) {
       console.error(error)
-      if (error.response) {
-        console.error(error.response.status, error.response.data)
 
+      if (cassetteRes) {
+        console.log(cassetteRes.data)
+      }
+
+      if (error.response) {
         res.status(error.response.status).json(error.response.data)
       } else {
-        console.error(`Error from OpenAI API: ${error.message}`)
-
         res.status(500).json({
           error: {
-            message: 'An error occurred processing your request.',
+            message: 'An unexpected error occurred processing your request.',
           }
         })
       }
@@ -176,28 +175,13 @@ export default async function handler(req, res) {
   }
 }
 
-function generateArtistNamePrompt(genre, adjective = 'funny') {
+function generateCassettePrompt(genre, adjective = 'funny') {
   const capitalizedGenre =
     genre[0].toUpperCase() + genre.slice(1).toLowerCase()
 
-  return `Suggest three ${adjective ? `${adjective} ` : ''}names for a music artist in the ${capitalizedGenre} Genre.
-Genre:Rock
-Names:The Beatles, School House Rockers, Rock Around The Clockers
-Genre:Jazz
-Names:Puff the Jazzy Dragon, Xena: Piano Princess, Miles Davis
-Genre:${capitalizedGenre}
-Names:`
-}
+  return `Come up with 3 ${adjective ? `${adjective} ` : ''}names for imaginary music artists in the "${capitalizedGenre}" genre, and their most popular album titles.
 
-function generateSongTitlePrompt(genre, adjective = 'wild') {
-  const capitalizedGenre =
-    genre[0].toUpperCase() + genre.slice(1).toLowerCase()
+  Respond only with an array of 3 valid JSON objects, each having artist and title properties.
 
-  return `Suggest three ${adjective ? `${adjective} ` : ''} titles for a song in the ${capitalizedGenre} Genre.
-Genre:Rock
-Titles:Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-Genre:Jazz
-Titles:Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-Genre:${capitalizedGenre}
-Titles:`
+  The JSON response should be in this format: [{"artist":"string","title":"string"},{"artist":"string","title":"string"},{"artist":"string","title":"string"}]`
 }
