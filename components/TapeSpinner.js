@@ -40,7 +40,7 @@ const CassetteContainer = styled.div`
     width: 202px;
   }
     .artistLine {
-      bottom: 25px;
+      bottom: 24px;
       left: 24px;
       font-style: italic;
       transition: 1s;
