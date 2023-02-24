@@ -179,7 +179,7 @@ function generateCassettePrompt(genre, adjective = 'funny') {
   const capitalizedGenre =
     genre[0].toUpperCase() + genre.slice(1).toLowerCase()
 
-  return `Come up with 3 ${adjective ? `${adjective} ` : ''}names for imaginary music artists in the "${capitalizedGenre}" genre, and their most popular album titles.
+  return `Come up with 3 names for imaginary music artists in the "${capitalizedGenre}" genre, with ${adjective ? `${adjective}` : 'likely'} album titles.
 
   Respond only with an array of 3 valid JSON objects, each having artist and title properties.
 

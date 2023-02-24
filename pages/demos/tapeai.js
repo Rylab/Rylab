@@ -42,7 +42,8 @@ export default function TapeAiDemo() {
         tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
       })
 
-      setTapes(tapesInfo)
+      tapes.unshift(...tapesInfo)
+      setTapes(tapes)
       setLoading(false)
     } catch(error) {
       console.error(error)
@@ -50,7 +51,6 @@ export default function TapeAiDemo() {
       setLoading(false)
 
       if (tapesInfo) console.warn(tapesInfo)
-      setTapes([])
 
       alert(error.message ?? 'Unexpected Error (with no message)')
     }
@@ -88,8 +88,8 @@ export default function TapeAiDemo() {
           <input type="submit" value="Generate Cassettes" disabled={ loading || !genreInput || !adjectiveInput } />
         </form>
         <div className={styles.result}>
-          { tapes.length && !loading ? (
-            tapes.map((song, index) => {
+          { loading && <div><LoadingSpinner /></div> }
+          { tapes && tapes.map((song, index) => {
               const hasLongArtist = song.artist.length > 25
               const hasLongTitle = song.title.length > 25
 
@@ -104,7 +104,7 @@ export default function TapeAiDemo() {
                 </TapeSpinner>
               )
             })
-          ) : (loading ? <LoadingSpinner /> : '' ) }
+          }
         </div>
       </main>
     </>
