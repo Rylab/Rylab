@@ -35,9 +35,9 @@ const defaultGenres = [
 
 
 // const jsonCoercionWithBio = ` Respond only with an array of 3 valid JSON objects, each having artist, title, and biography properties. `
-const jsonCoercion = ` Respond only with an array of 3 valid JSON objects with artist, title, and biography properties. `
-  + `JSON response format: `
-  + `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
+const jsonCoercion = ` Respond only with an array of 3 valid JSON objects with unique artist, title, and biography properties. ` +
+  `JSON format: ` +
+  `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
 
 
 const getAdjectives = adjectives => {
@@ -179,7 +179,8 @@ function generateCassettePrompt(genre, adjectives) {
     genre[0].toUpperCase() + genre.slice(1).toLowerCase()
 
   const generatedPrompt =
-    `Make up 3 unique band names in the "${capitalizedGenre}" genre, and their "${capitalizedAdjectives}" album titles.`
+    `Create 3 unique music artist names in the "${capitalizedGenre}" genre, ` +
+    `and their "${capitalizedAdjectives}" style distinct album titles.`
 
   console.log(`\n\n${generatedPrompt}..`)
 
