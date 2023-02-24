@@ -1,6 +1,6 @@
-import { validateUuid } from '../../../utils/helpers'
+import { NextResponse } from 'next/server'
 
-const { MANAGE_PASS } = process.env
+import { validateUuid } from '../../../utils/helpers'
 
 const defaultModel = 'text-davinci-003'
 const defaultTemperature = 0.5
@@ -70,7 +70,7 @@ export const config = {
 
 export default async function handler(req) {
   if (!process.env.OPENAI_KEY) {
-    return new Response(JSON.stringify({
+    return NextResponse.json(JSON.stringify({
       error: {
         message: 'OpenAI API key not set; see instructions in README.md',
       }
@@ -89,14 +89,14 @@ export default async function handler(req) {
   }
   
   if (!uuid) {
-    return new Response(JSON.stringify({
+    return NextResponse.json(JSON.stringify({
       error: {
         message: 'UUID not set; see instructions in README.md',
       }
     }), { status: 400 })
   }
   
-  const isAdmin = headers.get('x-admin') === MANAGE_PASS
+  const isAdmin = headers.get('x-admin') === process.env.MANAGE_PASS
   const searchParams = new URLSearchParams(decodeURI(nextUrl.search))
 
   switch (method) {
@@ -105,7 +105,7 @@ export default async function handler(req) {
     const genre = getGenre(searchParams.get('genre'))
 
     if (!genre) {
-      return new Response(JSON.parse({
+      return NextResponse.json(JSON.stringify({
         error: {
           message: 'Genre type not valid; see instructions in README.md',
         }
@@ -139,18 +139,22 @@ export default async function handler(req) {
 
       const cassettesJson = await cassettesResult.json()
 
-      console.log(`\nGenre: ${genre}`)
+      console.log(`Genre: ${genre}`)
       console.log(`Adjectives: ${adjectives}`)
-      console.log(cassettesJson.choices[0].text.trim())
-
-      return new Response(cassettesJson.choices[0].text.trim(), { status: 200 })
+      if (cassettesJson && cassettesJson.choices) {
+        console.log(JSON.parse(cassettesJson.choices[0].text.trim()))
+        return NextResponse.json(cassettesJson.choices[0].text.trim(), { status: 200 })
+      } else {
+        console.warn(cassettesResult)
+        return NextResponse.json(JSON.stringify({ error: { message: 'Missing expected completion data' }}), { status: 400 })
+      }
     } catch(error) {
       console.error(error)
 
       if (error.response) {
-        return new Response(JSON.stringify(error.response), { status: 400 })
+        return NextResponse.json(JSON.stringify(error.response), { status: 400 })
       } else {
-        return new Response(JSON.stringify({
+        return nNextResponse.json(JSON.stringify({
           error: {
             message: 'An unexpected error occurred processing your request.',
           }
@@ -160,7 +164,7 @@ export default async function handler(req) {
   break
 
   default:
-    return new Response(JSON.stringify({
+    return NextResponse.json(JSON.stringify({
       error: {
         message: `Unexpected ${method} attempt on /api/songs`,
       }
@@ -171,9 +175,9 @@ export default async function handler(req) {
 
 function generateCassettePrompt(genre, adjectives) {
   const generatedPrompt =
-    `Come up with 3 unique names for music artists in the "${genre}" genre and their "${adjectives}" style album titles.`
+    `Come up with 3 unique names for music artists in the "${genre}" genre and their "${adjectives}" style album title.`
 
-  console.log(generatedPrompt)
+  console.log(`\n\n${generatedPrompt}`)
 
   return generatedPrompt + jsonCoercion
 }
