@@ -42,6 +42,7 @@ const CassetteContainer = styled.div`
     .artistLine {
       bottom: 25px;
       left: 24px;
+      font-style: italic;
       transition: 1s;
     }
     .artistLine:hover, .titleLine:hover {
@@ -60,6 +61,7 @@ const CassetteContainer = styled.div`
       left: 24px;
       bottom: 46px;
       transition: 1s;
+      font-weight: 600;
     }
     .titleLine.long {
       font-size: 11px;
@@ -69,21 +71,26 @@ const CassetteContainer = styled.div`
       left: 20px;
     }
 
-  .songIdLine {
-    display: none;
-    bottom: 8px;
+  .songIdLine, .uuidLine {
     color: #222;
-    font-size: 9px;
-    right: 15px;
+    text-shadow: 0px 0px 10px #efefef;
   }
-  .uuidLine {
-    position: absolute;
-    color: #eee;
-    text-shadow: 1px 1px 2px black;
-    font-size: 9px;
-    bottom: 3px;
-    left: -20px;
-  }
+    .songIdLine {
+      display: none;
+      bottom: 8px;
+      font-size: 9px;
+      right: 15px;
+    }
+    .uuidLine {
+      position: absolute;
+      font-size: 9px;
+      bottom: 3px;
+      left: -20px;
+    }
+    .songIdLine:hover:not(.disabled), .uuidLine:hover:not(.disabled) {
+      color: #000;
+      cursor: pointer;
+    }
 
   .notesInput {
     width: 400px;
@@ -130,7 +137,6 @@ const CassetteContainer = styled.div`
     }
     .artistLine {
       bottom: 41px;
-      font-style: italic;
     }
       .artistLine.long {
         bottom: 41px;
@@ -138,7 +144,6 @@ const CassetteContainer = styled.div`
       }
     .titleLine {
       bottom: 76px;
-      font-weight: 600;
     }
       .titleLine.long {
         bottom: 75px;
