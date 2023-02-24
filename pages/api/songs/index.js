@@ -1,12 +1,10 @@
 import { dbCollection } from '../../../utils/mongodb'
 import { validateUuid } from '../../../utils/helpers'
 
-const { MANAGE_PASS } = process.env
-
 export default async function handler(req, res) {
   const { headers, method } = req
 
-  let isAdmin = headers['x-admin'] === MANAGE_PASS
+  let isAdmin = headers['x-admin'] === process.env.MANAGE_PASS
   let { filter = '{}', order = 'asc', sort = '' } = req.query
 
   let data = []

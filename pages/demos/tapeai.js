@@ -30,14 +30,13 @@ export default function TapeAiDemo() {
       })
       
       const responseJson = await response.json()
+      tapesInfo = JSON.parse(responseJson) ?? []
 
       if (response.status !== 200) {       
-        let message = responseJson.error.message ?? 'GET request failed'
+        let message = tapesInfo.error?.message ?? 'GET request failed'
 
         throw new Error(`${message} [status: ${response.status}]`)
       }
-
-      tapesInfo = responseJson ?? []
 
       tapesInfo.map(tape => {
         tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
@@ -69,7 +68,8 @@ export default function TapeAiDemo() {
         <Navigation path='demos/tapeai' />
         <h1 style={{ marginBottom: 0, marginTop: 25 }}>AI Cassette Tape&nbsp;Generator</h1>
         <div className="light" style={{ padding: 30 }}>Uses OpenAI completion with this prompt:<br />
-        <br /><i>Come up with 3 unique names for music artists in the &quot;Genre&quot; genre and their &quot;Adjectives&quot; style album&nbsp;titles.</i></div>
+        <br /><i>Come up with 3 unique names for music artists in the &quot;Genre&quot; genre and their
+          &quot;Adjectives&quot; style album&nbsp;title.</i></div>
         <form onSubmit={onSubmit}>
           <input
             type="text"
