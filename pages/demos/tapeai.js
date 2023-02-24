@@ -29,14 +29,15 @@ export default function TapeAiDemo() {
         method: 'GET',
       })
       
-      if (response.status !== 200) {
-        console.warn(response)
-        
-        if (response?.error) throw response.error
-        else throw new Error(`GET request failed [status ${response?.status}]`)
+      const responseJson = await response.json()
+
+      if (response.status !== 200) {       
+        let message = responseJson.error.message ?? 'GET request failed'
+
+        throw new Error(`${message} [status: ${response.status}]`)
       }
 
-      tapesInfo = await response.json() ?? []
+      tapesInfo = responseJson ?? []
 
       tapesInfo.map(tape => {
         tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
@@ -49,8 +50,6 @@ export default function TapeAiDemo() {
       console.error(error)
 
       setLoading(false)
-
-      if (tapesInfo) console.warn(tapesInfo)
 
       alert(error.message ?? 'Unexpected Error (with no message)')
     }
@@ -107,12 +106,12 @@ export default function TapeAiDemo() {
                   <TapeSpinner style={ tape.style }>
                     <div title={ tape.title } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
                       { tape.title }</div>
-                    <div title={ tape.biography ?? tape.artist } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                    <div title={ tape.bio ?? tape.artist } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
                       { tape.artist }</div>
                     <div className="uuidLine" onClick={()=> getUserEmbed(tape.uuid)}>{ tape.uuid }</div>
                     <div className="songIdLine" onClick={() => getSongEmbed(tape._id)}>{ tape._id }</div>
                   </TapeSpinner>
-                  { tape.biography && <div className="small light mobile-only" style={{ paddingLeft: 30, paddingRight: 30, marginTop: -10, marginBottom: 10 }}>{ tape.biography }</div> }
+                  { tape.bio && <div className="small light mobile-only" style={{ paddingLeft: 30, paddingRight: 30, marginTop: -10, marginBottom: 10 }}>{ tape.bio }</div> }
                 </Fragment>
               )
             })
