@@ -151,7 +151,7 @@ export default async function handler(req, res) {
 
   case 'POST':
     try {
-      const { tapeApiCollection } = await dbCollection('tapeAi')
+      const { tapeAiCollection } = await dbCollection('tapeAi')
       const { headers, body } = req
 
       if (!isAdmin && headers['x-uuid'] !== body.uuid) {
@@ -159,7 +159,7 @@ export default async function handler(req, res) {
         break
       }
 
-      const result = await tapeApiCollection.save(body)
+      const result = await tapeAiCollection.save(body)
 
       res.status(200).json({ success: true, data: result })
     } catch (error) {

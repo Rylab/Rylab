@@ -12,13 +12,12 @@ export default async function handler(req, res) {
   let filterObject = {}
   let result = null
   let sortObject = {}
-  let songsCollection
   let uuid = headers['x-uuid'] ?? 'anon'
 
   switch (method) {
     case 'GET':
       try {
-        songsCollection = await dbCollection('songs')
+        const { songsCollection } = await dbCollection('songs')
 
         if (isAdmin) {
           filterObject = JSON.parse(filter) || {}
@@ -50,7 +49,7 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        songsCollection = await dbCollection('songs')
+        const { songsCollection } = await dbCollection('songs')
         const { song } = req
 
         if (!uuid) {

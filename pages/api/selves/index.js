@@ -4,7 +4,6 @@ import { dbCollection } from '../../../utils/mongodb'
 export default async function handler(req, res) {
   const { headers, method } = req
 
-  let selvesCollection
   let { order, sort = 'name' } = req.query
 
   switch (method) {
@@ -13,7 +12,7 @@ export default async function handler(req, res) {
       let success
 
       try {
-        selvesCollection = await dbCollection('selves')
+        const { selvesCollection } = await dbCollection('selves')
 
         if (selvesCollection) {
           let sortObj = {}
