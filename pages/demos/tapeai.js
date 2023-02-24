@@ -69,20 +69,22 @@ export default function TapeAiDemo() {
       <main className={styles.main}>
         <Navigation path='demos/tapeai' />
         <h1 style={{ marginBottom: 0, marginTop: 25 }}>AI Cassette Tape&nbsp;Generator</h1>
-        <div className="light" style={{ padding: 30 }}>Uses OpenAI with this simple prompt:<br />
-        <br /><i>Come up with 3 unique names for music artists in the &quot;genre&quot; genre and their &quot;adjectives&quot; style album&nbsp;titles.</i></div>
+        <div className="light" style={{ padding: 30 }}>Uses OpenAI completion with this prompt:<br />
+        <br /><i>Come up with 3 unique names for music artists in the &quot;Genre&quot; genre and their &quot;Adjectives&quot; style album&nbsp;titles.</i></div>
         <form onSubmit={onSubmit}>
           <input
             type="text"
             name="genre"
-            placeholder="Set &quot;genre&quot;"
+            maxLength={45}
+            placeholder="Genre"
             value={genreInput}
             onChange={(e) => setGenreInput(e.target.value)}
           />
           <input
             type="text"
             name="adjectives"
-            placeholder="Set &quot;adjectives&quot;"
+            maxLength={45}
+            placeholder="Adjectives"
             value={adjectivesInput}
             onChange={(e) => setAdjectivesInput(e.target.value)}
           />

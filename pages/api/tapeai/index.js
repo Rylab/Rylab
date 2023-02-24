@@ -8,20 +8,51 @@ const defaultModel = 'text-davinci-003'
 const defaultTemperature = 0.5
 const max_tokens = 400
 
+const defaultAdjectives = [
+  'cheesy',
+  'funny',
+  'intelligent',
+  'popular',
+  'serious',
+  'silly',
+  'surprising',
+  'weird',
+  'wild',
+]
+
+const defaultGenres = [
+  'alternative',
+  'ambient',
+  'country',
+  'house',
+  'indie',
+  'jazz',
+  'metal',
+  'opera',
+  'pop',
+  'rap',
+  'rockabilly',
+  'rock',
+]
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_KEY,
   organization: process.env.OPENAI_ORG,
 })
 
-const jsonCoercion = ` Respond only with an array of 3 valid JSON objects, each having artist and title properties. `
+const jsonCoercion = ` Respond only with an array of 3 valid JSON objects with artist and title properties. `
 const jsonCoercionWithBio = ` Respond only with an array of 3 valid JSON objects, each having artist, title, and biography properties. `
 
 const getAdjectives = query => {
-  return query.adjectives?.trim() || defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
+  const trimmedAdjectives = query.adjectives.trim().replace(/^"(.+(?="$))"$/, '$1')
+
+  return trimmedAdjectives ?? defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
 }
 
 const getGenre = query => {
-  return query.genre?.trim() || defaultGenres[~~(Math.random() * defaultGenres.length)]
+  const trimmedGenre = query.genre.trim().replace(/^"(.+(?="$))"$/, '$1')
+
+  return trimmedGenre ?? defaultGenres[~~(Math.random() * defaultGenres.length)]
 }
 
 const getModel = query => {
