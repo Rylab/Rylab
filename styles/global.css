@@ -50,7 +50,7 @@ img.icon {
 
 .footer {
   text-align: center;
-  margin: 50px auto 30px auto;
+  margin: 70px auto 30px auto;
 }
   .embedding ~ .footer {
     margin: 30px auto 0px auto;
@@ -112,12 +112,10 @@ a {
     border-bottom: 1px #9c9c9c dotted;
     transition: 0.22s;
   }
-  a:visited:not(:hover) {
-    color: #7bafc3;
-  }
   .question a, a.question {
     cursor: alias;
   }
+
 p {
   font-size: 11pt;
 }
@@ -446,7 +444,7 @@ ul.narrow {
     margin-top: 10px;
   }
   ul.narrow {
-    max-width: 222px;
+    max-width: 280px;
   }
   ul.list {
     padding: 16px 18px;
@@ -458,9 +456,6 @@ ul.narrow {
 }
 
 @media(min-width: 1017px) {
-  .bsd {
-    padding: 16%;
-  }
   .header {
     background-position: 0px -40px;
     border-radius: 0;
@@ -483,12 +478,9 @@ ul.narrow {
 }
 
 @media(min-width: 1317px) {
-  .bsd {
-    padding: 17%;
-  }
   .footer {
     text-align: right;
-    margin: 50px 50px 30px 0px;
+    margin: 80px 50px 30px 0px;
   }
   .adminCheck input {
     margin: 20px 0 0 auto;

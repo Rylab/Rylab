@@ -1,13 +1,10 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useContext, useState } from 'react'
 
 import { AppContext, getHeaders, jsonType } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
-
-import TapeSpinner from '../../components/TapeSpinner'
-import LoadingSpinner from '../../components/LoadingSpinner'
-import Navigation from '../../components/Navigation'
+import { TapeSpinner, LoadingSpinner, Navigation } from '../../components'
+import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
 import styles from '../../styles/ai.module.css'
 
@@ -18,16 +15,12 @@ export default function TapeAiDemo() {
   const [adjectiveInput, setAdjectiveInput] = useState('')
   const [genreInput, setGenreInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState([])
-
-  const getEmbed = _id => {
-    window.open(`/song/${_id}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450');
-  }
+  const [tapes, setTapes] = useState([])
 
   async function onSubmit(event) {
     event.preventDefault()
 
-    let tapes = []
+    let tapesInfo = []
     setLoading(true)
 
     try {
@@ -43,23 +36,21 @@ export default function TapeAiDemo() {
         else throw new Error(`GET request failed [status ${response?.status}]`)
       }
 
-      tapes = await response.json() ?? []
+      tapesInfo = await response.json() ?? []
 
-      if (tapes.length) {
-        tapes.map(tape => {
-          tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
-        })
-      }
+      tapesInfo.map(tape => {
+        tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
+      })
 
-      setResults(tapes)
+      setTapes(tapesInfo)
       setLoading(false)
     } catch(error) {
       console.error(error)
 
       setLoading(false)
 
-      if (tapeInfo) console.warn(tapeInfo)
-      setResults([])
+      if (tapesInfo) console.warn(tapesInfo)
+      setTapes([])
 
       alert(error.message ?? 'Unexpected Error (with no message)')
     }
@@ -97,19 +88,19 @@ export default function TapeAiDemo() {
           <input type="submit" value="Generate Cassettes" disabled={ loading || !genreInput || !adjectiveInput } />
         </form>
         <div className={styles.result}>
-          { results.length && !loading ? (
-            results.map((song, index) => {
+          { tapes.length && !loading ? (
+            tapes.map((song, index) => {
               const hasLongArtist = song.artist.length > 25
               const hasLongTitle = song.title.length > 25
 
               return (
                 <TapeSpinner key={index} style={ song.style }>
-                  <div title={ song.title } onClick={() => getEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+                  <div title={ song.title } onClick={() => getSongEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
                     { song.title }</div>
-                  <div title={ song.artist } onClick={() => getEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                  <div title={ song.artist } onClick={() => getSongEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
                     { song.artist }</div>
-                  <div className="songIdLine" onClick={() => getEmbed(song._id)}>{ song._id }</div>
-                  <div className="uuidLine"><Link href={`/songs/${song.uuid}`}>{ song.uuid }</Link></div>
+                  <div className="uuidLine" onClick={()=> getUserEmbed(song.uuid)}>{ song.uuid }</div>
+                  <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{ song._id }</div>
                 </TapeSpinner>
               )
             })

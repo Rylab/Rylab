@@ -9,7 +9,7 @@ import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import Navigation from '../../components/Navigation'
 import TapeSpinner from '../../components/TapeSpinner'
-import { selectText } from '../../utils/helpers'
+import { getUserEmbed, selectText } from '../../utils/helpers'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
 
@@ -68,14 +68,11 @@ export default function SongDetail() {
           _id: 404,
           artist: '404',
           title: 'Song Not Found',
+          uuid: '404',
         })
       }
     }
   }, [router])
-
-  const getEmbed = songId => {
-    window.open(`/song/${songId}`, 'rylab', 'menubar=1,resizable=1,width=350,height=250');
-  }
 
   const hasLongArtist = song.artist?.length > 25
   const hasLongTitle = song.title?.length > 25
@@ -83,7 +80,7 @@ export default function SongDetail() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ baseUrl }/song/${ song._id }`} />
+        <link rel="canonical" href={`${ baseUrl }/song/${ song._id ?? '404' }`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
@@ -94,12 +91,12 @@ export default function SongDetail() {
         { song._id ? (
         <>
           <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
-            <div title={ song.title } onClick={() => getEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+            <div title={ song.title } className={`disabled titleLine${hasLongTitle ? ' long' : ''}`}>
               { song.title }</div>
-            <div title={ song.artist } onClick={() => getEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+            <div title={ song.artist } className={`disabled artistLine${hasLongArtist ? ' long' : ''}`}>
               { song.artist }</div>
-            <div className="songIdLine">{ song._id }</div>
-            <div className="uuidLine"><Link href={`/songs/${song.uuid}`}>{ song.uuid }</Link></div>
+            <div className="uuidLine" onClick={() => getUserEmbed(song.uuid)}><Link href={`/songs/${song.uuid}`}>{ song.uuid }</Link></div>
+            <div className="disabled songIdLine">{ song._id }</div>
           </TapeSpinner>
           <div className="embedCodeContainer selectable">
             <h4 onClick={() => selectText('embedCode')}>Click to copy embed code</h4>

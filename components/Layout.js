@@ -24,7 +24,7 @@ export const tapeColors = [
 ]
 
 export default function Layout({ children }) {
-  const { uuid, setUuid, password, setPassword } = useContext(AppContext)
+  const { password, setPassword } = useContext(AppContext)
 
   const setManagePass = e => {
     if (typeof e.preventDefault === 'function') e.preventDefault()
@@ -38,7 +38,7 @@ export default function Layout({ children }) {
       setPassword(value)
       localStorage.setItem('managePass', base64Pass)
     } else {
-      setPassword(null)
+      setPassword('')
       localStorage.removeItem('managePass')
     }
   }

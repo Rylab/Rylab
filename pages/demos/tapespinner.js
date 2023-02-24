@@ -1,11 +1,11 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { AppContext, getHeaders } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
 import { Navigation, TapeAdder, TapeSpinner } from '../../components'
+import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
 
@@ -47,10 +47,6 @@ export default function TapeSpinnerDemo() {
     }
   }
 
-  const getEmbed = _id => {
-    window.open(`/song/${_id}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450')
-  }
-
   const getDemoSongs = async () => {
     try {
       setLoading(true)
@@ -69,11 +65,13 @@ export default function TapeSpinnerDemo() {
         
         setSongs(songRes.data)
       } else {
+        setSongs([])
         console.error(res)
       }
 
       setLoading(false)
     } catch (error) {
+      setSongs([])
       setLoading(false)
       console.error(error)
     }
@@ -119,9 +117,9 @@ export default function TapeSpinnerDemo() {
         artist: 'Failed Hacker #2',
         spin: false,
       })
-
-      getDemoSongs()
     }
+
+    getDemoSongs()
   }, [addedTapeCount, password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -141,12 +139,12 @@ export default function TapeSpinnerDemo() {
 
           return (
             <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
-              <div title={ song.title } onClick={() => getEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+              <div title={ song.title } onClick={() => getSongEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
                 { song.title }</div>
-              <div title={ song.artist } onClick={() => getEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+              <div title={ song.artist } onClick={() => getSongEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
                 { song.artist }</div>
-              <div className="songIdLine" onClick={() => getEmbed(song._id)}>{ song._id }</div>
-              <div className="uuidLine"><Link href={`/songs/${song.uuid}`}>{ song.uuid }</Link></div>
+              <div className="uuidLine" onClick={() => getUserEmbed(song.uuid)}>{ song.uuid }</div>
+              <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{ song._id }</div>
             </TapeSpinner>
           )
         })}
@@ -160,8 +158,8 @@ export default function TapeSpinnerDemo() {
                 { tapes[tapeKey].title }</div>
               <div title={ hasLongArtist ? tapes[tapeKey].artist : '' } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
                 { tapes[tapeKey].artist }</div>
-                <div className={`songIdLine`} onClick={() => getEmbed(tapes[tapeKey]._id)}>{ tapes[tapeKey]._id }</div>
-              <div className={`uuidLine`} onClick={() => getEmbed(tapeKey)}>{ tapeKey }</div>
+              <div className="disabled uuidLine">{ tapeKey }</div>
+              <div className="disabled songIdLine">{ tapes[tapeKey]._id }</div>
             </TapeSpinner>
           )
         })}

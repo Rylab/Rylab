@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
@@ -7,7 +6,7 @@ import styled from 'styled-components'
 import { AppContext, getHeaders } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
 import { Navigation, TapeAdder, TapeSpinner } from '../../components'
-import { validateUuid } from '../../utils/helpers'
+import { getSongEmbed, validateUuid } from '../../utils/helpers'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
 
@@ -15,7 +14,7 @@ export default function SongsByUuid() {
   const [canAdd, setCanAdd] = useState(false)
   const { password, uuid } = useContext(AppContext)
   const [songs, setSongs] = useState([])
-  const [pageUuid, setPageUuid] = useState({})
+  const [pageUuid, setPageUuid] = useState('')
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
@@ -25,18 +24,14 @@ export default function SongsByUuid() {
       if (router.query.uuid) {
         const decodedUuid = validateUuid(decodeURI(router.query.uuid))
 
-        if (decodedUid) {
+        if (decodedUuid) {
           getSongs(decodedUuid)
           setCanAdd(decodedUuid === uuid)
           setPageUuid(decodeURI(decodedUuid))
         }
       }
     }
-  }, [router, uuid])
-
-  const getEmbed = songId => {
-    window.open(`/song/${songId}`, 'rylab', 'menubar=1,resizable=1,width=600,height=420');
-  }
+  }, [router, password, uuid])
 
   const getSongs = async targetUuid => {
     try {
@@ -83,17 +78,16 @@ export default function SongsByUuid() {
 
           return (
             <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
-              <div title={ song.title } onClick={() => getEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+              <div title={ song.title } onClick={() => getSongEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
                 { song.title }</div>
-              <div title={ song.artist } onClick={() => getEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+              <div title={ song.artist } onClick={() => getSongEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
                 { song.artist }</div>
-              <div className="songIdLine" onClick={() => getEmbed(song._id)}>{ song._id }</div>
-              <div className="uuidLine"><Link href={`/songs/${song.uuid}`}>{ song.uuid }</Link></div>
+              <div className="disabled uuidLine">{ song.uuid }</div>
+              <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{ song._id }</div>
             </TapeSpinner>
           )
         })}
-
-        <TapeAdder />
+        { canAdd && <TapeAdder /> }
       </main>
     </>
   )

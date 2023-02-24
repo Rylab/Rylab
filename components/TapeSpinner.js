@@ -71,21 +71,26 @@ const CassetteContainer = styled.div`
       left: 20px;
     }
 
-  .songIdLine {
-    display: none;
-    bottom: 8px;
+  .songIdLine, .uuidLine {
     color: #222;
-    font-size: 9px;
-    right: 15px;
+    text-shadow: 0px 0px 10px #efefef;
   }
-  .uuidLine {
-    position: absolute;
-    color: #eee;
-    text-shadow: 1px 1px 2px black;
-    font-size: 9px;
-    bottom: 3px;
-    left: -20px;
-  }
+    .songIdLine {
+      display: none;
+      bottom: 8px;
+      font-size: 9px;
+      right: 15px;
+    }
+    .uuidLine {
+      position: absolute;
+      font-size: 9px;
+      bottom: 3px;
+      left: -20px;
+    }
+    .songIdLine:hover:not(.disabled), .uuidLine:hover:not(.disabled) {
+      color: #000;
+      cursor: pointer;
+    }
 
   .notesInput {
     width: 400px;

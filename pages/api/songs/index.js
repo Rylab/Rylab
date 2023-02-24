@@ -1,4 +1,5 @@
 import { dbCollection } from '../../../utils/mongodb'
+import { validateUuid } from '../../../utils/helpers'
 
 const { MANAGE_PASS } = process.env
 
@@ -12,7 +13,7 @@ export default async function handler(req, res) {
   let filterObject = {}
   let result = null
   let sortObject = {}
-  let uuid = headers['x-uuid'] ?? 'anon'
+  let uuid = validateUuid(headers['x-uuid']) ?? 'anonymous'
 
   switch (method) {
     case 'GET':
@@ -20,7 +21,7 @@ export default async function handler(req, res) {
         const { songsCollection } = await dbCollection('songs')
 
         if (isAdmin) {
-          filterObject = JSON.parse(filter) || {}
+          filterObject = JSON.parse(filter) ?? {}
         } else {
           filterObject = {
             '$or': [
@@ -30,7 +31,7 @@ export default async function handler(req, res) {
           }
         }
 
-        sort = sort.trim() ?? 'artist'
+        sort = sort ? sort.trim() : 'artist'
         sortObject[sort] = order === 'desc' ? -1 : 1
 
         if (songsCollection) {

@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }) {
         const bufferPass = Buffer.from(localPass, 'base64')
         const managePass = bufferPass.toString('utf8')
 
-        setPassword(managePass ?? null)
+        setPassword(managePass ?? '')
       }
     }
   }, [router]) // eslint-disable-line react-hooks/exhaustive-deps
