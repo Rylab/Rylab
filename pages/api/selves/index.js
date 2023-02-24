@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       let success
 
       try {
-        const { selvesCollection } = await dbCollection('selves')
+        const { selvesCollection = false } = await dbCollection('selves')
 
         if (selvesCollection) {
           let sortObj = {}

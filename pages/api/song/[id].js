@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       try {
         _id = new ObjectId(id)
 
-        const { songsCollection } = await dbCollection('songs')
+        const { songsCollection = false } = await dbCollection('songs')
         songRes = await songsCollection.findOne({ _id })
 
         res.status(200).json({ success: true, data: songRes })
