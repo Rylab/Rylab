@@ -68,8 +68,8 @@ export default function TapeAiDemo() {
         <Navigation path='demos/tapeai' />
         <h1 style={{ marginBottom: 0, marginTop: 25 }}>AI Cassette Tape&nbsp;Generator</h1>
         <div className="light" style={{ padding: 30 }}>Uses OpenAI completion with this prompt:<br />
-        <br /><i>Come up with 3 unique names for music artists in the &quot;Genre&quot; genre and their
-          &quot;Adjectives&quot; style album&nbsp;title.</i></div>
+        <br /><i>Make up 3 unique band names in the &quot;Genre&quot; genre, and their
+          &quot;Adjectives&quot; album&nbsp;titles.</i></div>
         <form onSubmit={onSubmit}>
           <input
             type="text"
