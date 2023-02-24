@@ -9,7 +9,7 @@ export default function InternalServerError() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`https://${ baseUrl }/500`} />
+        <link rel="canonical" href={`${ baseUrl }/500`} />
         <title>{ pageTitle }</title>
       </Head>
       <div className="content" style={{ marginTop: 100 }}>

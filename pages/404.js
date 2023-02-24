@@ -9,7 +9,7 @@ export default function NotFound() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`https://${ baseUrl }/404`} />
+        <link rel="canonical" href={`${ baseUrl }/404`} />
         <title>{ pageTitle }</title>
       </Head>
       <div className="content" style={{ marginTop: 100 }}>

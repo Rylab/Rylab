@@ -20,14 +20,14 @@ export default function EmbedDemo() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`https://${baseUrl}/demos/embed`} />
+        <link rel="canonical" href={`${baseUrl}/demos/embed`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component iframe embedding demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component embedding example." />
       </Head>
       <main className="embedding hideFooter" style={{ marginTop: 50 }}>
-        <TapeEmbed className="tapeEmbed" src={`http://${baseUrl}/song/${sampleSongId}?embed=true`} />
+        <TapeEmbed className="tapeEmbed" src={`${baseUrl}/song/${sampleSongId}?embed=true`} />
       </main>
     </>
   )

@@ -75,7 +75,8 @@ export default async function handler(req, res) {
   if (headers['x-uuid'] && validateUuid(headers['x-uuid'])) {
     uuid = headers['x-uuid']
   } else {
-    console.error('NO UUID')
+    console.warn('Invalid or empty UUID:')
+    console.warn(uuid)
   }
 
   if (!uuid) {

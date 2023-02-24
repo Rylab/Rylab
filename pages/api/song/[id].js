@@ -33,8 +33,8 @@ export default async function handler(req, res) {
 
         res.status(400).json({ success: false, data: {
           '_id': 404,
-          'artist': 'Try Again',
-          'title': 'Song Not Found',
+          artist: 'Try Again',
+          title: 'Song Not Found',
         } })
       }
     break

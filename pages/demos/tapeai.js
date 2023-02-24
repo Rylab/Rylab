@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useContext, useState } from 'react'
 
-import { AppContext, jsonType } from '../_app'
+import { AppContext, getHeaders, jsonType } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
 
 import TapeSpinner from '../../components/TapeSpinner'
@@ -13,7 +13,7 @@ import styles from '../../styles/ai.module.css'
 
 const pageTitle = `${siteTitle} :: Animated AI Cassette Playground`
 
-export default function AiPlayground() {
+export default function TapeAiDemo() {
   const { password, uuid } = useContext(AppContext)
   const [adjectiveInput, setAdjectiveInput] = useState('')
   const [genreInput, setGenreInput] = useState('')
@@ -31,20 +31,8 @@ export default function AiPlayground() {
     setLoading(true)
 
     try {
-      const headers = {
-        accept: jsonType,
-        'content-type': jsonType,
-      }
-
-      if (password) {
-        headers['x-admin'] = password
-      }
-      if (uuid) {
-        headers['x-uuid'] = uuid
-      }
-
       const response = await fetch(`/api/tapeai?adjective=${adjectiveInput}&genre=${genreInput}`, {
-        headers,
+        headers: getHeaders({ uuid, password }),
         method: 'GET',
       })
 
@@ -87,7 +75,7 @@ export default function AiPlayground() {
     <>
       <Head>
         <title>{ pageTitle }</title>
-        <link rel="canonical" href={`https://${baseUrl}/demos/tapeai`} />
+        <link rel="canonical" href={`${baseUrl}/demos/tapeai`} />
         <link rel="icon" href="/img/bsd_introvert.png" />
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner: animated AI Cassette Tape playground." />

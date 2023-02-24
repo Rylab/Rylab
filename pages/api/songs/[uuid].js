@@ -11,11 +11,11 @@ export default async function handler(req, res) {
     method,
   } = req
 
+  let isAdmin = headers['x-admin'] === MANAGE_PASS
   let now = new Date()
   let songUpdate
-  let isAdmin = headers['x-admin'] === MANAGE_PASS
-
   let _uuid
+
   switch (method) {
     case 'GET':
       try {

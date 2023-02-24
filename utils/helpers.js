@@ -4,13 +4,14 @@ import { v4 as uuidv4 } from 'uuid'
 const MIN_UUID_LENGTH = 12
 const MAX_UUID_LENGTH = 36
 
-export function selectText(id) {
+export function selectText(className) {
   let nav
   let sel
 
   try {
-    if (window.getSelection && document.createRange) {
-      nav = document.getElementById(id)
+    // basic browser compatibility check
+    if (window.getSelection && document.getElementsByClassName && document.createRange) {
+      nav = document.getElementsByClassName(className)[0]
       sel = window.getSelection()
 
       window.setTimeout(() => {
@@ -23,7 +24,7 @@ export function selectText(id) {
       })
     }
   } catch (e) {
-    console.warn('Text selection or clipboard usage not supported.')
+    console.warn('Text selection or clipboard usage not fully supported.')
   }
 }
 

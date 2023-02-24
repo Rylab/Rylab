@@ -8,6 +8,18 @@ import { initUuid } from '../utils/helpers'
 export const AppContext = createContext({})
 export const jsonType = 'application/json'
 
+export const getHeaders = ({ uuid, password }) => {
+  const headers = {
+    accept: jsonType,
+    'content-type': jsonType,
+    'x-uuid': uuid ?? 'anonymous',
+  }
+
+  if (password) headers['x-admin'] = password
+
+  return headers
+}
+
 export default function App({ Component, pageProps }) {
   const router = useRouter()
   const [password, setPassword] = useState('')

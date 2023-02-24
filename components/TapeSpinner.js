@@ -42,6 +42,7 @@ const CassetteContainer = styled.div`
     .artistLine {
       bottom: 25px;
       left: 24px;
+      font-style: italic;
       transition: 1s;
     }
     .artistLine:hover, .titleLine:hover {
@@ -60,6 +61,7 @@ const CassetteContainer = styled.div`
       left: 24px;
       bottom: 46px;
       transition: 1s;
+      font-weight: 600;
     }
     .titleLine.long {
       font-size: 11px;
@@ -130,7 +132,6 @@ const CassetteContainer = styled.div`
     }
     .artistLine {
       bottom: 41px;
-      font-style: italic;
     }
       .artistLine.long {
         bottom: 41px;
@@ -138,7 +139,6 @@ const CassetteContainer = styled.div`
       }
     .titleLine {
       bottom: 76px;
-      font-weight: 600;
     }
       .titleLine.long {
         bottom: 75px;
