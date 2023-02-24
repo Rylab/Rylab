@@ -43,8 +43,12 @@ const configuration = new Configuration({
   organization: process.env.OPENAI_ORG,
 })
 
-const getAdjective = query => {
-  return query.adjective?.trim() || defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
+const jsonCoercion = ` Respond only with an array of 3 valid JSON objects, each having artist, title, and biography properties. `
+  + `The JSON response should be in this format: `
+  + `[{"artist":"string","title":"string"},{"artist":"string","title":"string"},{"artist":"string","title":"string"}]`
+
+const getAdjectives = query => {
+  return query.adjectives?.trim() || defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
 }
 
 const getGenre = query => {
@@ -95,7 +99,7 @@ export default async function handler(req, res) {
   
   switch (method) {
     case 'GET':
-    const adjective = getAdjective(query)
+    const adjectives = getAdjectives(query)
     const genre = getGenre(query)
 
     if (!genre) {
@@ -113,7 +117,7 @@ export default async function handler(req, res) {
     const model = getModel(req)
     const temperature = getTemperature(req)
 
-    const cassettePrompt = generateCassettePrompt(genre, adjective)
+    const cassettePrompt = generateCassettePrompt(genre, adjectives)
 
     try {
       const cassetteRes = await openai.createCompletion({
@@ -126,7 +130,7 @@ export default async function handler(req, res) {
 
       const cassetteJson = JSON.parse(cassetteRes.data.choices[0].text)
       console.log(`\nGenre: ${genre}`)
-      console.log(`Adjective: ${adjective}`)
+      console.log(`Adjectives: ${adjectives}`)
       console.log(cassetteJson)
 
       res.status(200).json(cassetteJson)
@@ -175,11 +179,11 @@ export default async function handler(req, res) {
   }
 }
 
-function generateCassettePrompt(genre, adjective = 'funny') {
-  const capitalizedGenre =
-    genre[0].toUpperCase() + genre.slice(1).toLowerCase()
+function generateCassettePrompt(genre, adjectives) {
+  const generatedPrompt =
+    `Come up with 3 unique names for music artists in the "${genre}" genre and their "${adjectives}" style album titles.`
 
-  const generatedPrompt = `Come up with 3 unique names for music artists in the "${capitalizedGenre}" genre, and ${adjective ? `${adjective}` : 'likely'} unique album titles. Respond only with an array of 3 valid JSON objects, each having artist and title properties. The JSON response should be in this format: [{"artist":"string","title":"string"},{"artist":"string","title":"string"},{"artist":"string","title":"string"}]`
+  console.log(generatedPrompt)
 
-  return generatedPrompt
+  return generatedPrompt + jsonCoercion
 }
