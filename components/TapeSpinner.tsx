@@ -43,10 +43,12 @@ const CassetteContainer = styled.div`
       bottom: 24px;
       left: 24px;
       font-style: italic;
-      transition: 1s;
+      transition: 0.5s;
     }
     .artistLine:hover, .titleLine:hover {
       cursor: default;
+      transition: 0.5s;
+      overflow: visible;
       user-select: none;
     }
     .artistLine.long {
