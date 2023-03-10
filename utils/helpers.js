@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-// TODO: actual specific DB-side UUID validation, in addition to basic sanity check
+// TODO: actual specific DB-side UUID validation via auth helper, in addition to basic sanity check
 const MIN_UUID_LENGTH = 12
 const MAX_UUID_LENGTH = 36
 

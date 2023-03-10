@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import '../styles/global.css'
@@ -52,7 +53,10 @@ export default function App({ Component, pageProps }) {
       setPassword,
       setUuid,
     }}>
-    { getLayout(<Component {...pageProps} />) }
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
+      { getLayout(<Component {...pageProps} />) }
     </AppContext.Provider>
   )
 }

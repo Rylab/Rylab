@@ -4,6 +4,7 @@ import { Fragment, useContext, useState } from 'react'
 import { AppContext, getHeaders } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
 import { TapeSpinner, LoadingSpinner, Navigation } from '../../components'
+import { MAX_LINE_LENGTH } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
 import styles from '../../styles/ai.module.css'
@@ -32,8 +33,10 @@ export default function TapeAiDemo() {
       const responseJson = await response.json()
       tapesInfo = JSON.parse(responseJson) ?? []
 
-      if (response.status !== 200) {       
+      if (response.status >= 400) {
         let message = tapesInfo.error?.message ?? 'GET request failed'
+
+        setLoading(false)
 
         throw new Error(`${message} [status: ${response.status}]`)
       }
@@ -98,8 +101,8 @@ export default function TapeAiDemo() {
               </div>
           </div> }
           { tapes && tapes.map((tape, index) => {
-              const hasLongArtist = tape.artist.length > 25
-              const hasLongTitle = tape.title.length > 25
+              const hasLongArtist = tape.artist.length > MAX_LINE_LENGTH
+              const hasLongTitle = tape.title.length > MAX_LINE_LENGTH
 
               return (
                 <Fragment key={index}>
@@ -110,8 +113,9 @@ export default function TapeAiDemo() {
                       { tape.artist }</div>
                     <div className="uuidLine" onClick={()=> getUserEmbed(tape.uuid)}>{ tape.uuid }</div>
                     <div className="songIdLine" onClick={() => getSongEmbed(tape._id)}>{ tape._id }</div>
+                    { !!tape.bio && <div className="artistBio small">{ tape.bio }</div> }
                   </TapeSpinner>
-                  { tape.bio && <div className="small light mobile-only" style={{ paddingLeft: 30, paddingRight: 30, marginTop: -10, marginBottom: 10 }}>{ tape.bio }</div> }
+                  { !!tape.bio && <div className="small light mobileBio mobile-only">{ tape.bio }</div> }
                 </Fragment>
               )
             })

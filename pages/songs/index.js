@@ -1,11 +1,11 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { AppContext, getHeaders } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
 import { Navigation, TapeAdder, TapeSpinner } from '../../components'
+import { MAX_LINE_LENGTH } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo :: Hot Songs`
@@ -26,7 +26,7 @@ export default function SongList() {
 
       const songRes = await res.json()
       
-      if (songRes.data) {
+      if (songRes?.data) {
         songRes.data.map(song => {
           if (!song.style) song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })
@@ -61,8 +61,8 @@ export default function SongList() {
       <main>
         <Navigation path={'songs'} />
         {songs.map(song => {
-          const hasLongArtist = song.artist?.length > 25
-          const hasLongTitle = song.title?.length > 25
+          const hasLongArtist = song.artist?.length > MAX_LINE_LENGTH
+          const hasLongTitle = song.title?.length > MAX_LINE_LENGTH
 
           return (
             <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
