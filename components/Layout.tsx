@@ -42,8 +42,8 @@ export default function Layout({ children }: Props) {
       const bufferPass = Buffer.from(value, 'utf8')
       const base64Pass = bufferPass.toString('base64')
 
-      setPassword('')
       localStorage.setItem('managePass', base64Pass)
+      setPassword(value)
     } else {
       setPassword('')
       localStorage.removeItem('managePass')

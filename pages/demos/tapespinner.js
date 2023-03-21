@@ -1,11 +1,11 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { AppContext, getHeaders } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
 import { Navigation, TapeAdder, TapeSpinner } from '../../components'
+import { MAX_LINE_LENGTH } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
@@ -135,8 +135,8 @@ export default function TapeSpinnerDemo() {
       <main>
         <Navigation path="demos/tapespinner" />
         {songs.map(song => {
-          const hasLongArtist = song.artist.length > 25
-          const hasLongTitle = song.title.length > 25
+          const hasLongArtist = song.artist.length > MAX_LINE_LENGTH
+          const hasLongTitle = song.title.length > MAX_LINE_LENGTH
 
           return (
             <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
@@ -150,8 +150,8 @@ export default function TapeSpinnerDemo() {
           )
         })}
         {Object.keys(tapes).map(tapeKey => {
-          const hasLongArtist = tapes[tapeKey].artist.length > 25
-          const hasLongTitle = tapes[tapeKey].title.length > 25
+          const hasLongArtist = tapes[tapeKey].artist.length > MAX_LINE_LENGTH
+          const hasLongTitle = tapes[tapeKey].title.length > MAX_LINE_LENGTH
 
           return (
             <TapeSpinner style={tapes[tapeKey].style} spin={tapes[tapeKey].spin} key={tapeKey} id={`#${tapeKey}`}>

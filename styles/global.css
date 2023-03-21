@@ -52,6 +52,10 @@ img.icon {
   display: block;
 }
 
+.mobileBio {
+  margin: -10px 30px 10px 30px;
+}
+
 .footer {
   text-align: center;
   margin: 70px auto 30px auto;
@@ -235,11 +239,6 @@ ul.narrow {
     transition: border 0.5s;
     transition-timing-function: ease;
   }
-
-.aeq, .aeq:hover {
-  border-bottom: none;
-  text-decoration: none;
-}
 
 .bsd {
   background: url(/img/bsd_introvert.png) center center no-repeat;

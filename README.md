@@ -14,6 +14,4 @@ Define your real production environment at build time; never check-in real value
 
 🎉 Enjoy running your own AI demos
 
-💰 Start a hosted instance at `https://aeq.com`
-
 💬 See me in the physical world? Ask me about bicycles!

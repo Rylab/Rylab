@@ -88,7 +88,7 @@ export default function SongDetail() {
       </Head>
       <main className={isEmbedding ? 'embedding' : ''}>
         <Navigation path={`song/${song._id}`} />
-        { song._id ? (
+        { !loading && song._id ? (
         <>
           <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
             <div title={ song.title } className={`disabled titleLine${hasLongTitle ? ' long' : ''}`}>

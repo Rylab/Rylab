@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const CassetteContainer = styled.div`
@@ -43,10 +43,12 @@ const CassetteContainer = styled.div`
       bottom: 24px;
       left: 24px;
       font-style: italic;
-      transition: 1s;
+      transition: 0.5s;
     }
     .artistLine:hover, .titleLine:hover {
       cursor: default;
+      transition: 0.5s;
+      overflow: visible;
       user-select: none;
     }
     .artistLine.long {
@@ -69,6 +71,30 @@ const CassetteContainer = styled.div`
     }
     .titleLine.long:hover {
       left: 20px;
+    }
+  .artistBio {
+    background-color #222;
+    bottom: 0px;
+    vertical-align: bottom;
+    border: 2px solid #efefef;
+    border-top: 0;
+    color: #efefef;
+    line-height: 20px;
+    opacity: 0%;
+    padding: 9px;
+    position: absolute;
+    text-align: left;
+    width: 327px;
+    min-height: 82px;
+    max-height: 212px;
+    overflow: auto;
+    left: 2px;
+    transition: 0.3s;
+    transition-timing-function: ease;
+  }
+    .artistBio.active {
+      opacity: 100%;
+      transition: 0.3s;
     }
 
   .songIdLine, .uuidLine {
@@ -96,7 +122,66 @@ const CassetteContainer = styled.div`
     width: 400px;
   }
 
-  @media(min-width: 568px) {
+  @media(min-width: 569px) {
+    border-radius: 4px;
+    width: 330px;
+    height: 212px;
+
+    .background {
+      border-radius: 4px;
+      width: 330px;
+      height: 212px;
+    }
+  
+    .artistInput, .titleInput {
+      font-size: 18px;
+      left: 32px;
+      width: 266px;
+    }
+    .artistInput {
+      bottom: 30px;
+    }
+    .titleInput {
+      bottom: 59px;
+    }
+
+    .songIdLine {
+      display: block;
+      bottom: 7px;
+      font-size: 9px;
+      right: -8px;
+    }
+    .uuidLine {
+      font-size: 10px;
+      bottom: 7px;
+      left: -2px;
+    }
+    .artistLine, .titleLine {
+      font-size: 19px;
+      left: 38px;
+      width: 269px;
+    }
+    .artistLine {
+      bottom: 33px;
+    }
+      .artistLine.long {
+        bottom: 34px;
+        font-size: 16px;
+      }
+    .titleLine {
+      bottom: 62px;
+    }
+      .titleLine.long {
+        bottom: 63px;
+        font-size: 16px;
+      }
+
+    .notesInput {
+      width: 330px;
+    }
+  }
+
+  @media(min-width: 1400px) {
     border-radius: 4px;
     width: 400px;
     height: 257px;
@@ -157,43 +242,74 @@ const CassetteContainer = styled.div`
 `
 
 interface TapeProps {
-  children: any
-  spin: boolean
-  style: any
-  id: any
+  children?: any
+  spin?: boolean
+  style?: any
+  id: string
 }
 
 export default function TapeSpinner({children, spin = true, style, id}: TapeProps) {
+  const [active, setActive] = useState(spin)
+
   const leftWheel = useRef(null)
   const rightWheel = useRef(null)
 
+  const leftSpinner = useRef(null)
+  const rightSpinner= useRef(null)
+
+  const onCassetteClick = e => {
+    if (e.type === 'click') {
+      active ? stopWheels() : spinWheels()
+      setActive(!active)
+    }
+  }
+  
+  const spinRight = t => {
+    if (window && rightWheel && rightWheel.current && active) {
+      const m = t % 1500
+      const d = m * 0.24
+
+      rightWheel.current.setAttribute('transform', 'translate(292.39, 0.00) rotate('+d+', 44, 45)')
+    }
+    rightSpinner.current = window.requestAnimationFrame(spinRight)      
+  }
+  
+  const spinLeft = t => {
+    if (window && leftWheel && leftWheel.current && active) {
+      const m = t % 1500
+      const d = m * 0.24
+
+      leftWheel.current.setAttribute('transform', 'rotate('+d+', 44, 45)')
+    }
+    leftSpinner.current = window.requestAnimationFrame(spinLeft)      
+  }
+
   const spinWheels = () => {
     if (typeof window !== 'undefined') {
-      window.requestAnimationFrame(r1)
-      window.requestAnimationFrame(r2)
+      window.requestAnimationFrame(spinLeft)
+      window.requestAnimationFrame(spinRight)
     }
   }
 
-  const r1 = (t) => {
-    const m = t % 1500;
-    const d = m * 0.24;
-    if (typeof window !== 'undefined' && typeof leftWheel !== 'undefined' && leftWheel.current) {
-      leftWheel.current.setAttribute('transform', 'rotate('+d+', 44, 45)');
-      window.requestAnimationFrame(r1)
+  const stopLeft = () => {
+    if (leftSpinner.current) {
+      window.cancelAnimationFrame(leftSpinner.current)
+    }
+  }
+  
+  const stopRight = () => {
+    if (rightSpinner.current) {
+      window.cancelAnimationFrame(rightSpinner.current)
     }
   }
 
-  const r2 = (t) => {
-    const m = t % 1500;
-    const d = m * 0.24;
-    if (window && rightWheel && rightWheel.current) {
-      rightWheel.current.setAttribute('transform', 'translate(292.39, 0.00) rotate('+d+', 44, 45)');
-    }
-    window.requestAnimationFrame(r2)
+  const stopWheels = () => {
+    stopLeft()
+    stopRight()
   }
 
   return (
-    <CassetteContainer className="cassette" style={style} id={id} onLoad={spin ? spinWheels() : ()=>{}}>
+    <CassetteContainer className="cassette" style={style} id={id} onClick={e => onCassetteClick(e)} onLoad={spin ? spinWheels() : ()=>{}}>
       <svg className="background" width="697px" height="447px" viewBox="0 0 697 447" version="1.1">
         <g id="cassette-border" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="tapecassette" transform="translate(1.000000, 1.000000)">

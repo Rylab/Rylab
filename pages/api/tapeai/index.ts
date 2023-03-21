@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 import { validateUuid } from '../../../utils/helpers'
 
@@ -33,8 +33,6 @@ const defaultGenres = [
   'rock',
 ]
 
-
-// const jsonCoercionWithBio = ` Respond only with an array of 3 valid JSON objects, each having artist, title, and biography properties. `
 const jsonCoercion = ` Respond only with an array of 3 valid JSON objects with unique artist, title, and biography properties. ` +
   `JSON format: ` +
   `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
@@ -68,7 +66,7 @@ export const config = {
   runtime: 'edge',
 }
 
-export default async function handler(req) {
+export default async (req: NextRequest) => {
   if (!process.env.OPENAI_KEY) {
     return NextResponse.json(JSON.stringify({
       error: {
@@ -152,7 +150,7 @@ export default async function handler(req) {
       if (error.response) {
         return NextResponse.json(JSON.stringify(error.response), { status: 400 })
       } else {
-        return nNextResponse.json(JSON.stringify({
+        return NextResponse.json(JSON.stringify({
           error: {
             message: 'An unexpected error occurred processing your request.',
           }
