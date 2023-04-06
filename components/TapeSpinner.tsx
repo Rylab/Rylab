@@ -74,16 +74,17 @@ const CassetteContainer = styled.div`
     }
   .artistBio {
     background-color #222;
-    bottom: 0px;
     vertical-align: bottom;
     border: 2px solid #efefef;
-    border-top: 0;
+    border-top: 76px transparent;
+    margin-top: 76px;
     color: #efefef;
     line-height: 20px;
     opacity: 0%;
     padding: 9px;
     position: absolute;
     text-align: left;
+    top: 118px;
     width: 327px;
     min-height: 82px;
     max-height: 212px;
@@ -91,11 +92,8 @@ const CassetteContainer = styled.div`
     left: 2px;
     transition: 0.3s;
     transition-timing-function: ease;
+    z-index: 5;
   }
-    .artistBio.active {
-      opacity: 100%;
-      transition: 0.3s;
-    }
 
   .songIdLine, .uuidLine {
     color: #222;
@@ -132,7 +130,12 @@ const CassetteContainer = styled.div`
       width: 330px;
       height: 212px;
     }
-  
+
+    .artistBio:hover {
+      opacity: 100%;
+      transition: 0.3s;
+    }
+
     .artistInput, .titleInput {
       font-size: 18px;
       left: 32px;
@@ -185,6 +188,13 @@ const CassetteContainer = styled.div`
     border-radius: 4px;
     width: 400px;
     height: 257px;
+
+    .artistBio {
+      border-top: 33px transparent;
+      margin-top: 33px;
+      top: 200px;
+      width: 398px;
+    }
 
     .background {
       border-radius: 4px;
