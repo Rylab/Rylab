@@ -66,7 +66,7 @@ export const config = {
   runtime: 'edge',
 }
 
-export default async (req: NextRequest) => {
+export default async function handler(req: NextRequest) {
   if (!process.env.OPENAI_KEY) {
     return NextResponse.json(JSON.stringify({
       error: {
