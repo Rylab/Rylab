@@ -6,7 +6,7 @@ import '../styles/global.css'
 import Layout from '../components/Layout'
 import { initUuid } from '../utils/helpers'
 
-export const AppContext = createContext()
+export const AppContext = createContext(null)
 export const jsonType = 'application/json'
 
 export const getHeaders = ({ uuid, password }) => {

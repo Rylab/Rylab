@@ -47,7 +47,7 @@ export default function SongList() {
 
   useEffect(() => {
     getSongs()
-  }, [password, uuid])
+  }, [password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

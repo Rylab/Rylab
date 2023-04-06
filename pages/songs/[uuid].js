@@ -32,7 +32,7 @@ export default function SongsByUuid() {
         }
       }
     }
-  }, [router, password, uuid])
+  }, [router, password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const getSongs = async targetUuid => {
     try {

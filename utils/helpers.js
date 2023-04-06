@@ -40,11 +40,11 @@ export const getUuid = req => {
 }
 
 export const getSongEmbed = _id => {
-  window.open(`/song/${_id}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450');
+  window.open(`/song/${_id}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450')
 }
 
 export const getUserEmbed = _uuid => {
-  window.open(`/songs/${_uuid}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450');
+  window.open(`/songs/${_uuid}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450')
 }
 
 export const initUuid = () => {
