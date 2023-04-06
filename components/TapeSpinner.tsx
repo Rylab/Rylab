@@ -93,6 +93,9 @@ const CassetteContainer = styled.div`
     transition: 0.3s;
     transition-timing-function: ease;
     z-index: 5;
+    user-select: all;
+    -webkit-user-select: all;
+    -ms-user-select: all;
   }
 
   .songIdLine, .uuidLine {
