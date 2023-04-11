@@ -48,8 +48,8 @@ const LoaderContainer = styled.div`
 `
 
 interface LoadingSpinnerProps { 
-  children?: any; 
-  style?: any; 
+  children?: any
+  style?: any
 }
 
 const LoadingSpinner = ({children, style}: LoadingSpinnerProps) => {

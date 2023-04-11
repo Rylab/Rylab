@@ -4,29 +4,25 @@ exports[`renders homepage unchanged 1`] = `
 <div>
   <main>
     <div
-      class="hoverborder lockish"
-      id="header"
+      class="header hoverborder lockish"
     >
       <img
         alt="A very pretty building in Golden Gate Park, San Francisco"
-        class="rylab"
+        class="rylab-image"
         src="/img/rylab_extrovert.png"
         title="A very pretty building in Golden Gate Park."
       />
     </div>
     <div
-      class="lockish"
-      id="rylab"
+      class="rylab-copy lockish"
     >
       (: hello :)
     </div>
     <div
-      class="lockish"
-      id="content"
+      class="content lockish"
     >
       <p
-        class="large light"
-        id="haiku-today"
+        class="haiku-today large light"
       >
         someday I will make,
         <br />
@@ -35,8 +31,7 @@ exports[`renders homepage unchanged 1`] = `
         it may be today
       </p>
       <p
-        class="small dark hoverlight"
-        id="haiku-tomorrow"
+        class="haiku-tomorrow small dark hoverlight"
       >
         perhaps tomorrow?
         <br />
@@ -46,7 +41,7 @@ exports[`renders homepage unchanged 1`] = `
         <br />
       </p>
       <div
-        class="sc-bcXHqe bGNAom"
+        class="sc-beqWaB iTAzZG"
       >
         <svg
           class="spinner"
@@ -78,16 +73,6 @@ exports[`renders homepage unchanged 1`] = `
             stroke-width="2"
           />
         </svg>
-      </div>
-      <div
-        class="demo"
-      >
-        <a
-          href="/demos/tapespinner"
-          title="Tape Spinner playground"
-        >
-          Animated SVG cassettes
-        </a>
       </div>
       <div
         class="demo"
@@ -100,7 +85,17 @@ exports[`renders homepage unchanged 1`] = `
         </a>
       </div>
       <div
-        id="digitalhaiku"
+        class="demo"
+      >
+        <a
+          href="/demos/tapespinner"
+          title="Tape Spinner playground"
+        >
+          Animated SVG cassettes
+        </a>
+      </div>
+      <div
+        class="digitalhaiku"
       >
         <a
           href="https://medium.com/@rylab/abc-digitally-evolving-futurist-goals-9b11bd0f54d2"
@@ -112,7 +107,7 @@ exports[`renders homepage unchanged 1`] = `
         </a>
       </div>
       <div
-        id="saxylab"
+        class="saxylab"
       >
         <a
           href="https://saxylab.com"
@@ -123,8 +118,13 @@ exports[`renders homepage unchanged 1`] = `
         </a>
       </div>
       <br />
+      <h1
+        style="margin-bottom: 20px; margin-top: 40px;"
+      >
+        Digital Selves
+      </h1>
       <div
-        class="sc-bcXHqe bGNAom"
+        class="sc-beqWaB iTAzZG"
       >
         <svg
           class="spinner"
@@ -158,6 +158,11 @@ exports[`renders homepage unchanged 1`] = `
         </svg>
       </div>
     </div>
+    <img
+      alt="// MacOS <== ++BSD;"
+      class="bsd lockish"
+      src="/img/bsd_extrovert.png"
+    />
   </main>
 </div>
 `;

@@ -17,7 +17,7 @@ export default function Index() {
   })
 
   const getSelves = async () => {
-    if (!uuid) return;
+    if (!uuid) return
 
     try {
       setLoading(true)
@@ -96,20 +96,18 @@ export default function Index() {
             </a>
           </div>
           <br />
+          <h1 style={{ marginBottom: 20, marginTop: 40 }}>Digital Selves</h1>
           { selves.data?.length ? (
-            <>
-              <h1 style={{ marginBottom: 20 }}>Digital Selves</h1>
-              <ul className="narrow list">
-                {selves.data.map(link => (
-                  <li className={`link ${link.alias}`} key={link.alias}>
-                    <a className="link" title={link.title} href={link.url} rel="noreferrer" target="_blank">
-                      {link.name}</a>
-                  </li>
-                ))}
-              </ul>
-            </>
+            <ul className="narrow list">
+              {selves.data.map(link => (
+                <li className={`link ${link.alias}`} key={link.alias}>
+                  <a className="link" title={link.title} href={link.url} rel="noreferrer" target="_blank">
+                    {link.name}</a>
+                </li>
+              ))}
+            </ul>
           ) : (
-            loading ? <LoadingSpinner /> : (<span className="dark">[]</span>)
+            loading ? <LoadingSpinner /> : <span className="dark">[]</span>
           )}
         </div>
         <img className="bsd lockish" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" />

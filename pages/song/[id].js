@@ -72,7 +72,7 @@ export default function SongDetail() {
         })
       }
     }
-  }, [router])
+  }, [router]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const hasLongArtist = song.artist?.length > 25
   const hasLongTitle = song.title?.length > 25

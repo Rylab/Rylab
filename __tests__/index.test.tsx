@@ -1,14 +1,22 @@
 import { render, screen } from '@testing-library/react'
-import Index from '@/pages/index'
+import { AppContext } from '../pages/_app'
+import Index from '../pages/index'
 
 describe('Index', () => {
   it('renders a heading', () => {
-    render(<Index />)
+    render(
+      <AppContext.Provider value={{
+        password: '',
+        uuid: '',
+        setPassword: jest.fn(),
+        setUuid: jest.fn(),
+      }}>
+        <Index />
+      </AppContext.Provider>
+    )
 
-    const contentDiv = document.getElementById('content')
     const helloLine = screen.getByText('(: hello :)')
 
-    expect(contentDiv).toBeInTheDocument()
     expect(helloLine).toBeInTheDocument()
   })
 })
