@@ -189,6 +189,64 @@ const CassetteContainer = styled.div`
 
   @media(min-width: 1400px) {
     border-radius: 4px;
+    width: 300px;
+    height: 192px;
+
+    .background {
+      border-radius: 4px;
+      width: 300px;
+      height: 192px;
+    }
+  
+    .artistInput, .titleInput {
+      font-size: 18px;
+      left: 44px;
+      width: 280px;
+    }
+    .artistInput {
+      bottom: 38px;
+    }
+    .titleInput {
+      bottom: 71px;
+    }
+
+    .songIdLine {
+      display: block;
+      bottom: 7px;
+      font-size: 9px;
+      right: -8px;
+    }
+    .uuidLine {
+      font-size: 10px;
+      bottom: 7px;
+      left: -2px;
+    }
+    .artistLine, .titleLine {
+      font-size: 19px;
+      left: 27px;
+      width: 252px;
+    }
+    .artistLine {
+      bottom: 27px;
+    }
+      .artistLine.long {
+        bottom: 29px;
+        font-size: 15px;
+      }
+    .titleLine {
+      bottom: 54px;
+    }
+      .titleLine.long {
+        bottom: 56px;
+        font-size: 15px;
+      }
+
+    .notesInput {
+      width: 400px;
+    }
+  }
+  @media(min-width: 1200px) {
+    border-radius: 5px;
     width: 400px;
     height: 257px;
 
