@@ -4,7 +4,7 @@ import { validateUuid } from '../../../utils/helpers'
 
 const defaultModel = 'text-davinci-003'
 const defaultTemperature = 0.5
-const max_tokens = 400
+const max_tokens = 500
 
 const defaultAdjectives = [
   'cheesy',
@@ -36,7 +36,6 @@ const defaultGenres = [
 const jsonCoercion = ` Respond only with an array of 3 valid JSON objects with unique artist, title, and biography properties. ` +
   `JSON format: ` +
   `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
-
 
 const getAdjectives = adjectives => {
   const trimmedAdjectives = adjectives.trim().replace(/^"(.+(?="$))"$/, '$1')

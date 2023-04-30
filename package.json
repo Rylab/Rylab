@@ -2,14 +2,18 @@
   "author": "Ryan D LaBarre",
   "description": "rylab.com source code.",
   "dependencies": {
-    "mongodb": "^5.2.0",
-    "next": "^13.2.4",
+    "mongodb": "^5.3.0",
+    "next": "^13.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
+    "@maxmind/geoip2-node": "^3.5.0",
     "react-search-autocomplete": "^8.3.2",
     "styled-components": "^5.3.9",
     "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   },
   "license": "CC-BY-NC-SA-4.0",
   "name": "rylab.com",
@@ -21,7 +25,7 @@
     "test:snap": "jest -u",
     "test:ci": "jest --ci"
   },
-  "version": "0.2.1",
+  "version": "0.3.0",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
