@@ -314,9 +314,9 @@ const CassetteContainer = styled.div`
 
 interface TapeProps {
   children?: any
+  id?: string
   spin?: boolean
   style?: any
-  id: string
 }
 
 export default function TapeSpinner({children, spin = true, style, id}: TapeProps) {

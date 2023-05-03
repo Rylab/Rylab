@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Fragment, useContext, useState } from 'react'
+import { CSSProperties, Fragment, useContext, useState } from 'react'
 
 import { AppContext, getHeaders } from '../_app'
 import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
@@ -11,6 +11,15 @@ import styles from '../../styles/ai.module.css'
 
 const pageTitle = `${siteTitle} :: Animated AI Cassette Playground`
 
+type TapeInfo = {
+  error?: any
+  tapes: Array<{
+    artist: string
+    style?: CSSProperties
+    title: string
+  }>
+}
+
 export default function TapeAiDemo() {
   const { password, uuid } = useContext(AppContext)
   const [adjectivesInput, setAdjectivesInput] = useState('')
@@ -21,7 +30,8 @@ export default function TapeAiDemo() {
   async function onSubmit(event) {
     event.preventDefault()
 
-    let tapesInfo = []
+    let info: TapeInfo = { tapes: [] }
+
     setLoading(true)
 
     try {
@@ -31,21 +41,21 @@ export default function TapeAiDemo() {
       })
       
       const responseJson = await response.json()
-      tapesInfo = JSON.parse(responseJson) ?? []
+      info.tapes = JSON.parse(responseJson) ?? []
 
       if (response.status >= 400) {
-        let message = tapesInfo.error?.message ?? 'GET request failed'
+        let message = info.error?.message ?? 'GET request failed'
 
         setLoading(false)
 
         throw new Error(`${message} [status: ${response.status}]`)
       }
 
-      tapesInfo.map(tape => {
+      info.tapes.map(tape => {
         tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
       })
 
-      tapes.unshift(...tapesInfo)
+      tapes.unshift(...info.tapes)
       setTapes(tapes)
       setLoading(false)
     } catch(error) {

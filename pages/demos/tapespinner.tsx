@@ -20,7 +20,7 @@ export default function TapeSpinnerDemo() {
   const [tapes, setTapes] = useState({})
   const [loading, setLoading] = useState(true)
 
-  const addTape = ({ _id, artist, title, spin = true, style, uuid }) => {
+  const addTape = ({ _id, artist = '', title, spin = true, style = '', uuid = '' }) => {
     if (canAdd) {
       tapes[_id] = {
         artist,

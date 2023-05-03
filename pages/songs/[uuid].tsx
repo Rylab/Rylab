@@ -20,10 +20,11 @@ export default function SongsByUuid() {
 
   const router = useRouter()
 
+  // waits until router is ready to get query params (uuid) and then fetches songs
   useEffect(() => {
     if (router.isReady) {
       if (router.query.uuid) {
-        const decodedUuid = validateUuid(decodeURI(router.query.uuid))
+        const decodedUuid = validateUuid(decodeURI(router.query.uuid.toString()))
 
         if (decodedUuid) {
           getSongs(decodedUuid)
@@ -34,6 +35,7 @@ export default function SongsByUuid() {
     }
   }, [router, password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // fetch songs by uuid
   const getSongs = async targetUuid => {
     try {
       setLoading(true)
@@ -65,7 +67,7 @@ export default function SongsByUuid() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ baseUrl }/songs/${pageUuid}`} />
+        <link rel="canonical" href={`${ baseUrl }/user/${pageUuid}`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
@@ -88,7 +90,7 @@ export default function SongsByUuid() {
             </TapeSpinner>
           )
         })}
-        { canAdd && <TapeAdder /> }
+        { canAdd && <TapeAdder addTape={e => { console.log(e) }}/> }
       </main>
     </>
   )

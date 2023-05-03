@@ -13,11 +13,19 @@ import { getUserEmbed, selectText } from '../../utils/helpers'
 
 const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
 
+type Song = {
+  _id: string
+  artist: string
+  spin?: boolean
+  style?: React.CSSProperties
+  title: string
+  uuid?: string
+}
 
 export default function SongDetail() {
   const { password, uuid } = useContext(AppContext)
   const [isEmbedding, setIsEmbedding] = useState(false)
-  const [song, setSong] = useState({})
+  const [song, setSong] = useState({} as Song)
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
@@ -29,28 +37,25 @@ export default function SongDetail() {
 
         const res = await fetch(`/api/song/${_id}`, {
           headers: getHeaders({ uuid, password }),
-          data: {
-            filter: {
-              _id,
-            }
-          },
           method: 'GET',
         })
   
         const songRes = await res.json()
         
         if (songRes?.data) {
+          const song: Song = songRes.data
+
           if (tapeColors?.length && !songRes.data.style)
-          songRes.data.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
+          song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
           
-          setSong({ ...songRes.data })
+          setSong({ ...song })
         } else {
           console.error(res)
         }
         setLoading(false)
       } catch (error) {
         setSong({
-          _id: 404,
+          _id: '0404',
           artist: '404',
           title: 'Song Not Found',
         })
@@ -58,14 +63,14 @@ export default function SongDetail() {
       }
     }
 
-    if (router.isReady && router.query.id) {
+    if (router.isReady && router.query.id?.length) {
       try {
-        getSong(decodeURI(router.query.id))
-        setIsEmbedding(router.query.embed)
+        getSong(decodeURI(router.query.id.toString()))
+        setIsEmbedding(router.query.embed === 'true')
       } catch(e) {
         console.warn(e)
         setSong({
-          _id: 404,
+          _id: '0404',
           artist: '404',
           title: 'Song Not Found',
           uuid: '404',
@@ -95,7 +100,7 @@ export default function SongDetail() {
               { song.title }</div>
             <div title={ song.artist } className={`disabled artistLine${hasLongArtist ? ' long' : ''}`}>
               { song.artist }</div>
-            <div className="uuidLine" onClick={() => getUserEmbed(song.uuid)}><Link href={`/songs/${song.uuid}`}>{ song.uuid }</Link></div>
+            <div className="uuidLine" onClick={() => getUserEmbed(song.uuid)}><Link href={`/song/${song.uuid}`}>{ song.uuid }</Link></div>
             <div className="disabled songIdLine">{ song._id }</div>
           </TapeSpinner>
           <div className="embedCodeContainer selectable">
