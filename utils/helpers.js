@@ -44,7 +44,7 @@ export const getSongEmbed = _id => {
 }
 
 export const getUserEmbed = _uuid => {
-  window.open(`/songs/${_uuid}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450')
+  window.open(`/user/${_uuid}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450')
 }
 
 export const initUuid = () => {
