@@ -54,7 +54,7 @@ interface LoadingSpinnerProps {
 
 const LoadingSpinner = ({children, style}: LoadingSpinnerProps) => {
   return (
-    <LoaderContainer style={style}>
+    <LoaderContainer data-testid="loading-spinner" style={style}>
       <svg className="spinner" viewBox="0 0 50 50">
         <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%" gradientTransform="rotate(120)">
           <stop offset="5%" stopColor="#010101" />

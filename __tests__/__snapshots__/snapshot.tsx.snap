@@ -42,6 +42,7 @@ exports[`renders homepage unchanged 1`] = `
       </p>
       <div
         class="sc-bgqQcB iceIAQ"
+        data-testid="loading-spinner"
       >
         <svg
           class="spinner"
@@ -125,6 +126,7 @@ exports[`renders homepage unchanged 1`] = `
       </h1>
       <div
         class="sc-bgqQcB iceIAQ"
+        data-testid="loading-spinner"
       >
         <svg
           class="spinner"

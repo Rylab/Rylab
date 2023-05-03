@@ -9,8 +9,8 @@ export default function Navigation({ path = '' }) {
         <img alt="RyLaB home" src="/img/bsd_introvert.png" className="icon" />
       </Link>
       <div className="navUrl selectable">
-        <Link className="protocol" href="/">{ baseUrl }</Link>
-        <span className="path" onClick={() => selectText('navUrl')}>/{ path }</span>
+        <Link data-testid="navigation-protocol" className="protocol" href="/">{ baseUrl }</Link>
+        <span data-testid="navigation-path" className="path" onClick={() => selectText('navUrl')}>/{ path }</span>
       </div>
     </div>
   )
