@@ -3,7 +3,7 @@
   "author": "Ryan D LaBarre",
   "description": "rylab.com source code.",
   "license": "CC-BY-NC-SA-4.0",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scripts": {
     "dev": "next dev -p 7007",
     "build": "next build",

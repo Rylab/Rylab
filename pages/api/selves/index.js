@@ -1,9 +1,20 @@
+import { WebServiceClient } from '@maxmind/geoip2-node'
 import { dbCollection } from '../../../utils/mongodb'
 
 export default async function handler(req, res) {
   const { headers, method } = req
 
   let { order, sort = 'name' } = req.query
+
+  const GeoIpClient = new WebServiceClient(
+    process.env.MAXMIND_ACCOUNT,
+    process.env.MAXMIND_LICENSE,
+    { host: 'geolite.info' },
+  )
+
+  GeoIpClient.city(headers['x-forwarded-for']).then(response => {
+    console.log(response)
+  }).catch(error => { console.error(error) })
 
   switch (method) {
     case 'GET':
