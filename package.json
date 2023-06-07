@@ -3,7 +3,7 @@
   "author": "Ryan D LaBarre",
   "description": "rylab.com source code.",
   "license": "CC-BY-NC-SA-4.0",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scripts": {
     "dev": "next dev -p 7007",
     "build": "next build",
@@ -13,12 +13,13 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@maxmind/geoip2-node": "^4.0.0",
+    "@vercel/edge": "0.3.4",
     "mongodb": "^5.5.0",
     "next": "^13.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
-    "@maxmind/geoip2-node": "^4.0.0",
     "react-search-autocomplete": "^8.5.2",
     "styled-components": "^5.3.9",
     "uuid": "^9.0.0"
