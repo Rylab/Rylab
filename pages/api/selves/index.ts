@@ -3,18 +3,21 @@ import { dbCollection } from '../../../utils/mongodb'
 
 export default async function handler(req, res) {
   const { headers, method } = req
+  const ip = headers['x-vercel-forwarded-for'] ?? headers['x-forwarded-for']
 
   let { order, sort = 'name' } = req.query
 
-  const GeoIpClient = new WebServiceClient(
-    process.env.MAXMIND_ACCOUNT,
-    process.env.MAXMIND_LICENSE,
-    { host: 'geolite.info' },
-  )
+  if (ip && ip !== '::1') {
+    const GeoIpClient = new WebServiceClient(
+      process.env.MAXMIND_ACCOUNT,
+      process.env.MAXMIND_LICENSE,
+      { host: 'geolite.info' },
+    )
 
-  GeoIpClient.city(headers['x-forwarded-for']).then(response => {
-    console.log(response)
-  }).catch(error => { console.error(error) })
+    GeoIpClient.city(ip).then(response => {
+      console.log(response)
+    }).catch(error => { console.error(error) })
+  }
 
   switch (method) {
     case 'GET':
