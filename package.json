@@ -3,7 +3,7 @@
   "author": "Ryan D LaBarre",
   "description": "rylab.com source code.",
   "license": "CC-BY-NC-SA-4.0",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "scripts": {
     "dev": "next dev -p 7007",
     "build": "next build",
@@ -13,10 +13,10 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
-    "@maxmind/geoip2-node": "^4.0.0",
-    "@vercel/edge": "0.3.4",
-    "mongodb": "^5.5.0",
-    "next": "^13.4.2",
+    "@maxmind/geoip2-node": "^4.2.0",
+    "@vercel/edge": "^1.0.0",
+    "mongodb": "^5.8.0",
+    "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
@@ -25,16 +25,15 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^6.1.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/react": "^18.2.6",
-    "@types/testing-library__jest-dom": "^5.14.5",
-    "eslint": "^8.40.0",
-    "eslint-config-next": "^13.4.2",
-    "jest": "^29.5.0",
-    "jest-environment-jsdom": "^29.5.0",
-    "typescript": "^5.0.4"
+    "@types/react": "^18.2.21",
+    "eslint": "^8.47.0",
+    "eslint-config-next": "^13.4.19",
+    "jest": "^29.6.3",
+    "jest-environment-jsdom": "^29.6.3",
+    "typescript": "^5.1.6"
   },
   "engines": {
     "node": ">=16.0.0"

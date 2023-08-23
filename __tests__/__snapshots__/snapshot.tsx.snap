@@ -41,7 +41,7 @@ exports[`renders homepage unchanged 1`] = `
         <br />
       </p>
       <div
-        class="sc-bgqQcB iceIAQ"
+        class="sc-aXZVg irtMgT"
         data-testid="loading-spinner"
       >
         <svg
@@ -125,7 +125,7 @@ exports[`renders homepage unchanged 1`] = `
         Digital Selves
       </h1>
       <div
-        class="sc-bgqQcB iceIAQ"
+        class="sc-aXZVg irtMgT"
         data-testid="loading-spinner"
       >
         <svg
