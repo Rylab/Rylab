@@ -57,7 +57,7 @@ export default async function handler(req, res) {
           break
         }
 
-        const result = await songsCollection.save(song)
+        const result = await songsCollection.insertOne(song)
 
         res.status(200).json({ success: true, data: result })
       } catch (error) {

@@ -58,7 +58,7 @@ export default async function handler(req, res) {
           break
         }
 
-        const result = await tapesCollection.save(req.body)
+        const result = await tapesCollection.insertOne(req.body)
 
         res.status(200).json({ success: true, data: result })
       } catch (error) {
