@@ -140,20 +140,19 @@ export default async function handler(req: NextRequest) {
       const cassettesJson = await cassettesResult.json()
       console.log(cassettesJson)
 
-      if (cassettesJson && cassettesJson.choices?.length > 0) {
-        const [first] = cassettesJson.choices
-        const cassetteResponse = first.text.trim()
-
+      if (cassettesJson && cassettesJson.choices?.length > 0) {      
+        const tapes = {
+          created: new Date().toISOString(),
+          completionRequest,
+          prompt,
+          data: [],
+          uuid,
+        }
+  
         try {
-          const cassettes = {
-            completionRequest,
-            created: new Date().toISOString(),
-            prompt,
-            response: cassettesJson,
-            uuid,
-          }
+          const [first] = cassettesJson.choices
 
-          console.log(`${BASE_URL}/api/tapes`);
+          tapes.data = first.text.trim()
 
           await fetch(`${BASE_URL}/api/tapes`, {
             headers: {
@@ -162,13 +161,15 @@ export default async function handler(req: NextRequest) {
               'x-uuid': uuid,
             },
             method: 'POST',
-            body: JSON.stringify(cassettes),
+            body: JSON.stringify(tapes),
           })
+
+          return NextResponse.json(tapes.data, { status: 200 })
         } catch (error) {
           console.error(error)
-        }
 
-        return NextResponse.json(cassetteResponse, { status: 200 })
+          return NextResponse.json(tapes.data, { status: 400 })
+        }
       } else {
         console.warn(cassettesResult)
         return NextResponse.json(JSON.stringify({ error: { message: 'Missing expected completion data' }}), { status: 400 })
