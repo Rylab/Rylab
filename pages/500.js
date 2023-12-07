@@ -1,15 +1,15 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { baseUrl, siteTitle } from '../components/Layout'
+import { BASE_URL, SITE_TITLE } from '../utils/constants'
 
-const pageTitle = `${siteTitle} :: Internal Server Error`
+const pageTitle = `${SITE_TITLE} :: Internal Server Error`
 
 export default function InternalServerError() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ baseUrl }/500`} />
+        <link rel="canonical" href={`${ BASE_URL }/500`} />
         <title>{ pageTitle }</title>
       </Head>
       <div className="content" style={{ marginTop: 100 }}>

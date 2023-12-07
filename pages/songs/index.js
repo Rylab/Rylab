@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { AppContext, getHeaders } from '../_app'
-import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
+import { tapeColors } from '../../components/Layout'
 import { Navigation, TapeAdder, TapeSpinner } from '../../components'
-import { MAX_LINE_LENGTH } from '../../utils/constants'
+import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
-const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo :: Hot Songs`
+const pageTitle = `${SITE_TITLE} :: TapeSpinner Animated React SVG Component Demo :: Hot Songs`
 
 export default function SongList() {
   const { password, uuid } = useContext(AppContext)
@@ -52,7 +52,7 @@ export default function SongList() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ baseUrl }/songs`} />
+        <link rel="canonical" href={`${ BASE_URL }/songs`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />

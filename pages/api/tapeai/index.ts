@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-
+import { BASE_URL } from '../../../utils/constants'
 import { validateUuid } from '../../../utils/helpers'
 
-const defaultModel = 'text-davinci-003'
+const defaultModel = 'gpt-3.5-turbo-instruct'
 const defaultTemperature = 0.5
 const max_tokens = 500
 
@@ -16,6 +16,7 @@ const defaultAdjectives = [
   'surprising',
   'weird',
   'wild',
+  'unique',
 ]
 
 const defaultGenres = [
@@ -31,9 +32,11 @@ const defaultGenres = [
   'rap',
   'rockabilly',
   'rock',
+  'techno',
 ]
 
-const jsonCoercion = ` Respond only with an array of 3 valid JSON objects with unique artist, title, and biography properties. ` +
+const jsonCoercion = `You are a database agent for many large music record collections. ` +
+  `Respond only with valid JSON: an array of 3 relevant records with unique artist, title, and biography. ` +
   `JSON format: ` +
   `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
 
@@ -135,10 +138,37 @@ export default async function handler(req: NextRequest) {
       })
 
       const cassettesJson = await cassettesResult.json()
+      console.log(cassettesJson)
 
-      if (cassettesJson && cassettesJson.choices) {
-        console.log(JSON.parse(cassettesJson.choices[0].text.trim()))
-        return NextResponse.json(cassettesJson.choices[0].text.trim(), { status: 200 })
+      if (cassettesJson && cassettesJson.choices?.length > 0) {
+        const [first] = cassettesJson.choices
+        const cassetteResponse = first.text.trim()
+
+        try {
+          const cassettes = {
+            completionRequest,
+            created: new Date().toISOString(),
+            prompt,
+            response: cassettesJson,
+            uuid,
+          }
+
+          console.log(`${BASE_URL}/api/tapes`);
+
+          await fetch(`${BASE_URL}/api/tapes`, {
+            headers: {
+              accept: 'application/json',
+              'Content-Type': 'application/json',
+              'x-uuid': uuid,
+            },
+            method: 'POST',
+            body: JSON.stringify(cassettes),
+          })
+        } catch (error) {
+          console.error(error)
+        }
+
+        return NextResponse.json(cassetteResponse, { status: 200 })
       } else {
         console.warn(cassettesResult)
         return NextResponse.json(JSON.stringify({ error: { message: 'Missing expected completion data' }}), { status: 400 })

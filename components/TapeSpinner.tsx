@@ -72,7 +72,10 @@ const CassetteContainer = styled.div`
     .titleLine.long:hover {
       left: 20px;
     }
+
   .artistBio {
+    display: none;
+    align-items: flex-end;
     background-color #222;
     vertical-align: bottom;
     border: 2px solid #efefef;
@@ -80,13 +83,13 @@ const CassetteContainer = styled.div`
     margin-top: 76px;
     color: #efefef;
     line-height: 20px;
-    opacity: 0%;
+    opacity: 80%;
     padding: 9px;
     position: absolute;
     text-align: left;
-    top: 118px;
+    top: 133px;
     width: 327px;
-    min-height: 82px;
+    min-height: 102px;
     max-height: 212px;
     overflow: auto;
     left: 2px;
@@ -127,6 +130,7 @@ const CassetteContainer = styled.div`
     border-radius: 4px;
     width: 330px;
     height: 212px;
+    margin-bottom: 130px;
 
     .background {
       border-radius: 4px;
@@ -245,6 +249,13 @@ const CassetteContainer = styled.div`
       width: 400px;
     }
   }
+
+  @media(min-width: 569px) {
+    .artistBio {
+      display: flex;
+    }
+  }
+
   @media(min-width: 1200px) {
     border-radius: 5px;
     width: 400px;
@@ -253,7 +264,7 @@ const CassetteContainer = styled.div`
     .artistBio {
       border-top: 33px transparent;
       margin-top: 33px;
-      top: 200px;
+      top: 224px;
       width: 398px;
     }
 

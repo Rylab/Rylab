@@ -1,14 +1,6 @@
 import { ReactNode, useContext } from 'react'
+import { BASE_DOMAIN } from '../utils/constants'
 import { AppContext } from '../pages/_app'
-
-export const baseDomain = process.env.NEXT_PUBLIC_BASE_URI
-  ? process.env.NEXT_PUBLIC_BASE_URI.toString().trim() : 'localhost'
-export const basePort = process.env.NEXT_PUBLIC_BASE_PORT
-  ? parseInt(process.env.NEXT_PUBLIC_BASE_PORT, 10) : 443
-
-export const baseUrl = `http${basePort === 443 ? 's':''}://${baseDomain}${[80,443].includes(basePort) ? '': `:${basePort }`}`
-
-export const siteTitle = 'RyLaB'
 
 // NOTE: should consolidate style defaults elsewhere if adding more
 export const tapeColors = [
@@ -65,7 +57,7 @@ export default function Layout({ children }: Props) {
       {children}
       <div className="footer">
         <p className="light question small">
-          <a href={`mailto:0@${baseDomain}`} title="Mail Me?">{ `1@${baseDomain}` }</a>
+          <a href={`mailto:0@${BASE_DOMAIN}`} title="Mail Me?">{ `1@${BASE_DOMAIN}` }</a>
           &nbsp;&middot;&nbsp;
           <a
             className="question"

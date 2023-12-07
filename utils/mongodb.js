@@ -20,30 +20,25 @@ if (!process.env.MONGODB) {
 let cached = global.mongo
 
 if (!cached) {
-  cached = global.mongo = { conn: null, promise: null }
+  cached = global.mongo = { client: null, db: null }
 }
 
-export async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn
+async function dbConnect() {
+  if (cached.client && cached.db) {
+    return cached
   }
 
-  if (!cached.promise) {
-    const opts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-
-    cached.promise = MongoClient.connect(process.env.MONGODB_URI, opts).then((client) => {
-      return {
-        client,
-        db: client.db(process.env.MONGODB),
-      }
-    })
+  const opts = {
+    connectTimeoutMS: 10000, // 10s
+    socketTimeoutMS: 20000,
   }
-  cached.conn = await cached.promise
 
-  return cached.conn
+  const client = new MongoClient(process.env.MONGODB_URI, opts);
+  const db = client.db(process.env.MONGODB)
+
+  cached = { client, db }
+
+  return cached
 }
 
 export const dbCollection = async (collection) => {
