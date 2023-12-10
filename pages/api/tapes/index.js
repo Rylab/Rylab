@@ -48,8 +48,6 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        console.log(req.body)
-
         const { tapesCollection } = await dbCollection('tapes')
 
         if (!uuid || uuid !== req.body.uuid) {

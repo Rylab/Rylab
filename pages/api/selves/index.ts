@@ -17,7 +17,6 @@ export default async function handler(req, res) {
           let sortObj = {}
           sortObj[sort] = order === 'desc' ? -1 : 1
           selves = await selvesCollection.find({}).sort(sortObj).toArray()
-          console.log(selves)
         }
 
         success = true

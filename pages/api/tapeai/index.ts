@@ -36,8 +36,8 @@ const defaultGenres = [
 ]
 
 const jsonCoercion = `You are a database agent for many large music record collections. ` +
-  `Respond only with valid JSON: an array of 3 relevant records with unique artist, title, and biography. ` +
-  `JSON format: ` +
+  `Respond only with valid JSON. Respond with an array of 3 relevant records with unique artist, title, and biography properties. ` +
+  `Valid JSON format: ` +
   `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
 
 const getAdjectives = adjectives => {
@@ -144,15 +144,15 @@ export default async function handler(req: NextRequest) {
         const tapes = {
           created: new Date().toISOString(),
           completionRequest,
-          prompt,
           data: [],
           uuid,
         }
   
         try {
           const [first] = cassettesJson.choices
+          const tapeList = first.text.trim()
 
-          tapes.data = first.text.trim()
+          tapes.data = JSON.parse(tapeList)
 
           await fetch(`${BASE_URL}/api/tapes`, {
             headers: {
@@ -164,7 +164,7 @@ export default async function handler(req: NextRequest) {
             body: JSON.stringify(tapes),
           })
 
-          return NextResponse.json(tapes.data, { status: 200 })
+          return NextResponse.json(tapeList, { status: 200 })
         } catch (error) {
           console.error(error)
 
