@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const { songsCollection } = await dbCollection('songs')
+        const { tapesCollection } = await dbCollection('tapes')
 
         if (isAdmin) {
           filterObject = JSON.parse(filter) ?? {}
@@ -32,8 +32,8 @@ export default async function handler(req, res) {
         sort = sort ? sort.trim() : 'artist'
         sortObject[sort] = order === 'desc' ? -1 : 1
 
-        if (songsCollection) {
-          result = await songsCollection.find(filterObject).sort(sortObject).toArray()
+        if (tapesCollection) {
+          result = await tapesCollection.find(filterObject).sort(sortObject).toArray()
           data = JSON.parse(JSON.stringify(result))
         }
 
@@ -48,16 +48,15 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { songsCollection } = await dbCollection('songs')
-        const { song } = req
+        const { tapesCollection } = await dbCollection('tapes')
 
-        if (!uuid) {
-          console.warn('POST: ', song)
+        if (!uuid || uuid !== req.body.uuid) {
+          console.warn('POST: ', tape)
           res.status(401).json({ success: false })
           break
         }
 
-        const result = await songsCollection.insertOne(song)
+        const result = await tapesCollection.insertOne(req.body)
 
         res.status(200).json({ success: true, data: result })
       } catch (error) {
@@ -67,7 +66,7 @@ export default async function handler(req, res) {
     break
 
     default:
-      console.error(`Unexpected ${method} attempt on /api/songs`)
+      console.error(`Unexpected ${method} attempt on /api/tapes`)
       res.status(400).json({ success: false })
     break
   }

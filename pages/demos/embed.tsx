@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import styled from 'styled-components'
-import { baseUrl, siteTitle } from '../../components/Layout'
+import { BASE_URL, SITE_TITLE } from '../../utils/constants'
 
-const pageTitle = `${siteTitle} :: TapeSpinner Animated React Component Embedding Demo`
+const pageTitle = `${SITE_TITLE} :: TapeSpinner Animated React Component Embedding Demo`
 
 const TapeEmbed = styled.iframe`
   min-height: 400px;
@@ -20,14 +20,14 @@ export default function EmbedDemo() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${baseUrl}/demos/embed`} />
+        <link rel="canonical" href={`${BASE_URL}/demos/embed`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component iframe embedding demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component embedding example." />
       </Head>
       <main className="embedding hideFooter" style={{ marginTop: 50 }}>
-        <TapeEmbed className="tapeEmbed" src={`${baseUrl}/song/${sampleSongId}?embed=true`} />
+        <TapeEmbed className="tapeEmbed" src={`${BASE_URL}/song/${sampleSongId}?embed=true`} />
       </main>
     </>
   )

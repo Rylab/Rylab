@@ -3,10 +3,10 @@ import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react'
 
 import { AppContext, getHeaders } from './_app'
-import { baseUrl, siteTitle } from '../components/Layout'
 import LoadingSpinner from '../components/LoadingSpinner'
+import { BASE_URL, SITE_TITLE } from '../utils/constants'
 
-const pageTitle = `${siteTitle} :: Home`
+const pageTitle = `${SITE_TITLE} :: Home`
 
 export default function Index() {
   const { password, uuid } = useContext(AppContext)
@@ -48,7 +48,7 @@ export default function Index() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={baseUrl} />
+        <link rel="canonical" href={BASE_URL} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="Welcome to Rylab, digital home of Ryan LaBarre" />

@@ -5,13 +5,14 @@ import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { AppContext, getHeaders } from '../_app'
-import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
+import { tapeColors } from '../../components/Layout'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import Navigation from '../../components/Navigation'
 import TapeSpinner from '../../components/TapeSpinner'
+import { BASE_URL, SITE_TITLE } from '../../utils/constants'
 import { getUserEmbed, selectText } from '../../utils/helpers'
 
-const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
+const pageTitle = `${SITE_TITLE} :: TapeSpinner Animated React SVG Component Demo`
 
 type Song = {
   _id: string
@@ -85,7 +86,7 @@ export default function SongDetail() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ baseUrl }/song/${ song._id ?? '404' }`} />
+        <link rel="canonical" href={`${ BASE_URL }/song/${ song._id ?? '404' }`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
@@ -105,7 +106,7 @@ export default function SongDetail() {
           </TapeSpinner>
           <div className="embedCodeContainer selectable">
             <h4 onClick={() => selectText('embedCode')}>Click to copy embed code</h4>
-            <span className="embedCode" onClick={() => selectText('embedCode')}>{`<iframe src="https://${baseUrl}/song/${song._id}?embed=true" />`}</span>
+            <span className="embedCode" onClick={() => selectText('embedCode')}>{`<iframe src="${BASE_URL}/song/${song._id}?embed=true" />`}</span>
           </div>
         </>
         ) : (

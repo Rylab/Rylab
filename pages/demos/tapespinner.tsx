@@ -1,14 +1,12 @@
 import Head from 'next/head'
 import { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
-
 import { AppContext, getHeaders } from '../_app'
-import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
+import { tapeColors } from '../../components/Layout'
 import { Navigation, TapeAdder, TapeSpinner } from '../../components'
-import { MAX_LINE_LENGTH } from '../../utils/constants'
+import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
-const pageTitle = `${siteTitle} :: TapeSpinner Animated React SVG Component Demo`
+const pageTitle = `${SITE_TITLE} :: TapeSpinner Animated React SVG Component Demo`
 
 const MAX_TAPES = Number.MAX_SAFE_INTEGER
 
@@ -126,7 +124,7 @@ export default function TapeSpinnerDemo() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ baseUrl }/demos/tapespinner`} />
+        <link rel="canonical" href={`${ BASE_URL }/demos/tapespinner`} />
         <title>{ pageTitle }</title>
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />

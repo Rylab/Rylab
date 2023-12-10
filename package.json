@@ -13,9 +13,8 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
-    "@maxmind/geoip2-node": "^4.2.0",
     "@vercel/edge": "^1.1.0",
-    "mongodb": "^6.2.0",
+    "mongodb": "^6.3.0",
     "next": "^14.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

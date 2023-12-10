@@ -2,14 +2,14 @@ import Head from 'next/head'
 import { CSSProperties, Fragment, useContext, useState } from 'react'
 
 import { AppContext, getHeaders } from '../_app'
-import { baseUrl, siteTitle, tapeColors } from '../../components/Layout'
+import { tapeColors } from '../../components/Layout'
 import { TapeSpinner, LoadingSpinner, Navigation } from '../../components'
-import { MAX_LINE_LENGTH } from '../../utils/constants'
+import { BASE_URL, SITE_TITLE, MAX_LINE_LENGTH } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
 import styles from '../../styles/ai.module.css'
 
-const pageTitle = `${siteTitle} :: Animated AI Cassette Playground`
+const pageTitle = `${SITE_TITLE} :: Animated AI Cassette Playground`
 
 type TapeInfo = {
   error?: any
@@ -71,7 +71,7 @@ export default function TapeAiDemo() {
     <>
       <Head>
         <title>{ pageTitle }</title>
-        <link rel="canonical" href={`${baseUrl}/demos/tapeai`} />
+        <link rel="canonical" href={`${BASE_URL}/demos/tapeai`} />
         <link rel="icon" href="/img/bsd_introvert.png" />
         <meta name="og:title" content={ pageTitle } />
         <meta name="description" content="TapeSpinner: animated AI Cassette Tape playground." />
@@ -123,7 +123,7 @@ export default function TapeAiDemo() {
                       { tape.artist }</div>
                     <div className="uuidLine" onClick={()=> getUserEmbed(tape.uuid)}>{ tape.uuid }</div>
                     <div className="songIdLine" onClick={() => getSongEmbed(tape._id)}>{ tape._id }</div>
-                    { !!tape.bio && <div className="artistBio small">{ tape.bio }</div> }
+                    { !!tape.bio && <div className="artistBio small"><span style={{ alignSelf: 'flex-end' }}></span>{ tape.bio }</div> }
                   </TapeSpinner>
                   { !!tape.bio && <div className="small light mobileBio mobile-only">{ tape.bio }</div> }
                 </Fragment>
