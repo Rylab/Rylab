@@ -50,7 +50,7 @@ exports[`renders homepage unchanged 1`] = `
             href="/demos/tapeai"
             title="Tape AI playground"
           >
-            AI Music Cassette Generator
+            Tape AI (music cassette maker)
           </a>
         </div>
         <div

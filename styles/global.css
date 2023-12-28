@@ -235,7 +235,7 @@ ul.narrow, div.narrow {
   border: 3px dashed #222;
   border-radius: 16px;
   margin: 10px auto;
-  max-width: 230px;
+  max-width: 275px;
   transition: border 0.3s;
   transition-timing-function: ease;
 }
@@ -465,7 +465,7 @@ ul.narrow, div.narrow {
     margin-top: 10px;
   }
   ul.narrow, div.narrow {
-    max-width: 280px;
+    max-width: 300px;
   }
   ul.list {
     padding: 16px 18px;

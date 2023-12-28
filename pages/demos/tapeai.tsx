@@ -80,31 +80,31 @@ export default function TapeAiDemo() {
       </Head>
       <main className={styles.main}>
         <Navigation path='demos/tapeai' />
-        <h1 style={{ marginBottom: 0, marginTop: 25 }}>Tape AI: Music Cassette&nbsp;Generator</h1>
+        <h1 style={{ marginBottom: 0, marginTop: 25 }}>Tape AI &mdash; Music Cassette&nbsp;Generator</h1>
         <div className="light" style={{ padding: 30 }}>
-          ChatGPT completion trained for this simple additional prompt:
-          <form style={{ marginTop: 30 }} onSubmit={onSubmit}>
-            <i>Create 3 unique music artists in the genre&nbsp;
+          ChatGPT completion trained for this simple&nbsp;additional&nbsp;prompt:
+          <form style={{ marginTop: 20 }} onSubmit={onSubmit}>
+            <i>Create 3 unique music artists in the genre&nbsp;&nbsp;
               <input
                 type="text"
                 name="genre"
                 maxLength={MAX_GENRE_LENGTH}
                 placeholder="genre / style name here"
-                style={{ display: 'inline-block' }}
+                style={{ display: 'inline-block', marginTop: 20, marginBottom: 5 }}
                 value={genreInput}
                 onChange={(e) => setGenreInput(e.target.value)}
               />
-              , and their&nbsp;
+              &nbsp;&nbsp;and their&nbsp;&nbsp;
               <input
                 type="text"
                 name="adjectives"
                 maxLength={MAX_ADJECTIVES_LENGTH}
                 placeholder="adjectives, or whatever, go here"
-                style={{ display: 'inline-block' }}
+                style={{ display: 'inline-block', marginTop: 20, marginBottom: 20 }}
                 value={adjectivesInput}
                 onChange={(e) => setAdjectivesInput(e.target.value)}
-              />&nbsp;
-              album&nbsp;titles.</i>
+              />
+              &nbsp;&nbsp;album&nbsp;titles.</i>
             <input
               type="submit"
               style={{ marginTop: 20 }}

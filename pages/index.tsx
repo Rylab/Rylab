@@ -77,7 +77,7 @@ export default function Index() {
           <div className="narrow list">
             <div className="demo">
               <Link href="/demos/tapeai" title="Tape AI playground">
-                AI Music Cassette Generator
+                Tape AI (music cassette maker)
               </Link>
             </div>
             <div className="demo">
