@@ -127,7 +127,7 @@ export default async function handler(req: NextRequest) {
     }
 
     try {
-      const cassettesResult = await fetch('https://api.openai.com/v1/completions', {
+      const cassettesJson = await fetch('https://api.openai.com/v1/completions', {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${process.env.OPENAI_KEY}`,
@@ -135,9 +135,12 @@ export default async function handler(req: NextRequest) {
         },
         method: 'POST',
         body: JSON.stringify(completionRequest),
+      }).then(res => {
+        console.info(res)
+
+        return res.json()
       })
 
-      const cassettesJson = await cassettesResult.json()
       console.log(cassettesJson)
 
       if (cassettesJson && cassettesJson.choices?.length > 0) {      
@@ -171,7 +174,7 @@ export default async function handler(req: NextRequest) {
           return NextResponse.json(tapes.data, { status: 400 })
         }
       } else {
-        console.warn(cassettesResult)
+        console.warn(cassettesJson)
         return NextResponse.json(JSON.stringify({ error: { message: 'Missing expected completion data' }}), { status: 400 })
       }
     } catch(error) {
@@ -207,8 +210,8 @@ function generateCassettePrompt(genre, adjectives) {
     genre[0].toUpperCase() + genre.slice(1).toLowerCase()
 
   const generatedPrompt =
-    `Create 3 unique music artist names in the "${capitalizedGenre}" genre, ` +
-    `and their "${capitalizedAdjectives}" style distinct album titles.`
+    `Create 3 unique music artist names in the genre "${capitalizedGenre}", ` +
+    `and their "${capitalizedAdjectives}" distinct album titles.`
 
   console.log(`\n\n${generatedPrompt}..`)
 

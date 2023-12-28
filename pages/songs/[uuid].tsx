@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
 
 import { AppContext, getHeaders } from '../_app'
 import { tapeColors } from '../../components/Layout'
@@ -40,27 +39,26 @@ export default function SongsByUuid() {
     try {
       setLoading(true)
 
-      const res = await fetch(`/api/songs/${targetUuid}`, {
+      const safeUrl = `${BASE_URL}/api/songs/${targetUuid.replace(/[^a-z0-9\-]+$/gi, '')}`
+      const songRes = await fetch(safeUrl, {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
-      })
-      const songRes = await res.json()
-      
+      }).then(res => res.json())
+
       if (songRes?.data) {
         songRes.data.map(song => {
           if (typeof tapeColors !== 'undefined' && tapeColors.length && !song.style)
           song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })
-        
+
         setSongs(songRes.data)
       } else {
-        console.error(res)
+        console.error(songRes)
       }
-
-      setLoading(false)
     } catch (error) {
-      setLoading(false)
       console.error(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -90,7 +88,7 @@ export default function SongsByUuid() {
             </TapeSpinner>
           )
         })}
-        { canAdd && <TapeAdder addTape={e => { console.log(e) }}/> }
+        { canAdd && <TapeAdder /> }
       </main>
     </>
   )

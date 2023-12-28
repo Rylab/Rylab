@@ -17,12 +17,13 @@ export const tapeColors = [
 
 type Props = {
   children?: ReactNode
+  hideAdminInput?: boolean
   password?: string
   setPassword?: any
   title?: string
 }
 
-export default function Layout({ children }: Props) {
+export default function Layout({ children, hideAdminInput }: Props) {
   const { password, setPassword } = useContext(AppContext)
 
   const setManagePass = e => {
@@ -67,17 +68,18 @@ export default function Layout({ children }: Props) {
             title="Content license URL alias for: CC BY-NC-SA 4.0">
             some rights reserved</a>
         </p>
-        { password
-          ? <span className="adminCheck lockish" onClick={onLockPress}>&#x1F512;</span>
-          :
-          <form className="adminCheck" onSubmit={setManagePass}>
-            <input type="password"
-              className="dark"
-              name="managePassword"
-              style={{ marginTop: 20 }}
-              onKeyPress={onEnterKeyPress} />
-          </form>
-        }
+        {hideAdminInput ? <></>  : (<>
+          { password
+            ? <span className="adminCheck lockish" onClick={onLockPress}>&#x1F512;</span>
+            :
+            <form className="adminCheck" onSubmit={setManagePass}>
+              <input type="password"
+                className="dark"
+                name="managePassword"
+                style={{ marginTop: 20 }}
+                onKeyPress={onEnterKeyPress} />
+            </form>
+          }</>)}
       </div>
     </>
   )

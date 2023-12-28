@@ -17,10 +17,8 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        _uuid = new ObjectId(uuid)
-
         const { songsCollection } = await dbCollection('songs')
-        const result = await songsCollection.find({ uuid: _uuid }).toArray()
+        const result = await songsCollection.find({ uuid }).toArray()
         const songs = JSON.parse(JSON.stringify(result))
 
         res.status(200).json({ success: true, data: songs })

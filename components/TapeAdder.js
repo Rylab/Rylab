@@ -29,19 +29,21 @@ const AddButton = styled.button`
 
 const ALLOWED_TAPE_PROPS = ['artist', 'title']
 
-export default function TapeAdder({ addedTapeCount = 0, addTape }) {
+const addTapeDebug = (tapeInfo) => {
+  setLoading(true)
+
+  console.log(tapeInfo)
+
+  setLoading(false)
+}
+
+export default function TapeAdder({ addedTapeCount = 0, addTape = addTapeDebug }) {
   const { password, uuid } = useContext(AppContext)
   const [tape, setTape] = useState({})
   const [loading, setLoading] = useState(false)
 
   if (typeof addTape !== 'function') {
-    addTape = (tapeInfo) => {
-      setLoading(true)
-
-      console.log(tapeInfo)
-
-      setLoading(false)
-    }
+    addTape = addTapeDebug
   }
 
   const handleAddTape = (event) => {

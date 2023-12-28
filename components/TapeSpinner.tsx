@@ -76,30 +76,10 @@ const CassetteContainer = styled.div`
   .artistBio {
     display: none;
     align-items: flex-end;
-    background-color #222;
-    vertical-align: bottom;
-    border: 2px solid #efefef;
-    border-top: 76px transparent;
-    margin-top: 76px;
-    color: #efefef;
-    line-height: 20px;
-    opacity: 80%;
-    padding: 9px;
-    position: absolute;
-    text-align: left;
-    top: 133px;
-    width: 327px;
-    min-height: 102px;
-    max-height: 212px;
-    overflow: auto;
-    left: 2px;
-    transition: 0.3s;
-    transition-timing-function: ease;
-    z-index: 5;
-    user-select: all;
-    -webkit-user-select: all;
-    -ms-user-select: all;
   }
+    .artistBio.small {
+      letter-spacing: initial;
+    }
 
   .songIdLine, .uuidLine {
     color: #222;
@@ -136,11 +116,6 @@ const CassetteContainer = styled.div`
       border-radius: 4px;
       width: 330px;
       height: 212px;
-    }
-
-    .artistBio:hover {
-      opacity: 100%;
-      transition: 0.3s;
     }
 
     .artistInput, .titleInput {
@@ -253,6 +228,29 @@ const CassetteContainer = styled.div`
   @media(min-width: 569px) {
     .artistBio {
       display: flex;
+      background-color #222;
+      vertical-align: bottom;
+      border: 1px solid #666;
+      border-top: 76px transparent;
+      margin-top: 76px;
+      color: #efefef;
+      line-height: 20px;
+      opacity: 85%;
+      padding: 9px;
+      position: absolute;
+      text-align: left;
+      top: 133px;
+      width: 327px;
+      min-height: 113px;
+      max-height: 113px;
+      overflow: hidden;
+      left: 2px;
+      transition: max-height 0.3s, opacity 0.3s;
+      z-index: 5;
+      user-select: all;
+      -webkit-user-select: all3
+      -ms-user-select: all;
+      border-radius: 0 0 10px 10px;
     }
   }
 

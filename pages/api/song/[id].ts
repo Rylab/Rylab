@@ -17,6 +17,7 @@ export default async function handler(req, res) {
 
   let _id
   let uuid
+
   switch (method) {
     case 'GET':
       try {
@@ -45,8 +46,13 @@ export default async function handler(req, res) {
         break
       }
       
-      if (uuid !== req.body.uuid) {
+      if (uuid !== req.body.uuid && !isAdmin) {
         res.status(401).json({ success: false })
+        break
+      }
+
+      if (!req.body.artist || !req.body.title) {
+        res.status(400).json({ success: false })
         break
       }
 
@@ -54,9 +60,8 @@ export default async function handler(req, res) {
         _id = new ObjectId(id)
         const { songsCollection } = await dbCollection('songs')
 
-        if (_id && _guestId) {
+        if (_id && isAdmin) {
           songUpdate = {
-            guestId: req.body.guestId,
             artist: req.body.artist ? req.body.artist.trim() : '',
             title: req.body.title ? req.body.title.trim() : '',
             notes: req.body.notes ? req.body.notes.trim() : '',

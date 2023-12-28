@@ -1,15 +1,16 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import Layout from '../components/Layout'
 import { BASE_URL, SITE_TITLE } from '../utils/constants'
 
-const pageTitle = `${SITE_TITLE} :: Internal Server Error`
+const pageTitle = `${SITE_TITLE} :: Not Found`
 
-export default function InternalServerError() {
+const NotFound = ():JSX.Element => {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ BASE_URL }/500`} />
+        <link rel="canonical" href={`${ BASE_URL }/404`} />
         <title>{ pageTitle }</title>
       </Head>
       <div className="content" style={{ marginTop: 100 }}>
@@ -21,9 +22,13 @@ export default function InternalServerError() {
             src="/img/bsd_extrovert.png" alt="RyLaB Home" />
         </Link>
         <p style={{ color: '#666', marginBottom: 250, marginTop: 20 }}>
-          <b>&lt;500&gt;</b>&nbsp;Internal Server Error&nbsp;<b>&lt;/500&gt;</b>
+          <b>&lt;404&gt;</b>&nbsp;Not Found&nbsp;<b>&lt;/404&gt;</b>
         </p>
       </div>
     </>
   )
 }
+
+NotFound.getLayout = page => <Layout hideAdminInput>{page}</Layout>
+
+export default NotFound
