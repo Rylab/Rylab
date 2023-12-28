@@ -51,7 +51,7 @@ export default async function handler(req, res) {
         const { tapesCollection } = await dbCollection('tapes')
 
         if (!uuid || uuid !== req.body.uuid) {
-          console.warn('POST: ', tape)
+          console.warn('POST: ', req.body)
           res.status(401).json({ success: false })
           break
         }

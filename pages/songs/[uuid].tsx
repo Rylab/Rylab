@@ -40,11 +40,10 @@ export default function SongsByUuid() {
     try {
       setLoading(true)
 
-      const res = await fetch(`/api/songs/${targetUuid}`, {
+      const songRes = await fetch(`/api/songs/${targetUuid}`, {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
-      })
-      const songRes = await res.json()
+      }).then(res => res.json())
       
       if (songRes?.data) {
         songRes.data.map(song => {
@@ -54,13 +53,12 @@ export default function SongsByUuid() {
         
         setSongs(songRes.data)
       } else {
-        console.error(res)
+        console.error(songRes)
       }
-
-      setLoading(false)
     } catch (error) {
-      setLoading(false)
       console.error(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -90,7 +88,7 @@ export default function SongsByUuid() {
             </TapeSpinner>
           )
         })}
-        { canAdd && <TapeAdder addTape={e => { console.log(e) }}/> }
+        { canAdd && <TapeAdder /> }
       </main>
     </>
   )

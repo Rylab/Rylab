@@ -19,12 +19,10 @@ export default function SongList() {
     try {
       setLoading(true)
 
-      const res = await fetch('/api/songs', {
+      const songRes = await fetch('/api/songs', {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
-      })
-
-      const songRes = await res.json()
+      }).then(res => res.json())
       
       if (songRes?.data) {
         songRes.data.map(song => {
@@ -34,14 +32,13 @@ export default function SongList() {
         setSongs(songRes.data)
       } else {
         setSongs([])
-        console.error(res)
+        console.error(songRes)
       }
-
-      setLoading(false)
     } catch (error) {
       setSongs([])
-      setLoading(false)
       console.error(error)
+    } finally {
+      setLoading(false)
     }
   }
 

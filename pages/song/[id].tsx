@@ -53,13 +53,13 @@ export default function SongDetail() {
         } else {
           console.error(res)
         }
-        setLoading(false)
       } catch (error) {
         setSong({
           _id: '0404',
           artist: '404',
           title: 'Song Not Found',
         })
+      } finally {
         setLoading(false)
       }
     }

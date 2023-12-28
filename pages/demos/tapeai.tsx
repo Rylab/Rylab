@@ -9,7 +9,10 @@ import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
 import styles from '../../styles/ai.module.css'
 
-const pageTitle = `${SITE_TITLE} :: Animated AI Cassette Playground`
+const MAX_ADJECTIVES_LENGTH = 90
+const MAX_GENRE_LENGTH = 45
+
+const pageTitle = `${SITE_TITLE} :: AI Music Artist Creation Playground`
 
 type TapeInfo = {
   error?: any
@@ -57,13 +60,11 @@ export default function TapeAiDemo() {
 
       tapes.unshift(...info.tapes)
       setTapes(tapes)
-      setLoading(false)
     } catch(error) {
       console.error(error)
-
+      alert(error.message ?? 'Unexpected Error. Check console for details.')
+    } finally {
       setLoading(false)
-
-      alert(error.message ?? 'Unexpected Error (with no message)')
     }
   }
 
@@ -74,34 +75,44 @@ export default function TapeAiDemo() {
         <link rel="canonical" href={`${BASE_URL}/demos/tapeai`} />
         <link rel="icon" href="/img/bsd_introvert.png" />
         <meta name="og:title" content={ pageTitle } />
-        <meta name="description" content="TapeSpinner: animated AI Cassette Tape playground." />
-        <meta property="og:description" content="RyLaB TapeSpinner: animated AI cassette playground." />
+        <meta name="description" content="Tape AI: trained to create unique new artist names, album titles, and bios from simple prompts." />
+        <meta property="og:description" content="Tape AI: ChatGPT playground, trained to create unique new artist names, album titles, and bios from simple prompts." />
       </Head>
       <main className={styles.main}>
         <Navigation path='demos/tapeai' />
-        <h1 style={{ marginBottom: 0, marginTop: 25 }}>AI Cassette Tape&nbsp;Generator</h1>
-        <div className="light" style={{ padding: 30 }}>Uses OpenAI completion with this prompt:<br />
-        <br /><i>Create 3 unique music artist names in the &quot;Genre&quot; genre, and their
-          &quot;Adjectives&quot; style distinct album&nbsp;titles.</i></div>
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="genre"
-            maxLength={45}
-            placeholder="Genre"
-            value={genreInput}
-            onChange={(e) => setGenreInput(e.target.value)}
-          />
-          <input
-            type="text"
-            name="adjectives"
-            maxLength={45}
-            placeholder="Adjectives"
-            value={adjectivesInput}
-            onChange={(e) => setAdjectivesInput(e.target.value)}
-          />
-          <input type="submit" value={`Generate ${tapes.length ? 'More ' : ''}Cassettes`} disabled={ loading || !genreInput || !adjectivesInput } />
-        </form>
+        <h1 style={{ marginBottom: 0, marginTop: 25 }}>Tape AI: Music Cassette&nbsp;Generator</h1>
+        <div className="light" style={{ padding: 30 }}>
+          ChatGPT completion trained for this simple additional prompt:
+          <form style={{ marginTop: 30 }} onSubmit={onSubmit}>
+            <i>Create 3 unique music artists in the genre&nbsp;
+              <input
+                type="text"
+                name="genre"
+                maxLength={MAX_GENRE_LENGTH}
+                placeholder="genre / style name here"
+                style={{ display: 'inline-block' }}
+                value={genreInput}
+                onChange={(e) => setGenreInput(e.target.value)}
+              />
+              , and their&nbsp;
+              <input
+                type="text"
+                name="adjectives"
+                maxLength={MAX_ADJECTIVES_LENGTH}
+                placeholder="adjectives, or whatever, go here"
+                style={{ display: 'inline-block' }}
+                value={adjectivesInput}
+                onChange={(e) => setAdjectivesInput(e.target.value)}
+              />&nbsp;
+              album&nbsp;titles.</i>
+            <input
+              type="submit"
+              style={{ marginTop: 20 }}
+              value={`Generate ${tapes.length ? 'More ' : ''}Cassettes`}
+              disabled={ loading || !genreInput || !adjectivesInput } />
+          </form>
+        </div>
+
         <div className={styles.result}>
           { loading &&
             <div className="small dark">
@@ -123,7 +134,7 @@ export default function TapeAiDemo() {
                       { tape.artist }</div>
                     <div className="uuidLine" onClick={()=> getUserEmbed(tape.uuid)}>{ tape.uuid }</div>
                     <div className="songIdLine" onClick={() => getSongEmbed(tape._id)}>{ tape._id }</div>
-                    { !!tape.bio && <div className="artistBio small"><span style={{ alignSelf: 'flex-end' }}></span>{ tape.bio }</div> }
+                    { !!tape.bio && <div className="artistBio small"><span style={{ alignSelf: 'flex-start' }}>{ tape.bio }</span></div> }
                   </TapeSpinner>
                   { !!tape.bio && <div className="small light mobileBio mobile-only">{ tape.bio }</div> }
                 </Fragment>

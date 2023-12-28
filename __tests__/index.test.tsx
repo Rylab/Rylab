@@ -1,8 +1,9 @@
+import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { AppContext } from '../pages/_app'
 import Index from '../pages/index'
 import NotFound from '../pages/404'
-import InternalServerError from '../pages/500'
+import InternalError from '../pages/500'
 
 describe('Index', () => {
   it('renders main heading', () => {
@@ -35,10 +36,10 @@ describe('NotFound', () => {
   })
 })
 
-describe('InternalServerError', () => {
+describe('InternalError', () => {
   it('renders 500 heading', () => {
     render(
-      <InternalServerError />
+      <InternalError />
     )
 
     const helloLine = screen.getByText('Internal Server Error')

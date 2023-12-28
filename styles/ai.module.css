@@ -13,12 +13,11 @@
 .main form {
   display: flex;
   flex-direction: column;
-  width: 278px;
 }
 .main input[type="text"] {
   padding: 12px 16px;
   border: 1px solid #27FFFF;
-  border-radius: 4px;
+  border-radius: 25px;
   margin-bottom: 24px;
 }
 .main ::placeholder {

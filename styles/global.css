@@ -136,12 +136,18 @@ p {
     cursor: auto;
     font-size: 9pt;
     line-height: 13pt;
+    letter-spacing: 1.77px;
   }
   .large {
     font-size: 17pt;
   }
   .dark {
     color: #666;
+  }
+  .hoverdark:hover {
+    color: #333;
+    transition: 0.44s;
+    transition-timing-function: ease;
   }
   .btn.dark {
     background-color: #111;
@@ -225,7 +231,7 @@ ul.list {
       border-bottom: none;
     }
 
-ul.narrow {
+ul.narrow, div.narrow {
   border: 3px dashed #222;
   border-radius: 16px;
   margin: 10px auto;
@@ -233,7 +239,7 @@ ul.narrow {
   transition: border 0.3s;
   transition-timing-function: ease;
 }
-  ul.narrow:hover {
+  ul.narrow:hover, div.narrow:hover {
     background-color: #121212;
     border: 3px dashed #555;
     transition: border 0.5s;
@@ -268,6 +274,15 @@ ul.narrow {
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+  .cassette:hover .artistBio {
+    opacity: 100%;
+    max-height: 800px;
+    transition: max-height 0.6s, opacity 0.3s;
+  }
+
+.haiku-tomorrow {
+  margin-bottom: 30px;
 }
 
 .hoverlight.small:hover {
@@ -348,14 +363,14 @@ ul.narrow {
     margin-top: 20px;
   }
   .digitalhaiku a {
-    color: rgb(58, 14, 116);
+    color: rgb(90, 26, 175);
     cursor: crosshair;
     text-decoration: none;
     transition: 0.2s;
     transition-timing-function: ease;
   }
   .digitalhaiku a:hover {
-    color: rgb(136, 0, 226);
+    color: rgb(143, 0, 239);
     transition: 0.2s;
   }
   .digitalhaiku a:active, .digitalhaiku a:focus {
@@ -449,7 +464,7 @@ ul.narrow {
     margin-bottom: 20px;
     margin-top: 10px;
   }
-  ul.narrow {
+  ul.narrow, div.narrow {
     max-width: 280px;
   }
   ul.list {
