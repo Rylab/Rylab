@@ -53,10 +53,10 @@ export default function App({ Component, pageProps }) {
       setPassword,
       setUuid,
     }}>
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
-      { getLayout(<Component {...pageProps} />) }
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      {getLayout(<Component {...pageProps} />)}
     </AppContext.Provider>
   )
 }

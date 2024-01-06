@@ -26,10 +26,10 @@ export default async function handler(req, res) {
         console.error(error)
         res.status(400).json({ success: false })
       }
-    break
+      break
 
     default:
       res.status(400).json({ success: false })
-    break
+      break
   }
 }

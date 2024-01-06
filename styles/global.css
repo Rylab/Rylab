@@ -1,4 +1,6 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
@@ -27,14 +29,14 @@ img.icon {
 }
 
 .header {
-  background: #000 url(/img/header_extrovert.png) top left no-repeat;
+  background: #000 url(/img/header_introvert.webp) top left no-repeat;
   background-size: cover;
   cursor: grab;
   margin: 0px;
   min-height: 175px;
   min-width: 280px;
   overflow: hidden;
-  opacity: 1.0;
+  opacity: .5;
   padding: 0px;
   position: relative;
   text-align: left;
@@ -42,11 +44,13 @@ img.icon {
   transition: 0.3s;
   transition-timing-function: ease;
 }
-  .header:hover {
-    background-image: url(/img/header_introvert.png);
-    opacity: .77;
-    transition: 0.5s;
-  }
+
+.header:hover {
+  background-image: url(/img/header_extrovert.webp);
+  opacity: .8;
+  transition: 0.5s;
+  transition-timing-function: ease;
+}
 
 .mobile-only {
   display: block;
@@ -60,15 +64,18 @@ img.icon {
   text-align: center;
   margin: 70px auto 30px auto;
 }
-  .embedding ~ .footer {
-    margin: 30px auto 0px auto;
-  }
-  .embedding ~ .footer .lockish {
-    display: none;
-  }
-  .hideFooter ~ .footer {
-    display: none
-  }
+
+.embedding~.footer {
+  margin: 30px auto 0px auto;
+}
+
+.embedding~.footer .lockish {
+  display: none;
+}
+
+.hideFooter~.footer {
+  display: none
+}
 
 .embedding .navUrl {
   display: none;
@@ -108,83 +115,104 @@ a {
   transition: 0.22s;
   transition-timing-function: ease;
 }
-  a:active:not(.discreet) {
-    color: #fff;
-    text-decoration-color: #fff;
-    border-bottom: 1px #8ccbdd dotted;
-    transition: 0.22s;
-  }
-  a:hover:not(.discreet) {
-    color: #dedede;
-    text-decoration-color: #dedede;
-    border-bottom: 1px #9c9c9c dotted;
-    transition: 0.22s;
-  }
-  .question a, a.question {
-    cursor: alias;
-  }
+
+a:active:not(.discreet) {
+  color: #fff;
+  border-bottom: 1px #fff dotted;
+  transition: 0.1s;
+}
+
+a:hover:not(:active):not(.discreet) {
+  color: #dedede;
+  border-bottom: 1px #9c9c9c dotted;
+  transition: 0.1s;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+a:focus-visible {
+  outline: none;
+  border-bottom: 1px #9c9c9c dotted;
+}
+
+button,
+button:active,
+button:focus,
+button:focus-visible {
+  border-style: none;
+  outline: none;
+}
+
+.question a,
+a.question {
+  cursor: alias;
+}
 
 p {
   font-size: 11pt;
 }
-  .lockish {
-    user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-  }
-  .small {
-    cursor: auto;
-    font-size: 9pt;
-    line-height: 13pt;
-    letter-spacing: 1.77px;
-  }
-  .large {
-    font-size: 17pt;
-  }
-  .dark {
-    color: #666;
-  }
-  .hoverdark:hover {
-    color: #333;
-    transition: 0.44s;
-    transition-timing-function: ease;
-  }
-  .btn.dark {
-    background-color: #111;
-    border: 2px solid #333;
-    border-radius: 15px;
-    color: #666;
-    display: block;
-    margin: 2px auto;
-    padding: 4px 10px;
-  }
-  input.dark {
-    background-color: #111;
-    border: 2px solid #222;
-    color: #aaa;
-    border-radius: 10px;
-    display: block;
-    margin: 2px auto;
-    padding: 4px 10px;
-    text-align: center;
-  }
-  .hoverdark:hover {
-    color: #666;
-  }
-  .light {
-    color: #ddd;
-  }
-  .hoverlight:hover {
-    color: #ddd;
-    transition: 0.44s;
-    transition-timing-function: ease;
-  }
-  .medium {
-    color: #333;
-  }
-  .hovermedium:hover {
-    color: #333;
-  }
+
+.lockish {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.small {
+  cursor: auto;
+  font-size: 9pt;
+  line-height: 13pt;
+  letter-spacing: 1.77px;
+}
+
+.large {
+  font-size: 17pt;
+}
+
+.dark {
+  color: #666;
+}
+
+input.dark {
+  background-color: #111;
+  border: 2px solid #222;
+  color: #aaa;
+  border-radius: 10px;
+  display: block;
+  margin: 2px auto;
+  padding: 4px 10px;
+  text-align: center;
+}
+
+.hoverdark:hover {
+  color: #333;
+  transition: 0.44s;
+  transition-timing-function: ease;
+}
+
+.hoverdark:hover {
+  color: #666;
+}
+
+.light {
+  color: #ddd;
+}
+
+.hoverlight:hover {
+  color: #ddd;
+  transition: 0.44s;
+  transition-timing-function: ease;
+}
+
+.medium {
+  color: #333;
+}
+
+.hovermedium:hover {
+  color: #333;
+}
 
 h1 {
   color: #ebebeb;
@@ -192,18 +220,21 @@ h1 {
   font-weight: bold;
   margin: 20px 0 10px 0;
 }
+
 h2 {
   Color: #111;
   margin: 10px 0 5px 0;
   font-size: 16pt;
   Font-weight: semi-bold;
 }
+
 h3 {
   Color: #eee;
   margin: 8px 0 4px 0;
   font-size: 14pt;
   Font-weight: semi-bold;
 }
+
 h4 {
   color: #444;
   font-size: 13pt;
@@ -215,23 +246,18 @@ ul.list {
   text-align: left;
   list-style-type: none;
 }
-  ul.list li.link {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  ul.list li:last-child {
-    margin-bottom: 2px;
-  }
-    ul.list li.link a {
-      display: inline-block;
-      padding-bottom: 3px;
-      width: 100%;
-    }
-    ul.list li.link a:active, ul.list li.link a:hover {
-      border-bottom: none;
-    }
 
-ul.narrow, div.narrow {
+ul.list li.link {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+ul.list li:last-child {
+  margin-bottom: 2px;
+}
+
+ul.narrow,
+div.narrow {
   border: 3px dashed #222;
   border-radius: 16px;
   margin: 10px auto;
@@ -239,15 +265,17 @@ ul.narrow, div.narrow {
   transition: border 0.3s;
   transition-timing-function: ease;
 }
-  ul.narrow:hover, div.narrow:hover {
-    background-color: #121212;
-    border: 3px dashed #555;
-    transition: border 0.5s;
-    transition-timing-function: ease;
-  }
+
+ul.narrow:hover,
+div.narrow:hover {
+  background-color: #121212;
+  border: 3px dashed #555;
+  transition: border 0.5s;
+  transition-timing-function: ease;
+}
 
 .bsd {
-  background: url(/img/bsd_introvert.png) center center no-repeat;
+  background: url(/img/bsd_introvert.webp) center center no-repeat;
   background-size: 3%;
   box-sizing: content-box;
   border: 3px dashed #222;
@@ -261,25 +289,27 @@ ul.narrow, div.narrow {
   transition: 0.9s;
   transition-timing-function: ease;
 }
-  .bsd:hover {
-    background-size: 92%;
-    border: 3px dashed #fff;
-    cursor: url(/img/bsd_cursor.png) 50 50, progress;
-    opacity: 0.2;
-    transition: 0.3s;
-    transition-timing-function: ease;
-  }
+
+.bsd:hover {
+  background-size: 92%;
+  border: 3px dashed #fff;
+  cursor: url(/img/bsd_cursor.webp) 50 50, progress;
+  opacity: 0.2;
+  transition: 0.3s;
+  transition-timing-function: ease;
+}
 
 .cassette {
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-  .cassette:hover .artistBio {
-    opacity: 100%;
-    max-height: 800px;
-    transition: max-height 0.6s, opacity 0.3s;
-  }
+
+.cassette:hover .artistBio {
+  opacity: 100%;
+  max-height: 800px;
+  transition: max-height 0.6s, opacity 0.3s;
+}
 
 .haiku-tomorrow {
   margin-bottom: 30px;
@@ -297,10 +327,11 @@ ul.narrow, div.narrow {
   transition: 0.5s;
   transition-timing-function: ease;
 }
-  .hoverborder:hover {
-    border-color: #321;
-    transition: 0.9s;
-  }
+
+.hoverborder:hover {
+  border-color: #321;
+  transition: 0.9s;
+}
 
 .selectable {
   cursor: copy;
@@ -326,70 +357,66 @@ ul.narrow, div.narrow {
   margin-bottom: 15px;
   margin-top: 5px;
 }
-  .navigation .protocol {
-    color: #666;
-  }
 
-  .navigation a {
-    text-decoration: none;
-  }
-  .navigation a:hover {
-    cursor: url(/img/bsd_cursor_invert.png) 20 20, progress;
-  }
+.navigation .protocol {
+  color: #666;
+}
+
+.navigation a {
+  text-decoration: none;
+}
+
+.navigation a:hover:not(:active) {
+  cursor: url(/img/bsd_cursor_invert.webp) 20 20, progress;
+}
 
 .demo {
   margin-top: 25px;
 }
-  .demo a {
-    color: rgb(21, 124, 143);
-    cursor: crosshair;
-    opacity: 0.6;
-    text-decoration: none;
-    transition: 0.22s;
-    transition-timing-function: ease;
-  }
-  .demo a:hover {
-    color: rgb(31, 194, 167);
-    opacity: 1.0;
-    transition: 0.22s;
-  }
-  .demo a:active, .demo a:focus {
-    color: rgb(31, 194, 167);
-    opacity: 1.0;
-    transition: 0.22s;
-  }
-  
-  .digitalhaiku {
-    margin-top: 20px;
-  }
-  .digitalhaiku a {
-    color: rgb(90, 26, 175);
-    cursor: crosshair;
-    text-decoration: none;
-    transition: 0.2s;
-    transition-timing-function: ease;
-  }
-  .digitalhaiku a:hover {
-    color: rgb(143, 0, 239);
-    transition: 0.2s;
-  }
-  .digitalhaiku a:active, .digitalhaiku a:focus {
-    color: rgb(136, 0, 226);
-    transition: 0.2s;
-  }
 
-.rylab-image {
-  background-image: url(/img/rylab_introvert.png);
-  background-position: 0px 0px;
-  background-size: contain;
-  opacity: 99%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  min-height: 20px;
-  max-width: 97%;
-  transition: 0.7s;
+.demo a {
+  color: rgb(21, 124, 143);
+  cursor: crosshair;
+  opacity: 0.6;
+  text-decoration: none;
+  transition: 0.22s;
   transition-timing-function: ease;
+}
+
+.demo a:hover:not(:active) {
+  color: rgb(31, 194, 167);
+  opacity: 1.0;
+  transition: 0.22s;
+}
+
+.demo a:active,
+.demo a:focus {
+  color: rgb(55, 211, 185);
+  opacity: 1.0;
+  transition: 0.22s;
+}
+
+.digitalhaiku {
+  margin-top: 20px;
+}
+
+.digitalhaiku a {
+  color: rgb(90, 26, 175);
+  cursor: crosshair;
+  text-decoration: none;
+  transition: 0.2s;
+  transition-timing-function: ease;
+}
+
+.digitalhaiku a:hover:not(:active) {
+  color: rgb(143, 0, 239);
+  transition: 0.2s;
+}
+
+.digitalhaiku a:active,
+.digitalhaiku a:focus {
+  color: rgb(173, 50, 255);
+  transition: 0.2s;
 }
 
 .rylab-copy {
@@ -400,12 +427,13 @@ ul.narrow, div.narrow {
   transition: 0.9s;
   transition-timing-function: ease;
 }
-  .rylab-copy:hover {
-    cursor: all-scroll;
-    color: #777;
-    opacity: 1.0;
-    transition: 0.3s;
-  }
+
+.rylab-copy:hover:not(:active) {
+  cursor: all-scroll;
+  color: #777;
+  opacity: 1.0;
+  transition: 0.3s;
+}
 
 .crosshair {
   cursor: crosshair;
@@ -413,39 +441,45 @@ ul.narrow, div.narrow {
   transition: 0.9s;
   transition-timing-function: ease;
 }
-  .crosshair:hover {
-    opacity: 90%;
-    transition: 0.3s;
-  }
+
+.crosshair:hover {
+  opacity: 90%;
+  transition: 0.3s;
+}
 
 .saxylab {
   margin: 25px auto 0px auto;
 }
-  .saxylab a {
-    color: #319c00;
-    cursor: crosshair;
-    opacity: 0.5;
-    padding-top: 5px;
-    text-decoration: none;
-    transition: 0.42s;
-    transition-timing-function: ease;
-  }
-    .saxylab a:active, .saxylab a:focus {
-      color: rgb(107, 221, 103);
-      opacity: 1.0;
-      transition: 0.2s;
-    }
-    .saxylab a:hover {
-      color: rgb(5, 160, 0);
-      opacity: 1.0;
-      transition: 0.2s;
-    }
+
+.saxylab a {
+  color: #319c00;
+  cursor: crosshair;
+  opacity: 0.5;
+  padding-top: 5px;
+  text-decoration: none;
+  transition: 0.42s;
+  transition-timing-function: ease;
+}
+
+.saxylab a:active,
+.saxylab a:focus {
+  color: rgb(107, 221, 103);
+  opacity: 1.0;
+  transition: 0.2s;
+}
+
+.saxylab a:hover:not(:active) {
+  color: rgb(5, 160, 0);
+  opacity: 1.0;
+  transition: 0.2s;
+}
 
 @media(min-width: 569px) {
   .bsd {
     max-width: 250px;
     padding: 15%;
   }
+
   .header {
     background-position: 0px 0px;
     border-radius: 17px;
@@ -453,27 +487,34 @@ ul.narrow, div.narrow {
     margin: 27px auto 7px auto;
     max-width: 500px;
   }
+
   .hoverborder {
     border: 4px solid #123;
   }
+
   .mobile-only {
     display: none;
   }
+
   .navigation {
     font-size: 12px;
     margin-bottom: 20px;
     margin-top: 10px;
   }
-  ul.narrow, div.narrow {
+
+  ul.narrow,
+  div.narrow {
     max-width: 300px;
   }
+
   ul.list {
     padding: 16px 18px;
     text-align: left;
   }
-    ul.list li {
-      margin-bottom: 15px;
-    }
+
+  ul.list li {
+    margin-bottom: 15px;
+  }
 }
 
 @media(min-width: 1017px) {
@@ -483,15 +524,18 @@ ul.narrow, div.narrow {
     margin: 0 0 10px 0;
     max-width: 100%;
   }
+
   .hoverborder {
     border-bottom: 4px solid #123;
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
   }
+
   .navigation {
     font-size: 13px;
   }
+
   .rylab-image {
     margin-left: 11%;
     opacity: 77%;
@@ -503,15 +547,19 @@ ul.narrow, div.narrow {
     text-align: right;
     margin: 80px 50px 30px 0px;
   }
+
   .adminCheck input {
     margin: 20px 0 0 auto;
   }
+
   .header {
     background-position: 0px -70px;
   }
+
   .navigation {
     font-size: 14px;
   }
+
   .rylab-image {
     margin-left: 21%;
     opacity: 69%;
@@ -519,6 +567,6 @@ ul.narrow, div.narrow {
 }
 
 body:after {
-  content: url(/img/header_introvert.png) url(/img/bsd_cursor.png) url(/img/bsd_cursor_invert.png);
+  content: url(/img/header_introvert.webp) url(/img/bsd_cursor.webp) url(/img/bsd_cursor_invert.webp);
   display: none;
- }
+}

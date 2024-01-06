@@ -30,14 +30,16 @@ export default async function handler(req, res) {
       } catch (error) {
         console.warn(error)
 
-        res.status(400).json({ success: false, data: {
-          '_id': 404,
-          artist: 'Try Again',
-          title: 'Song Not Found',
-        } })
+        res.status(400).json({
+          success: false, data: {
+            '_id': 404,
+            artist: 'Try Again',
+            title: 'Song Not Found',
+          }
+        })
       }
-    break
-      
+      break
+
     case 'PUT':
       if (headers['x-uuid'] && validateUuid(headers['x-uuid'])) {
         uuid = headers['x-uuid']
@@ -45,7 +47,7 @@ export default async function handler(req, res) {
         res.status(401).json({ success: false })
         break
       }
-      
+
       if (uuid !== req.body.uuid && !isAdmin) {
         res.status(401).json({ success: false })
         break
@@ -77,10 +79,10 @@ export default async function handler(req, res) {
         console.warn(error)
         res.status(400).json({ success: false })
       }
-    break
+      break
 
     default:
       res.status(400).json({ success: false })
-    break
+      break
   }
 }

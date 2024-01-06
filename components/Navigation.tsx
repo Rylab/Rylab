@@ -6,11 +6,11 @@ export default function Navigation({ path = '' }) {
   return (
     <div className="navigation">
       <Link href="/">
-        <img alt="RyLaB home" src="/img/bsd_introvert.png" className="icon" />
+        <img alt="RyLaB home" src="/img/bsd_introvert.webp" className="icon" />
       </Link>
       <div className="navUrl selectable">
-        <Link data-testid="navigation-protocol" className="protocol" href="/">{ BASE_URL }</Link>
-        <span data-testid="navigation-path" className="path" onClick={() => selectText('navUrl')}>/{ path }</span>
+        <Link data-testid="navigation-protocol" className="protocol" href="/">{BASE_URL}</Link>
+        <span data-testid="navigation-path" className="path" onClick={() => selectText('navUrl')}>/{path}</span>
       </div>
     </div>
   )

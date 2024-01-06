@@ -28,11 +28,11 @@ export default async function handler(req, res) {
         success = false
         res.status(400).json({ success, data: selves, error })
       }
-    break
+      break
 
     default:
       console.error(`Unexpected ${method} attempt on /api/selves`)
       res.status(405).json({ success: false })
-    break
+      break
   }
 }
