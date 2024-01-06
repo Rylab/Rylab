@@ -48,7 +48,7 @@ export default function SongsByUuid() {
       if (songRes?.data) {
         songRes.data.map(song => {
           if (typeof tapeColors !== 'undefined' && tapeColors.length && !song.style)
-          song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
+            song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })
 
         setSongs(songRes.data)
@@ -65,9 +65,9 @@ export default function SongsByUuid() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ BASE_URL }/user/${pageUuid}`} />
-        <title>{ pageTitle }</title>
-        <meta name="og:title" content={ pageTitle } />
+        <link rel="canonical" href={`${BASE_URL}/user/${pageUuid}`} />
+        <title>{pageTitle}</title>
+        <meta name="og:title" content={pageTitle} />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
       </Head>
@@ -79,16 +79,16 @@ export default function SongsByUuid() {
 
           return (
             <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
-              <div title={ song.title } onClick={() => getSongEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-                { song.title }</div>
-              <div title={ song.artist } onClick={() => getSongEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-                { song.artist }</div>
-              <div className="disabled uuidLine">{ song.uuid }</div>
-              <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{ song._id }</div>
+              <div title={song.title} onClick={() => getSongEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+                {song.title}</div>
+              <div title={song.artist} onClick={() => getSongEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                {song.artist}</div>
+              <div className="disabled uuidLine">{song.uuid}</div>
+              <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{song._id}</div>
             </TapeSpinner>
           )
         })}
-        { canAdd && <TapeAdder /> }
+        {canAdd && <TapeAdder />}
       </main>
     </>
   )

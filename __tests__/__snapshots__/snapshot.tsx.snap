@@ -5,14 +5,7 @@ exports[`renders homepage unchanged 1`] = `
   <main>
     <div
       class="header hoverborder lockish"
-    >
-      <img
-        alt="A very pretty building in Golden Gate Park, San Francisco"
-        class="rylab-image"
-        src="/img/rylab_extrovert.png"
-        title="A very pretty building in Golden Gate Park."
-      />
-    </div>
+    />
     <div
       class="rylab-copy lockish"
     >
@@ -87,7 +80,7 @@ exports[`renders homepage unchanged 1`] = `
           </a>
         </div>
         <div
-          class="sc-aXZVg irtMgT"
+          class="sc-aXZVg iXnuBG"
           data-testid="loading-spinner"
         >
           <svg
@@ -129,7 +122,7 @@ exports[`renders homepage unchanged 1`] = `
         Digital Selves
       </h1>
       <div
-        class="sc-aXZVg irtMgT"
+        class="sc-aXZVg iXnuBG"
         data-testid="loading-spinner"
       >
         <svg
@@ -167,7 +160,7 @@ exports[`renders homepage unchanged 1`] = `
     <img
       alt="// MacOS <== ++BSD;"
       class="bsd lockish"
-      src="/img/bsd_extrovert.png"
+      src="/img/bsd_extrovert.webp"
     />
   </main>
 </div>

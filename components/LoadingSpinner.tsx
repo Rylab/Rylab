@@ -9,7 +9,7 @@ const LoaderContainer = styled.div`
 
   .spinner {
     animation: rotate 3s linear infinite;
-    cursor: url(/img/bsd_cursor_invert.png) 20 20, progress;
+    cursor: url(/img/bsd_cursor_invert.webp) 20 20, progress;
     z-index: 2;
     position: absolute;
     top: 50%;
@@ -47,12 +47,12 @@ const LoaderContainer = styled.div`
   }
 `
 
-interface LoadingSpinnerProps { 
+interface LoadingSpinnerProps {
   children?: any
   style?: any
 }
 
-const LoadingSpinner = ({children, style}: LoadingSpinnerProps) => {
+const LoadingSpinner = ({ children, style }: LoadingSpinnerProps) => {
   return (
     <LoaderContainer data-testid="loading-spinner" style={style}>
       <svg className="spinner" viewBox="0 0 50 50">

@@ -21,8 +21,8 @@ export default function EmbedDemo() {
     <>
       <Head>
         <link rel="canonical" href={`${BASE_URL}/demos/embed`} />
-        <title>{ pageTitle }</title>
-        <meta name="og:title" content={ pageTitle } />
+        <title>{pageTitle}</title>
+        <meta name="og:title" content={pageTitle} />
         <meta name="description" content="TapeSpinner animated SVG React component iframe embedding demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component embedding example." />
       </Head>

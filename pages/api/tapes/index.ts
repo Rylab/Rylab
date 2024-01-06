@@ -44,7 +44,7 @@ export default async function handler(req, res) {
         result = null
         res.status(400).json({ success: false, data, error })
       }
-    break
+      break
 
     case 'POST':
       try {
@@ -63,11 +63,11 @@ export default async function handler(req, res) {
         console.error(error)
         res.status(400).json({ success: false })
       }
-    break
+      break
 
     default:
       console.error(`Unexpected ${method} attempt on /api/tapes`)
       res.status(400).json({ success: false })
-    break
+      break
   }
 }

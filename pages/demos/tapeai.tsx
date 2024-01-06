@@ -42,7 +42,7 @@ export default function TapeAiDemo() {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
       })
-      
+
       const responseJson = await response.json()
       info.tapes = JSON.parse(responseJson) ?? []
 
@@ -60,7 +60,7 @@ export default function TapeAiDemo() {
 
       tapes.unshift(...info.tapes)
       setTapes(tapes)
-    } catch(error) {
+    } catch (error) {
       console.error(error)
       alert(error.message ?? 'Unexpected Error. Check console for details.')
     } finally {
@@ -71,10 +71,10 @@ export default function TapeAiDemo() {
   return (
     <>
       <Head>
-        <title>{ pageTitle }</title>
+        <title>{pageTitle}</title>
         <link rel="canonical" href={`${BASE_URL}/demos/tapeai`} />
-        <link rel="icon" href="/img/bsd_introvert.png" />
-        <meta name="og:title" content={ pageTitle } />
+        <link rel="icon" href="/img/bsd_introvert.webp" />
+        <meta name="og:title" content={pageTitle} />
         <meta name="description" content="Tape AI: trained to create unique new artist names, album titles, and bios from simple prompts." />
         <meta property="og:description" content="Tape AI: ChatGPT playground, trained to create unique new artist names, album titles, and bios from simple prompts." />
       </Head>
@@ -86,6 +86,7 @@ export default function TapeAiDemo() {
           <form style={{ marginTop: 20 }} onSubmit={onSubmit}>
             <i>Create 3 unique music artists in the genre&nbsp;&nbsp;
               <input
+                tabIndex={1}
                 type="text"
                 name="genre"
                 maxLength={MAX_GENRE_LENGTH}
@@ -96,6 +97,7 @@ export default function TapeAiDemo() {
               />
               &nbsp;&nbsp;and their&nbsp;&nbsp;
               <input
+                tabIndex={2}
                 type="text"
                 name="adjectives"
                 maxLength={MAX_ADJECTIVES_LENGTH}
@@ -106,40 +108,41 @@ export default function TapeAiDemo() {
               />
               &nbsp;&nbsp;album&nbsp;titles.</i>
             <input
+              tabIndex={3}
               type="submit"
               style={{ marginTop: 20 }}
               value={`Generate ${tapes.length ? 'More ' : ''}Cassettes`}
-              disabled={ loading || !genreInput || !adjectivesInput } />
+              disabled={loading || !genreInput || !adjectivesInput} />
           </form>
         </div>
 
         <div className={styles.result}>
-          { loading &&
+          {loading &&
             <div className="small dark">
               <LoadingSpinner />
               <div style={{ marginTop: -15, marginBottom: 30 }}>
                 Generating...
               </div>
-          </div> }
-          { tapes && tapes.map((tape, index) => {
-              const hasLongArtist = tape.artist.length > MAX_LINE_LENGTH
-              const hasLongTitle = tape.title.length > MAX_LINE_LENGTH
+            </div>}
+          {tapes && tapes.map((tape, index) => {
+            const hasLongArtist = tape.artist.length > MAX_LINE_LENGTH
+            const hasLongTitle = tape.title.length > MAX_LINE_LENGTH
 
-              return (
-                <Fragment key={index}>
-                  <TapeSpinner style={ tape.style }>
-                    <div title={ tape.title } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-                      { tape.title }</div>
-                    <div title={ tape.bio ?? tape.artist } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-                      { tape.artist }</div>
-                    <div className="uuidLine" onClick={()=> getUserEmbed(tape.uuid)}>{ tape.uuid }</div>
-                    <div className="songIdLine" onClick={() => getSongEmbed(tape._id)}>{ tape._id }</div>
-                    { !!tape.bio && <div className="artistBio small"><span style={{ alignSelf: 'flex-start' }}>{ tape.bio }</span></div> }
-                  </TapeSpinner>
-                  { !!tape.bio && <div className="small light mobileBio mobile-only">{ tape.bio }</div> }
-                </Fragment>
-              )
-            })
+            return (
+              <Fragment key={index}>
+                <TapeSpinner style={tape.style}>
+                  <div title={tape.title} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+                    {tape.title}</div>
+                  <div title={tape.bio ?? tape.artist} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                    {tape.artist}</div>
+                  <div className="uuidLine" onClick={() => getUserEmbed(tape.uuid)}>{tape.uuid}</div>
+                  <div className="songIdLine" onClick={() => getSongEmbed(tape._id)}>{tape._id}</div>
+                  {!!tape.bio && <div className="artistBio small"><span style={{ alignSelf: 'flex-start' }}>{tape.bio}</span></div>}
+                </TapeSpinner>
+                {!!tape.bio && <div className="small light mobileBio mobile-only">{tape.bio}</div>}
+              </Fragment>
+            )
+          })
           }
         </div>
       </main>

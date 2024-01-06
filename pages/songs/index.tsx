@@ -23,7 +23,7 @@ export default function SongList() {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
       }).then(res => res.json())
-      
+
       if (songRes?.data) {
         songRes.data.map(song => {
           if (!song.style) song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
@@ -49,9 +49,9 @@ export default function SongList() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ BASE_URL }/songs`} />
-        <title>{ pageTitle }</title>
-        <meta name="og:title" content={ pageTitle } />
+        <link rel="canonical" href={`${BASE_URL}/songs`} />
+        <title>{pageTitle}</title>
+        <meta name="og:title" content={pageTitle} />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
       </Head>
@@ -63,12 +63,12 @@ export default function SongList() {
 
           return (
             <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
-              <div title={ song.title } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-                { song.title }</div>
-              <div title={ song.artist } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-                { song.artist }</div>
-              <div className="uuidLine" onClick={() => getUserEmbed(song.uuid)}>{ song.uuid }</div>
-              <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{ song._id }</div>
+              <div title={song.title} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+                {song.title}</div>
+              <div title={song.artist} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                {song.artist}</div>
+              <div className="uuidLine" onClick={() => getUserEmbed(song.uuid)}>{song.uuid}</div>
+              <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{song._id}</div>
             </TapeSpinner>
           )
         })}

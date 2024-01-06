@@ -50,17 +50,13 @@ export default function Index() {
     <>
       <Head>
         <link rel="canonical" href={BASE_URL} />
-        <title>{ pageTitle }</title>
-        <meta name="og:title" content={ pageTitle } />
+        <title>{pageTitle}</title>
+        <meta name="og:title" content={pageTitle} />
         <meta name="description" content="Welcome to Rylab, digital home of Ryan LaBarre" />
         <meta property="og:description" content="Digital Home of Ryan LaBarre" />
       </Head>
       <main>
         <div className="header hoverborder lockish">
-          <img className="rylab-image"
-            src="/img/rylab_extrovert.png"
-            alt="A very pretty building in Golden Gate Park, San Francisco"
-            title="A very pretty building in Golden Gate Park." />
         </div>
         <div className="rylab-copy lockish">(: hello :)</div>
         <div className="content lockish">
@@ -101,7 +97,7 @@ export default function Index() {
           </div>
           <br />
           <h1 style={{ marginBottom: 20, marginTop: 40 }}>Digital Selves</h1>
-          { selves.data?.length ? (
+          {selves.data?.length ? (
             <ul className="narrow list">
               {selves.data.map(link => (
                 <li className={`link ${link.alias}`} key={link.alias}>
@@ -114,7 +110,7 @@ export default function Index() {
             loading ? <LoadingSpinner /> : <span className="dark">[]</span>
           )}
         </div>
-        <img className="bsd lockish" src="/img/bsd_extrovert.png" alt="// MacOS <== ++BSD;" />
+        <img className="bsd lockish" src="/img/bsd_extrovert.webp" alt="// MacOS <== ++BSD;" />
       </main>
     </>
   )

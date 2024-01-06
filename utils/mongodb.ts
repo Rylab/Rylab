@@ -33,7 +33,7 @@ async function dbConnect() {
     socketTimeoutMS: 20000,
   }
 
-  const client = new MongoClient(process.env.MONGODB_URI, opts);
+  const client = new MongoClient(process.env.MONGODB_URI, opts)
   const db = await client.db(process.env.MONGODB)
 
   cached = { client, db }

@@ -40,8 +40,8 @@ export default class Rylab extends Document {
           <meta name="language" content="en" />
           <meta name="robots" content="index, follow" />
           <meta name="theme-color" content="#222" />
-          <meta property="og:site_name" content={ BASE_DOMAIN } />
-          <link rel="icon" type="image/png" href="/img/bsd_introvert.png" />
+          <meta property="og:site_name" content={BASE_DOMAIN} />
+          <link rel="icon" type="image/png" href="/img/bsd_introvert.webp" />
           {this.props.styles}
         </Head>
         <body>

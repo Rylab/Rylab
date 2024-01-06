@@ -22,14 +22,14 @@ export default async function handler(req, res) {
         console.error(error)
         res.status(400).json({ success: false })
       }
-    break
+      break
 
     case 'POST':
       try {
         const { songsCollection } = await dbCollection('songs')
         const { headers, body } = req
         const { song } = body
-        
+
         if (!isAdmin && headers['x-uuid'] !== song.uuid) {
           res.status(401).json({ success: false })
           break
@@ -42,11 +42,11 @@ export default async function handler(req, res) {
         console.error(error)
         res.status(400).json({ success: false })
       }
-    break
+      break
 
     default:
       console.error(`Unexpected ${method} attempt on /api/songs`)
       res.status(400).json({ success: false })
-    break
+      break
   }
 }
