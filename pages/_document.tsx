@@ -24,7 +24,7 @@ export default class Rylab extends Document {
             {sheet.getStyleElement()}
           </>
         ),
-      };
+      }
     } finally {
       sheet.seal()
     }
@@ -49,6 +49,6 @@ export default class Rylab extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }

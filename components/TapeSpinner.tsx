@@ -43,11 +43,11 @@ const CassetteContainer = styled.div`
       bottom: 24px;
       left: 24px;
       font-style: italic;
-      transition: 0.5s;
+      transition: 0.4s;
     }
     .artistLine:hover, .titleLine:hover {
       cursor: default;
-      transition: 0.5s;
+      transition: 0.4s;
       overflow: visible;
       user-select: none;
     }
@@ -57,12 +57,13 @@ const CassetteContainer = styled.div`
     }
       .artistLine.long:hover {
         left: 0px;
-        transition: 1s;
+        outline: 1px solid #fff;
+        transition: 0.5s;
       }
     .titleLine {
       left: 24px;
       bottom: 46px;
-      transition: 1s;
+      transition: 0.5s;
       font-weight: 600;
     }
     .titleLine.long {
@@ -71,6 +72,7 @@ const CassetteContainer = styled.div`
     }
     .titleLine.long:hover {
       left: 20px;
+      text-shadow: 0px 1px 3px #ccc;
     }
 
   .artistBio {
@@ -245,7 +247,7 @@ const CassetteContainer = styled.div`
       max-height: 113px;
       overflow: hidden;
       left: 2px;
-      transition: max-height 0.3s, opacity 0.3s;
+      transition: max-height 0.3s ease-in-out, opacity 0.3s;
       z-index: 5;
       user-select: all;
       -webkit-user-select: all3
