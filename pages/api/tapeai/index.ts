@@ -78,22 +78,16 @@ export default async function handler(req: NextRequest) {
   }
 
   const { headers, method, nextUrl } = req
-  const uuidHeader = headers.get('x-uuid')
-  let uuid
-
-  if (uuidHeader && validateUuid(uuidHeader)) {
-    uuid = uuidHeader
-  } else {
-    console.warn('Invalid or empty UUID:')
-    console.warn(uuidHeader)
-  }
+  const uuid = validateUuid(headers.get('x-uuid'))
 
   if (!uuid) {
+    console.warn('Invalid or empty UUID: ', uuid)
+
     return NextResponse.json(JSON.stringify({
       error: {
         message: 'UUID not set; see instructions in README.md',
       }
-    }), { status: 400 })
+    }), { status: 401 })
   }
 
   const isAdmin = headers.get('x-admin') === process.env.MANAGE_PASS

@@ -1,9 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
 
-// TODO: actual specific DB-side UUID validation via auth helper, in addition to basic sanity check
-const MIN_UUID_LENGTH = 12
-const MAX_UUID_LENGTH = 36
-
 export function selectText(className) {
   let nav
   let sel
@@ -29,8 +25,6 @@ export function selectText(className) {
 }
 
 export const getUuid = req => {
-  let uuid = ''
-
   if (req && req.uuid && req.uuid.length) {
     return validateUuid(req.uuid)
   } else {
@@ -47,8 +41,8 @@ export const getUserEmbed = _uuid => {
   window.open(`/user/${_uuid}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450')
 }
 
-export const initUuid = () => {
-  let uuid = localStorage.getItem('uuid')
+export const initUuid = ():string => {
+  let uuid = validateUuid(localStorage.getItem('uuid'))
 
   if (uuid) return uuid
 
@@ -65,12 +59,15 @@ export const initUuid = () => {
   }
 }
 
-export const validateUuid = uuid => {
-  let trimUuid = ''
+export const validateUuid = (uuid?:string):string  => {
+  const MIN_UUID_LENGTH = 12
+  const MAX_UUID_LENGTH = 36
 
-  if (!uuid || typeof uuid !== 'string') return trimUuid
+  let saneUuid = ''
 
-  trimUuid = uuid.trim()
+  if (!uuid || typeof uuid !== 'string') return saneUuid
 
-  return (trimUuid.length >= MIN_UUID_LENGTH && trimUuid.length <= MAX_UUID_LENGTH) ? trimUuid : ''
+  saneUuid = uuid.replace(/[^a-z0-9\-]+$/gi, '')
+
+  return (saneUuid.length >= MIN_UUID_LENGTH && saneUuid.length <= MAX_UUID_LENGTH) ? saneUuid : ''
 }

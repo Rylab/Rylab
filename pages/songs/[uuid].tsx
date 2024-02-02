@@ -19,17 +19,15 @@ export default function SongsByUuid() {
 
   const router = useRouter()
 
-  // waits until router is ready to get query params (uuid) and then fetches songs
+  // wait until router is ready and client uuid is set to fetch songs
   useEffect(() => {
-    if (router.isReady) {
-      if (router.query.uuid) {
-        const decodedUuid = validateUuid(decodeURI(router.query.uuid.toString()))
+    if (router.isReady && router.query.uuid && uuid) {
+      const decodedUuid = validateUuid(decodeURI(router.query.uuid.toString()))
 
-        if (decodedUuid) {
-          getSongs(decodedUuid)
-          setCanAdd(decodedUuid === uuid)
-          setPageUuid(decodeURI(decodedUuid))
-        }
+      if (decodedUuid) {
+        setPageUuid(decodedUuid)
+        setCanAdd(decodedUuid === uuid)
+        getSongs(decodedUuid)
       }
     }
   }, [router, password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -39,7 +37,7 @@ export default function SongsByUuid() {
     try {
       setLoading(true)
 
-      const safeUrl = `${BASE_URL}/api/songs/${targetUuid.replace(/[^a-z0-9\-]+$/gi, '')}`
+      const safeUrl = `/api/songs/${validateUuid(targetUuid)}`
       const songRes = await fetch(safeUrl, {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
@@ -65,7 +63,7 @@ export default function SongsByUuid() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${BASE_URL}/user/${pageUuid}`} />
+        <link rel="canonical" href={`${BASE_URL}/songs/${pageUuid}`} />
         <title>{pageTitle}</title>
         <meta name="og:title" content={pageTitle} />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />

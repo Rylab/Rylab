@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb'
 import { validateUuid } from '../../../utils/helpers'
 import { dbCollection } from '../../../utils/mongodb'
 
@@ -15,16 +14,13 @@ export default async function handler(req, res) {
   let songRes
   let songUpdate
 
-  let _id
   let uuid
 
   switch (method) {
     case 'GET':
       try {
-        _id = new ObjectId(id)
-
         const { songsCollection = false } = await dbCollection('songs')
-        songRes = await songsCollection.findOne({ _id })
+        songRes = await songsCollection.findOne({ '_id': id })
 
         res.status(200).json({ success: true, data: songRes })
       } catch (error) {
@@ -59,10 +55,9 @@ export default async function handler(req, res) {
       }
 
       try {
-        _id = new ObjectId(id)
         const { songsCollection } = await dbCollection('songs')
 
-        if (_id && isAdmin) {
+        if (id && isAdmin) {
           songUpdate = {
             artist: req.body.artist ? req.body.artist.trim() : '',
             title: req.body.title ? req.body.title.trim() : '',
@@ -72,7 +67,7 @@ export default async function handler(req, res) {
           now = new Date()
           songUpdate.updated = now
 
-          songRes = await songsCollection.updateOne({ _id }, { $set: songUpdate, new: true })
+          songRes = await songsCollection.updateOne({ '_id': id }, { $set: songUpdate, new: true })
         }
         res.status(202).json({ success: true, data: songRes })
       } catch (error) {

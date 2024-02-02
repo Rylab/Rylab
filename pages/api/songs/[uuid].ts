@@ -1,18 +1,21 @@
-import { ObjectId } from 'mongodb'
 import { validateUuid } from '../../../utils/helpers'
 import { dbCollection } from '../../../utils/mongodb'
 
 export default async function handler(req, res) {
+  const uuid = validateUuid(req.query.uuid)
+
+  if (!uuid) {
+    return res.status(404).json({ success: false })
+  }
+
   const {
     headers,
-    query: { uuid },
     method,
   } = req
 
   let isAdmin = headers['x-admin'] === process.env.MANAGE_PASS
   let now = new Date()
   let songUpdate
-  let _uuid
 
   switch (method) {
     case 'GET':
