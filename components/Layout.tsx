@@ -72,7 +72,6 @@ export default function Layout({ children, hideAdminInput }: Props) {
             some rights reserved</a>
         </p>
         {hideAdminInput ? <></> : (<>
-          <HankoAuth />
           {password
             ? <span className="adminCheck lockish" onClick={onLockPress}>&#x1F512;</span>
             :
@@ -82,6 +81,7 @@ export default function Layout({ children, hideAdminInput }: Props) {
                 name="managePassword"
                 style={{ marginTop: 20 }}
                 onKeyPress={onEnterKeyPress} />
+              <HankoAuth />
             </form>
           }</>)}
       </div>
