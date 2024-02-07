@@ -1,6 +1,9 @@
+import dynamic from 'next/dynamic'
 import { ReactNode, useContext } from 'react'
 import { BASE_DOMAIN } from '../utils/constants'
 import { AppContext } from '../pages/_app'
+
+const HankoAuth = dynamic(() => import('./HankoAuth'), { ssr: false })
 
 // NOTE: should consolidate style defaults elsewhere if adding more
 export const tapeColors = [
@@ -58,7 +61,7 @@ export default function Layout({ children, hideAdminInput }: Props) {
       {children}
       <div className="footer">
         <p className="light question small">
-          <a href={`mailto:0@${BASE_DOMAIN}`} title="Mail Me?">{ `1@${BASE_DOMAIN}` }</a>
+          <a href={`mailto:0@${BASE_DOMAIN}`} title="Mail Me?">{`1@${BASE_DOMAIN}`}</a>
           &nbsp;&middot;&nbsp;
           <a
             className="question"
@@ -68,8 +71,9 @@ export default function Layout({ children, hideAdminInput }: Props) {
             title="Content license URL alias for: CC BY-NC-SA 4.0">
             some rights reserved</a>
         </p>
-        {hideAdminInput ? <></>  : (<>
-          { password
+        {hideAdminInput ? <></> : (<>
+          <HankoAuth />
+          {password
             ? <span className="adminCheck lockish" onClick={onLockPress}>&#x1F512;</span>
             :
             <form className="adminCheck" onSubmit={setManagePass}>

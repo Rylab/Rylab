@@ -14,6 +14,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@teamhanko/hanko-elements": "^0.9.1",
     "@vercel/edge": "^1.1.1",
     "mongodb": "^6.3.0",
     "next": "^14.0.4",
