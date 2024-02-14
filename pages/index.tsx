@@ -43,7 +43,7 @@ export default function Index() {
   }, [password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.info(languages)
+    console.table(languages.map(lang => { return { 'Language': lang } }))
   }, [])
 
   return (

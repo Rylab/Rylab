@@ -59,6 +59,9 @@ export default function Layout({ children, hideAdminInput }: Props) {
   return (
     <>
       {children}
+      <div className='flex flex-center mt-20'>
+        <HankoAuth />
+      </div>
       <div className="footer">
         <p className="light question small">
           <a href={`mailto:0@${BASE_DOMAIN}`} title="Mail Me?">{`1@${BASE_DOMAIN}`}</a>
@@ -81,7 +84,6 @@ export default function Layout({ children, hideAdminInput }: Props) {
                 name="managePassword"
                 style={{ marginTop: 20 }}
                 onKeyPress={onEnterKeyPress} />
-              <HankoAuth />
             </form>
           }</>)}
       </div>
