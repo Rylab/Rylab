@@ -2,8 +2,8 @@ import Head from 'next/head'
 import { CSSProperties, Fragment, useContext, useState } from 'react'
 
 import { AppContext, getHeaders } from '../_app'
-import { TapeSpinner, Layout, LoadingSpinner, Navigation, tapeColors } from '../../components'
-import { BASE_URL, SITE_TITLE, MAX_LINE_LENGTH } from '../../utils/constants'
+import { Layout, LoadingSpinner, Navigation, TapeSpinner, tapeColors } from '../../components'
+import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
 import styles from '../../styles/ai.module.css'
