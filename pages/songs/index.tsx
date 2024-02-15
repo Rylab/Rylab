@@ -3,8 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { AppContext, getHeaders } from '../_app'
-import { tapeColors } from '../../components/Layout'
-import { Navigation, TapeAdder, TapeSpinner } from '../../components'
+import { Navigation, TapeAdder, TapeSpinner, tapeColors } from '../../components'
 import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 

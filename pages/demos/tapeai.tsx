@@ -2,8 +2,7 @@ import Head from 'next/head'
 import { CSSProperties, Fragment, useContext, useState } from 'react'
 
 import { AppContext, getHeaders } from '../_app'
-import { tapeColors } from '../../components/Layout'
-import { TapeSpinner, LoadingSpinner, Navigation } from '../../components'
+import { TapeSpinner, Layout, LoadingSpinner, Navigation, tapeColors } from '../../components'
 import { BASE_URL, SITE_TITLE, MAX_LINE_LENGTH } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
@@ -23,7 +22,7 @@ type TapeInfo = {
   }>
 }
 
-export default function TapeAiDemo() {
+const TapeAiDemo = () => {
   const { password, uuid } = useContext(AppContext)
   const [adjectivesInput, setAdjectivesInput] = useState('')
   const [genreInput, setGenreInput] = useState('')
@@ -149,3 +148,7 @@ export default function TapeAiDemo() {
     </>
   )
 }
+
+TapeAiDemo.getLayout = page => <Layout useAuth>{page}</Layout>
+
+export default TapeAiDemo

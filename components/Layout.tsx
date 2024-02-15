@@ -1,7 +1,8 @@
 import dynamic from 'next/dynamic'
 import { ReactNode, useContext } from 'react'
-import { BASE_DOMAIN } from '../utils/constants'
+
 import { AppContext } from '../pages/_app'
+import { BASE_DOMAIN } from '../utils/constants'
 
 const HankoAuth = dynamic(() => import('./HankoAuth'), { ssr: false })
 
@@ -21,13 +22,16 @@ export const tapeColors = [
 type Props = {
   children?: ReactNode
   hideAdminInput?: boolean
+  useAuth?: boolean
   password?: string
   setPassword?: any
+  showLogin?: boolean
   title?: string
 }
 
-export default function Layout({ children, hideAdminInput }: Props) {
+export default function Layout({ children, hideAdminInput, useAuth }: Props) {
   const { password, setPassword } = useContext(AppContext)
+  const { showLogin, setShowLogin } = useContext(AppContext)
 
   const setManagePass = e => {
     if (typeof e.preventDefault === 'function') e.preventDefault()
@@ -52,6 +56,10 @@ export default function Layout({ children, hideAdminInput }: Props) {
     }
   }
 
+  const onFingerPress = () => {
+    setShowLogin(!showLogin)
+  }
+
   const onLockPress = l => {
     setManagePass({ target: {} })
   }
@@ -59,9 +67,14 @@ export default function Layout({ children, hideAdminInput }: Props) {
   return (
     <>
       {children}
-      <div className='flex flex-center mt-20'>
-        <HankoAuth />
-      </div>
+      {useAuth && (
+        <div className='flex flex-center mt-60'>
+          {showLogin ?
+            <HankoAuth />
+            : <span className='finger' onClick={onFingerPress}></span>
+          }
+        </div>
+      )}
       <div className="footer">
         <p className="light question small">
           <a href={`mailto:0@${BASE_DOMAIN}`} title="Mail Me?">{`1@${BASE_DOMAIN}`}</a>

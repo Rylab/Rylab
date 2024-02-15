@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { useContext, useEffect, useState } from 'react'
+
 import { AppContext, getHeaders } from '../_app'
-import { tapeColors } from '../../components/Layout'
-import { Navigation, TapeAdder, TapeSpinner } from '../../components'
+import { Navigation, TapeAdder, TapeSpinner, tapeColors } from '../../components'
 import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
@@ -27,7 +27,7 @@ export default function TapeSpinnerDemo() {
         style,
         uuid,
       }
-  
+
       if (!tapes[_id].style) {
         tapes[_id].style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
       }
@@ -49,18 +49,18 @@ export default function TapeSpinnerDemo() {
   const getDemoSongs = async () => {
     try {
       setLoading(true)
-  
+
       const songRes = await fetch('/api/songs', {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
       }).then(res => res.json())
-      
+
       if (songRes.data) {
         songRes.data.map(song => {
           if (typeof tapeColors !== 'undefined' && !song.style)
-          song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
+            song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })
-        
+
         setSongs(songRes.data)
       } else {
         setSongs([])
@@ -122,9 +122,9 @@ export default function TapeSpinnerDemo() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${ BASE_URL }/demos/tapespinner`} />
-        <title>{ pageTitle }</title>
-        <meta name="og:title" content={ pageTitle } />
+        <link rel="canonical" href={`${BASE_URL}/demos/tapespinner`} />
+        <title>{pageTitle}</title>
+        <meta name="og:title" content={pageTitle} />
         <meta name="description" content="TapeSpinner animated SVG React component demo." />
         <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
       </Head>
@@ -136,12 +136,12 @@ export default function TapeSpinnerDemo() {
 
           return (
             <TapeSpinner style={song.style} spin={song.spin} key={song._id} id={`#${song._id}`}>
-              <div title={ song.title } onClick={() => getSongEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-                { song.title }</div>
-              <div title={ song.artist } onClick={() => getSongEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-                { song.artist }</div>
-              <div className="uuidLine" onClick={() => getUserEmbed(song.uuid)}>{ song.uuid }</div>
-              <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{ song._id }</div>
+              <div title={song.title} onClick={() => getSongEmbed(song._id)} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+                {song.title}</div>
+              <div title={song.artist} onClick={() => getSongEmbed(song._id)} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                {song.artist}</div>
+              <div className="uuidLine" onClick={() => getUserEmbed(song.uuid)}>{song.uuid}</div>
+              <div className="songIdLine" onClick={() => getSongEmbed(song._id)}>{song._id}</div>
             </TapeSpinner>
           )
         })}
@@ -151,22 +151,22 @@ export default function TapeSpinnerDemo() {
 
           return (
             <TapeSpinner style={tapes[tapeKey].style} spin={tapes[tapeKey].spin} key={tapeKey} id={`#${tapeKey}`}>
-              <div title={ hasLongTitle ? tapes[tapeKey].title : '' } className={`titleLine${hasLongTitle ? ' long' : ''}`}>
-                { tapes[tapeKey].title }</div>
-              <div title={ hasLongArtist ? tapes[tapeKey].artist : '' } className={`artistLine${hasLongArtist ? ' long' : ''}`}>
-                { tapes[tapeKey].artist }</div>
-              <div className="disabled uuidLine">{ tapeKey }</div>
-              <div className="disabled songIdLine">{ tapes[tapeKey]._id }</div>
+              <div title={hasLongTitle ? tapes[tapeKey].title : ''} className={`titleLine${hasLongTitle ? ' long' : ''}`}>
+                {tapes[tapeKey].title}</div>
+              <div title={hasLongArtist ? tapes[tapeKey].artist : ''} className={`artistLine${hasLongArtist ? ' long' : ''}`}>
+                {tapes[tapeKey].artist}</div>
+              <div className="disabled uuidLine">{tapeKey}</div>
+              <div className="disabled songIdLine">{tapes[tapeKey]._id}</div>
             </TapeSpinner>
           )
         })}
 
-        {!loading && canAdd && <TapeAdder addedTapeCount={addedTapeCount} addTape={addTape} /> }
+        {!loading && canAdd && <TapeAdder addedTapeCount={addedTapeCount} addTape={addTape} />}
         <div className="dark" style={{ marginTop: 33 }}>
-          { addedTapeCount } tape{addedTapeCount !== 1 && 's'} added
-          { canAdd
-            ? `; ${MAX_TAPES - addedTapeCount} slot${(addedTapeCount === (MAX_TAPES - 1)) ? '' : 's'} remain${(addedTapeCount === (MAX_TAPES - 1)) ? 's': ''}.`
-            : '.' }
+          {addedTapeCount} tape{addedTapeCount !== 1 && 's'} added
+          {canAdd
+            ? `; ${MAX_TAPES - addedTapeCount} slot${(addedTapeCount === (MAX_TAPES - 1)) ? '' : 's'} remain${(addedTapeCount === (MAX_TAPES - 1)) ? 's' : ''}.`
+            : '.'}
         </div>
       </main>
     </>

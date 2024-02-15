@@ -28,6 +28,13 @@ img.icon {
   width: 32px;
 }
 
+.finger {
+  background: url(/img/finger.svg) center center no-repeat;
+  cursor: pointer;
+  height: 340px;
+  width: 340px;
+}
+
 .flex {
   display: flex;
 }
@@ -106,6 +113,10 @@ img.icon {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mt-60 {
+  margin-top: 60px;
 }
 
 .header {
@@ -552,6 +563,57 @@ div.narrow:hover {
   color: rgb(5, 160, 0);
   opacity: 1.0;
   transition: 0.2s;
+}
+
+hanko-auth,
+hanko-profile {
+  /* Color Scheme */
+  --color: #efefef;
+  --color-shade-1: #777;
+  --color-shade-2: #666;
+
+  --brand-color: #7a27d8;
+  --brand-color-shade-1: #53afff;
+  --brand-contrast-color: #fff;
+
+  --background-color: #111;
+  --error-color: #e82020;
+  --link-color: #26FFFF;
+
+  /* Border Styles */
+  --border-radius: 15px;
+  --border-width: 2px;
+
+  /* Item Styles */
+  --item-height: 34px;
+  --item-margin: 0.5rem 0;
+
+  /* Container Styles */
+  --container-padding: 30px;
+  --container-max-width: 410px;
+
+  /* Headline Styles */
+  --headline1-font-size: 24px;
+  --headline1-font-weight: 600;
+  --headline1-margin: 0 0 1rem;
+
+  --headline2-font-size: 16px;
+  --headline2-font-weight: 600;
+  --headline2-margin: 1rem 0 0.5rem;
+
+  /* Divider Styles */
+  --divider-padding: 0 42px;
+  --divider-visibility: visible;
+
+  /* Link Styles */
+  --link-text-decoration: none;
+  --link-text-decoration-hover: underline;
+
+  /* Input Styles */
+  --input-min-width: 14em;
+
+  /* Button Styles */
+  --button-min-width: max-content;
 }
 
 @media(min-width: 569px) {
