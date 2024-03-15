@@ -43,10 +43,8 @@ export default class Rylab extends Document {
           <meta name="theme-color" content="#222" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" type="image/png" href="/img/bsd_introvert.webp" />
-          <link rel="preload" href="/img/bsd_extrovert.webp" as="image" />
-          <link rel="preload" href="/img/bsd_introvert.webp" as="image" />
-          <link rel="preload" href="/img/bsd_cursor.webp" as="image" />
-          <link rel="preload" href="/img/bsd_cursor_invert.webp" as="image" />
+          <link rel="preload" href="/img/bsd_cursor.webp" as="image" fetchPriority="high" type="image/webp" />
+          <link rel="preload" href="/img/bsd_cursor_invert.webp" as="image" fetchPriority="high" type="image/webp" />
           {this.props.styles}
         </Head>
         <body>
