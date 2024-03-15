@@ -89,7 +89,7 @@ export default function DashboardForUuid() {
           )
         })}
         {canAdd && <TapeAdder />}
-        <div className='flex flex-center mt-60'><HankoProfile /></div>
+        <div className="flex flex-center mt-60"><HankoProfile /></div>
       </main>
     </>
   )

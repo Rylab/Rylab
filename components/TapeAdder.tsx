@@ -28,19 +28,20 @@ const AddButton = styled.button`
 `
 
 const ALLOWED_TAPE_PROPS = ['artist', 'title']
+const emptyTape = { artist: '', title: '' }
 
-const addTapeDebug = (tapeInfo) => {
-  setLoading(true)
-
-  console.log(tapeInfo)
-
-  setLoading(false)
-}
-
-export default function TapeAdder({ addedTapeCount = 0, addTape = addTapeDebug }) {
+export default function TapeAdder({ addedTapeCount = 0, addTape = null }) {
   const { password, uuid } = useContext(AppContext)
-  const [tape, setTape] = useState({})
+  const [tape, setTape] = useState(emptyTape)
   const [loading, setLoading] = useState(false)
+
+  const addTapeDebug = (tapeInfo) => {
+    setLoading(true)
+
+    console.log(tapeInfo)
+
+    setLoading(false)
+  }
 
   if (typeof addTape !== 'function') {
     addTape = addTapeDebug
@@ -66,7 +67,7 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = addTapeDebug }
         uuid,
       })
 
-      setTape({})
+      setTape(emptyTape)
     } else {
       console.error('Title and artist are required.')
       setLoading(false)
@@ -87,12 +88,12 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = addTapeDebug }
   return (
     <div style={{ marginTop: 50 }}>
       <h3>Add a tape to the collection</h3>
-      <TapeSpinner spin={false} style={{backgroundColor: '#888', display: 'block', margin: '10px auto'}}>
+      <TapeSpinner spin={false} style={{ backgroundColor: '#888', display: 'block', margin: '10px auto' }}>
         <input
           autoComplete="off"
           name="title"
           className="titleInput"
-          maxLength="38"
+          maxLength={38}
           placeholder="Title"
           value={tape.title || ''}
           onChange={handleTapeChange} />
@@ -100,7 +101,7 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = addTapeDebug }
           autoComplete="off"
           name="artist"
           className="artistInput"
-          maxLength="36"
+          maxLength={36}
           placeholder="Artist"
           value={tape.artist || ''}
           onKeyUp={handleAddTape}
@@ -110,7 +111,7 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = addTapeDebug }
       <AddButton
         disabled={loading || !tape.title?.trim() || !tape.artist?.trim()}
         onClick={handleAddTape}>
-          Add Tape</AddButton>
+        Add Tape</AddButton>
     </div>
   )
 }

@@ -22,17 +22,15 @@ img {
 }
 
 img.icon {
-  display: block;
-  margin: 0 auto;
-  padding: 20px 0;
-  width: 32px;
+  margin: 10px auto;
 }
 
 .finger {
-  background: url(/img/finger.svg) center center no-repeat;
-  cursor: pointer;
-  height: 340px;
+  background: url(/img/finger.svg) center 30px no-repeat;
+  background-size: 100%;
+  height: 345px;
   width: 340px;
+  line-height: 1.6em;
 }
 
 .flex {
@@ -113,6 +111,10 @@ img.icon {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mt-30 {
+  margin-top: 30px;
 }
 
 .mt-60 {
@@ -339,7 +341,8 @@ ul.list {
 }
 
 ul.list li.link {
-  margin-bottom: 20px;
+  padding-bottom: 7px;
+  padding-top: 7px;
   text-align: center;
 }
 
@@ -351,7 +354,7 @@ ul.narrow,
 div.narrow {
   border: 3px dashed #222;
   border-radius: 16px;
-  margin: 10px auto;
+  margin: 0px auto;
   max-width: 275px;
   transition: border 0.3s;
   transition-timing-function: ease;
@@ -462,7 +465,8 @@ div.narrow:hover {
 }
 
 .demo {
-  margin-top: 25px;
+  padding-bottom: 15px;
+  padding-top: 15px;
 }
 
 .demo a {
@@ -488,7 +492,8 @@ div.narrow:hover {
 }
 
 .digitalhaiku {
-  margin-top: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .digitalhaiku a {
@@ -539,7 +544,7 @@ div.narrow:hover {
 }
 
 .saxylab {
-  margin: 25px auto 0px auto;
+  padding: 15px 0;
 }
 
 .saxylab a {
@@ -576,7 +581,7 @@ hanko-profile {
   --brand-color-shade-1: #53afff;
   --brand-contrast-color: #fff;
 
-  --background-color: #111;
+  --background-color: none;
   --error-color: #e82020;
   --link-color: #26FFFF;
 
@@ -595,7 +600,7 @@ hanko-profile {
   /* Headline Styles */
   --headline1-font-size: 24px;
   --headline1-font-weight: 600;
-  --headline1-margin: 0 0 1rem;
+  --headline1-margin: 0 auto 1rem auto;
 
   --headline2-font-size: 16px;
   --headline2-font-weight: 600;

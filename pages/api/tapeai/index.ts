@@ -203,7 +203,7 @@ function generateCassettePrompt(genre, adjectives) {
     genre[0].toUpperCase() + genre.slice(1).toLowerCase()
 
   const generatedPrompt =
-    `Create 3 unique music artist names in the genre "${capitalizedGenre}", ` +
+    `Create 3 unique band personas in the genre "${capitalizedGenre}", ` +
     `and their "${capitalizedAdjectives}" distinct album titles.`
 
   console.log(`\n\n${generatedPrompt}..`)
