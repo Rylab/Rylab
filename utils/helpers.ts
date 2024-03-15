@@ -65,5 +65,7 @@ export const validateUuid = (uuid?: string): string => {
 
   if (!uuid || typeof uuid !== 'string' || uuid.length < MIN_UUID_LENGTH || uuid.length > MAX_UUID_LENGTH) return ''
 
-  return uuid.replace(/[^a-z0-9\-]+$/gi, '')
+  let safeUuid = uuid.replace(/[^a-z0-9\-]+$/gi, '')
+
+  return safeUuid.length >= MIN_UUID_LENGTH ? safeUuid : ''
 }

@@ -40,10 +40,10 @@ exports[`renders homepage unchanged 1`] = `
           class="demo"
         >
           <a
-            href="/demos/tapeai"
-            title="Tape AI playground"
+            href="/jamband"
+            title="Jam band generator | matchmaker"
           >
-            Tape AI (music cassette maker)
+            Jam Band Generator
           </a>
         </div>
         <div
@@ -51,9 +51,9 @@ exports[`renders homepage unchanged 1`] = `
         >
           <a
             href="/demos/tapespinner"
-            title="Tape Spinner playground"
+            title="Tape Spinner demo | playground"
           >
-            Animated SVG cassettes
+            Tape Spinner demo
           </a>
         </div>
         <div
@@ -78,41 +78,6 @@ exports[`renders homepage unchanged 1`] = `
           >
             SaxyLab
           </a>
-        </div>
-        <div
-          class="sc-aXZVg iXnuBG"
-          data-testid="loading-spinner"
-        >
-          <svg
-            class="spinner"
-            viewBox="0 0 50 50"
-          >
-            <lineargradient
-              gradientTransform="rotate(120)"
-              id="linear"
-              x1="0%"
-              x2="100%"
-              y1="0%"
-              y2="0%"
-            >
-              <stop
-                offset="5%"
-                stop-color="#010101"
-              />
-              <stop
-                offset="95%"
-                stop-color="#343434"
-              />
-            </lineargradient>
-            <circle
-              class="path"
-              cx="25"
-              cy="25"
-              fill="url(#linear)"
-              r="20"
-              stroke-width="2"
-            />
-          </svg>
         </div>
       </div>
       <br />
