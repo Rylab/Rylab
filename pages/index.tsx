@@ -50,10 +50,6 @@ export default function Index() {
     <>
       <Head>
         <link rel="canonical" href={BASE_URL} />
-        <link rel="preload" href="/img/bsd_extrovert.webp" as="image" />
-        <link rel="preload" href="/img/bsd_introvert.webp" as="image" />
-        <link rel="preload" href="/img/bsd_cursor.webp" as="image" />
-        <link rel="preload" href="/img/bsd_cursor_invert.webp" as="image" />
         <title>{pageTitle}</title>
         <meta name="og:title" content={pageTitle} />
         <meta name="description" content="Welcome to Rylab, digital home of Ryan LaBarre" />
