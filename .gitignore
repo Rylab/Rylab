@@ -38,3 +38,6 @@ dist/
 # Macintrash
 .DS_Store
 .vercel
+
+# VSCode
+.vscode/

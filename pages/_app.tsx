@@ -1,18 +1,18 @@
-import { createContext, useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { createContext, useEffect, useState } from 'react'
 
 import '../styles/global.css'
 import Layout from '../components/Layout'
 import { initUuid } from '../utils/helpers'
 
 export const AppContext = createContext(null)
-export const jsonType = 'application/json'
+export const JsonType = 'application/json'
 
 export const getHeaders = ({ uuid, password }) => {
   const headers = {
-    accept: jsonType,
-    'content-type': jsonType,
+    'accept': JsonType,
+    'content-type': JsonType,
     'x-uuid': uuid ?? 'anonymous',
   }
 
@@ -22,8 +22,9 @@ export const getHeaders = ({ uuid, password }) => {
 }
 
 export default function App({ Component, pageProps }) {
-  const router = useRouter()
   const [password, setPassword] = useState('')
+  const router = useRouter()
+  const [showLogin, setShowLogin] = useState(false)
   const [uuid, setUuid] = useState('')
 
   const getLayout = Component.getLayout || (page => <Layout>{page}</Layout>)
@@ -48,10 +49,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <AppContext.Provider value={{
-      password,
-      uuid,
-      setPassword,
-      setUuid,
+      password, setPassword,
+      showLogin, setShowLogin,
+      uuid, setUuid,
     }}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

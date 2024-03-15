@@ -1,15 +1,18 @@
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 
-import { AppContext, getHeaders } from '../_app'
-import { Navigation, TapeAdder, TapeSpinner, tapeColors } from '../../components'
-import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
-import { getSongEmbed, validateUuid } from '../../utils/helpers'
+import { AppContext, getHeaders } from './_app'
+import { Navigation, TapeAdder, TapeSpinner, tapeColors } from '../components'
+import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../utils/constants'
+import { getSongEmbed, validateUuid } from '../utils/helpers'
 
-const pageTitle = `${SITE_TITLE} :: TapeSpinner Animated React SVG Component Demo`
+const pageTitle = `${SITE_TITLE} :: Your Tape Collections`
 
-export default function SongsByUuid() {
+const HankoProfile = dynamic(() => import('../components/HankoProfile'), { ssr: false })
+
+export default function DashboardForUuid() {
   const [canAdd, setCanAdd] = useState(false)
   const { password, uuid } = useContext(AppContext)
   const [songs, setSongs] = useState([])
@@ -62,14 +65,14 @@ export default function SongsByUuid() {
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${BASE_URL}/songs/${pageUuid}`} />
+        <link rel="canonical" href={`${BASE_URL}/1`} />
         <title>{pageTitle}</title>
         <meta name="og:title" content={pageTitle} />
-        <meta name="description" content="TapeSpinner animated SVG React component demo." />
-        <meta property="og:description" content="RyLaB: TapeSpinner animated SVG React component demo." />
+        <meta name="description" content="Your generated and curated AI powered tape collections." />
+        <meta property="og:description" content="Your generated and curated AI powered tape collections." />
       </Head>
       <main>
-        <Navigation path={`songs/${pageUuid}`} />
+        <Navigation path={'1'} />
         {!loading && songs?.map(song => {
           const hasLongArtist = song.artist.length > MAX_LINE_LENGTH
           const hasLongTitle = song.title.length > MAX_LINE_LENGTH
@@ -86,6 +89,7 @@ export default function SongsByUuid() {
           )
         })}
         {canAdd && <TapeAdder />}
+        <div className="flex flex-center mt-60"><HankoProfile /></div>
       </main>
     </>
   )

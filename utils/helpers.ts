@@ -25,7 +25,7 @@ export function selectText(className) {
 }
 
 export const getUuid = req => {
-  if (req && req.uuid && req.uuid.length) {
+  if (req.uuid?.length) {
     return validateUuid(req.uuid)
   } else {
     console.warn(req)
@@ -41,7 +41,7 @@ export const getUserEmbed = _uuid => {
   window.open(`/user/${_uuid}`, 'rylab', 'menubar=1,resizable=1,width=400,height=450')
 }
 
-export const initUuid = ():string => {
+export const initUuid = (): string => {
   let uuid = validateUuid(localStorage.getItem('uuid'))
 
   if (uuid) return uuid
@@ -59,15 +59,13 @@ export const initUuid = ():string => {
   }
 }
 
-export const validateUuid = (uuid?:string):string  => {
+export const validateUuid = (uuid?: string): string => {
   const MIN_UUID_LENGTH = 12
   const MAX_UUID_LENGTH = 36
 
-  let saneUuid = ''
+  if (!uuid || typeof uuid !== 'string' || uuid.length < MIN_UUID_LENGTH || uuid.length > MAX_UUID_LENGTH) return ''
 
-  if (!uuid || typeof uuid !== 'string') return saneUuid
+  let safeUuid = uuid.replace(/[^a-z0-9\-]+$/gi, '')
 
-  saneUuid = uuid.replace(/[^a-z0-9\-]+$/gi, '')
-
-  return (saneUuid.length >= MIN_UUID_LENGTH && saneUuid.length <= MAX_UUID_LENGTH) ? saneUuid : ''
+  return safeUuid.length >= MIN_UUID_LENGTH ? safeUuid : ''
 }

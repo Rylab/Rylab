@@ -43,13 +43,17 @@ export default function Index() {
   }, [password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.info(languages)
+    console.table(languages.map(lang => { return { 'Language': lang } }))
   }, [])
 
   return (
     <>
       <Head>
         <link rel="canonical" href={BASE_URL} />
+        <link rel="preload" href="/img/bsd_extrovert.webp" as="image" />
+        <link rel="preload" href="/img/bsd_introvert.webp" as="image" />
+        <link rel="preload" href="/img/bsd_cursor.webp" as="image" />
+        <link rel="preload" href="/img/bsd_cursor_invert.webp" as="image" />
         <title>{pageTitle}</title>
         <meta name="og:title" content={pageTitle} />
         <meta name="description" content="Welcome to Rylab, digital home of Ryan LaBarre" />
@@ -72,13 +76,13 @@ export default function Index() {
           </p>
           <div className="narrow list">
             <div className="demo">
-              <Link href="/demos/tapeai" title="Tape AI playground">
-                Tape AI (music cassette maker)
+              <Link href="/jamband" title="Jam band generator | matchmaker">
+                Jam Band Generator
               </Link>
             </div>
             <div className="demo">
-              <Link href="/demos/tapespinner" title="Tape Spinner playground">
-                Animated SVG cassettes
+              <Link href="/demos/tapespinner" title="Tape Spinner demo | playground">
+                Tape Spinner demo
               </Link>
             </div>
             <div className="digitalhaiku">
@@ -92,8 +96,6 @@ export default function Index() {
                 SaxyLab
               </a>
             </div>
-
-            <LoadingSpinner />
           </div>
           <br />
           <h1 style={{ marginBottom: 20, marginTop: 40 }}>Digital Selves</h1>

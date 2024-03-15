@@ -5,8 +5,8 @@ import { BASE_DOMAIN } from '../utils/constants'
 
 export default class Rylab extends Document {
   static async getInitialProps(ctx) {
-    const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
+    const sheet = new ServerStyleSheet()
 
     try {
       ctx.renderPage = () =>

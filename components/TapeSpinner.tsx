@@ -79,9 +79,6 @@ const CassetteContainer = styled.div`
     display: none;
     align-items: flex-end;
   }
-    .artistBio.small {
-      letter-spacing: initial;
-    }
 
   .songIdLine, .uuidLine {
     color: #222;
@@ -234,17 +231,16 @@ const CassetteContainer = styled.div`
       vertical-align: bottom;
       border: 1px solid #666;
       border-top: 76px transparent;
-      margin-top: 76px;
       color: #efefef;
       line-height: 20px;
       opacity: 85%;
-      padding: 9px;
+      padding: 10px;
       position: absolute;
       text-align: left;
       top: 133px;
       width: 327px;
       min-height: 113px;
-      max-height: 113px;
+      max-height: 180px;
       overflow: hidden;
       left: 2px;
       transition: max-height 0.3s ease-in-out, opacity 0.3s;
@@ -330,14 +326,14 @@ interface TapeProps {
   style?: any
 }
 
-export default function TapeSpinner({children, spin = true, style, id}: TapeProps) {
+export default function TapeSpinner({ children, spin = true, style, id }: TapeProps) {
   const [active, setActive] = useState(spin)
 
   const leftWheel = useRef(null)
   const rightWheel = useRef(null)
 
   const leftSpinner = useRef(null)
-  const rightSpinner= useRef(null)
+  const rightSpinner = useRef(null)
 
   const onCassetteClick = e => {
     if (e.type === 'click') {
@@ -345,25 +341,25 @@ export default function TapeSpinner({children, spin = true, style, id}: TapeProp
       setActive(!active)
     }
   }
-  
+
   const spinRight = t => {
     if (window && rightWheel && rightWheel.current && active) {
       const m = t % 1500
       const d = m * 0.24
 
-      rightWheel.current.setAttribute('transform', 'translate(292.39, 0.00) rotate('+d+', 44, 45)')
+      rightWheel.current.setAttribute('transform', 'translate(292.39, 0.00) rotate(' + d + ', 44, 45)')
     }
-    rightSpinner.current = window.requestAnimationFrame(spinRight)      
+    rightSpinner.current = window.requestAnimationFrame(spinRight)
   }
-  
+
   const spinLeft = t => {
     if (window && leftWheel && leftWheel.current && active) {
       const m = t % 1500
       const d = m * 0.24
 
-      leftWheel.current.setAttribute('transform', 'rotate('+d+', 44, 45)')
+      leftWheel.current.setAttribute('transform', 'rotate(' + d + ', 44, 45)')
     }
-    leftSpinner.current = window.requestAnimationFrame(spinLeft)      
+    leftSpinner.current = window.requestAnimationFrame(spinLeft)
   }
 
   const spinWheels = () => {
@@ -378,7 +374,7 @@ export default function TapeSpinner({children, spin = true, style, id}: TapeProp
       window.cancelAnimationFrame(leftSpinner.current)
     }
   }
-  
+
   const stopRight = () => {
     if (rightSpinner.current) {
       window.cancelAnimationFrame(rightSpinner.current)
@@ -391,7 +387,7 @@ export default function TapeSpinner({children, spin = true, style, id}: TapeProp
   }
 
   return (
-    <CassetteContainer className="cassette" style={style} id={id} onClick={e => onCassetteClick(e)} onLoad={spin ? spinWheels() : ()=>{}}>
+    <CassetteContainer className="cassette" style={style} id={id} onClick={e => onCassetteClick(e)} onLoad={spin ? spinWheels() : () => { }}>
       <svg className="background" width="697px" height="447px" viewBox="0 0 697 447" version="1.1">
         <g id="cassette-border" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="tapecassette" transform="translate(1.000000, 1.000000)">

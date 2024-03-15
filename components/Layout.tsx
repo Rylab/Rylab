@@ -1,6 +1,10 @@
+import dynamic from 'next/dynamic'
 import { ReactNode, useContext } from 'react'
-import { BASE_DOMAIN } from '../utils/constants'
+
 import { AppContext } from '../pages/_app'
+import { BASE_DOMAIN } from '../utils/constants'
+
+const HankoAuth = dynamic(() => import('./HankoAuth'), { ssr: false })
 
 // NOTE: should consolidate style defaults elsewhere if adding more
 export const tapeColors = [
@@ -18,13 +22,16 @@ export const tapeColors = [
 type Props = {
   children?: ReactNode
   hideAdminInput?: boolean
+  useAuth?: boolean
   password?: string
   setPassword?: any
+  showLogin?: boolean
   title?: string
 }
 
-export default function Layout({ children, hideAdminInput }: Props) {
+export default function Layout({ children, hideAdminInput, useAuth }: Props) {
   const { password, setPassword } = useContext(AppContext)
+  const { showLogin, setShowLogin } = useContext(AppContext)
 
   const setManagePass = e => {
     if (typeof e.preventDefault === 'function') e.preventDefault()
@@ -49,6 +56,10 @@ export default function Layout({ children, hideAdminInput }: Props) {
     }
   }
 
+  const onFingerPress = () => {
+    setShowLogin(!showLogin)
+  }
+
   const onLockPress = l => {
     setManagePass({ target: {} })
   }
@@ -56,9 +67,17 @@ export default function Layout({ children, hideAdminInput }: Props) {
   return (
     <>
       {children}
+      {useAuth && (
+        <div className='flex flex-center mt-60'>
+          {showLogin ?
+            <HankoAuth />
+            : <span className='finger' onClick={onFingerPress}></span>
+          }
+        </div>
+      )}
       <div className="footer">
         <p className="light question small">
-          <a href={`mailto:0@${BASE_DOMAIN}`} title="Mail Me?">{ `1@${BASE_DOMAIN}` }</a>
+          <a href={`mailto:0@${BASE_DOMAIN}`} title="Mail Me?">{`1@${BASE_DOMAIN}`}</a>
           &nbsp;&middot;&nbsp;
           <a
             className="question"
@@ -68,8 +87,8 @@ export default function Layout({ children, hideAdminInput }: Props) {
             title="Content license URL alias for: CC BY-NC-SA 4.0">
             some rights reserved</a>
         </p>
-        {hideAdminInput ? <></>  : (<>
-          { password
+        {hideAdminInput ? <></> : (<>
+          {password
             ? <span className="adminCheck lockish" onClick={onLockPress}>&#x1F512;</span>
             :
             <form className="adminCheck" onSubmit={setManagePass}>
