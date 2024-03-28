@@ -28,16 +28,14 @@ node_modules/
 .env
 
 # Next.js builds and exports
-.next
-out/
-
-# Nuxt.js builds and exports
-.nuxt
-dist/
+.next/
+.swc/
 
 # Macintrash
 .DS_Store
-.vercel
+
+# Vercel project config
+.vercel/
 
 # VSCode
 .vscode/
