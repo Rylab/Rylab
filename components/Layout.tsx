@@ -56,10 +56,6 @@ export default function Layout({ children, hideAdminInput, useAuth }: Props) {
     }
   }
 
-  const onFingerPress = () => {
-    setShowLogin(!showLogin)
-  }
-
   const onLockPress = l => {
     setManagePass({ target: {} })
   }
@@ -68,11 +64,9 @@ export default function Layout({ children, hideAdminInput, useAuth }: Props) {
     <>
       {children}
       {useAuth && (
-        <div className='flex flex-center mt-60'>
-          {showLogin ?
-            <HankoAuth />
-            : <span className='finger' onClick={onFingerPress}></span>
-          }
+        <div className="finger light narrow mt-30" style={{ minHeight: 300 }}>
+          <HankoAuth />
+          <p style={{ marginTop: 0 }}>Listen to, create, or join jam bands</p>
         </div>
       )}
       <div className="footer">
