@@ -15,7 +15,7 @@ exports[`renders homepage unchanged 1`] = `
       class="content lockish"
     >
       <p
-        class="haiku-today large light hoverdark"
+        class="haiku-today large hoverdark"
       >
         someday I will make,
         <br />
