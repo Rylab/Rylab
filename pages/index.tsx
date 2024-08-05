@@ -62,7 +62,7 @@ export default function Index() {
         </div>
         <div className="rylab-copy lockish">(: hello :)</div>
         <div className="content lockish">
-          <p className="haiku-today large light hoverdark">
+          <p className="haiku-today large hoverdark">
             someday&nbsp;I will&nbsp;make,<br />
             a&nbsp;great personal&nbsp;website;<br />
             it&nbsp;may be&nbsp;today
