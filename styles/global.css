@@ -753,6 +753,10 @@ body:after {
     color: #555;
   }
 
+  ul.list li.link a {
+    color: #000;
+  }
+
   ul.narrow,
   div.narrow {
     color: #101010;
@@ -770,5 +774,9 @@ body:after {
 
   .footer .light a {
     color: #222;
+  }
+
+  a:hover:not(:active):not(.discreet) {
+    color: #111;
   }
 }
