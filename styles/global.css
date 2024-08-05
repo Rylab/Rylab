@@ -483,7 +483,7 @@ div.narrow:hover {
 .demo a {
   color: rgb(21, 124, 143);
   cursor: crosshair;
-  opacity: 0.6;
+  opacity: 0.8;
   text-decoration: none;
   transition: 0.22s;
   transition-timing-function: ease;
@@ -511,7 +511,7 @@ div.narrow:hover {
   color: rgb(90, 26, 175);
   cursor: crosshair;
   text-decoration: none;
-  transition: 0.2s;
+  transition: 0.4s;
   transition-timing-function: ease;
 }
 
@@ -561,7 +561,7 @@ div.narrow:hover {
 .saxylab a {
   color: #319c00;
   cursor: crosshair;
-  opacity: 0.5;
+  opacity: 0.6;
   padding-top: 5px;
   text-decoration: none;
   transition: 0.42s;
@@ -665,6 +665,11 @@ hanko-profile {
     max-width: 300px;
   }
 
+  div.narrow.list {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
   ul.list {
     padding: 16px 18px;
     text-align: left;
@@ -727,4 +732,43 @@ hanko-profile {
 body:after {
   content: url(/img/header_introvert.webp) url(/img/bsd_cursor.webp) url(/img/bsd_cursor_invert.webp);
   display: none;
+}
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #ddd;
+  }
+
+  .header {
+    background: #eee url(/img/header_extrovert.webp) top left no-repeat;
+    background-size: cover;
+  }
+  
+  .header:hover {
+    background-image: url(/img/header_introvert.webp);
+  }
+
+  .haiku-today:hover {
+    color: #555;
+  }
+
+  ul.narrow,
+  div.narrow {
+    color: #101010;
+    background-color: #fff;
+    border: 3px dashed #777;
+  }
+
+  ul.narrow:hover,
+  div.narrow:hover {
+    background-color: #fefefe;
+    border: 3px dashed #777;
+    transition: 0.5s;
+    transition-timing-function: ease;
+  }
+
+  .footer .light a {
+    color: #222;
+  }
 }
