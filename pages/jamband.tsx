@@ -109,7 +109,7 @@ const Jamband = () => {
               tabIndex={3}
               type="submit"
               style={{ marginTop: 20 }}
-              value={`Generate ${tapes.length ? 'More ' : ''}Ideas`}
+              value={`Generate ${tapes.length ? 'More ' : ''}`}
               disabled={loading || !genreInput || !adjectivesInput} />
           </form>
           <div className="small mt-30">ChatGPT generation used to create and match jam band vibe ideas, trained by your prompts</div>

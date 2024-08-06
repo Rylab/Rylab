@@ -11,9 +11,7 @@ const pageTitle = `${SITE_TITLE} :: Home`
 export default function Index() {
   const { password, uuid } = useContext(AppContext)
   const [loading, setLoading] = useState(true)
-  const [selves, setSelves] = useState({
-    data: [],
-  })
+  const [selves, setSelves] = useState({ data: [] })
 
   const getSelves = async () => {
     if (!uuid) return
@@ -24,15 +22,26 @@ export default function Index() {
       const selves = await fetch('/api/selves', {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
+        signal: AbortSignal.timeout(7000),
       }).then(res => res.json())
 
-      if (selves.data) {
+      if (selves.success && selves.data) {
         setSelves({ data: selves.data })
       } else {
-        console.error(selves)
+        throw new Error('No selves found')
       }
     } catch (error) {
-      console.error(error)
+      console.warn(error)
+
+      setSelves({
+        data: [{
+          alias: 'selves-error',
+          error: true,
+          name: 'No selves found',
+          title: 'No selves found...',
+          url: '#self-0',
+        }],
+      });
     } finally {
       setLoading(false)
     }
@@ -101,7 +110,7 @@ export default function Index() {
             <ul className="narrow list">
               {selves.data.map(link => (
                 <li className={`link ${link.alias}`} key={link.alias}>
-                  <a className="link" title={link.title} href={link.url} rel="noreferrer" target="_blank">
+                  <a className="link" title={link.title} href={link.url} rel="noreferrer" target={link.error ? '_self' : '_blank'}>
                     {link.name}</a>
                 </li>
               ))}

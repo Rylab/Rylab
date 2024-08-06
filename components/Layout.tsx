@@ -70,7 +70,7 @@ export default function Layout({ children, hideAdminInput, useAuth }: Props) {
         </div>
       )}
       <div className="footer">
-        <p className="light question small">
+        <p className="question small">
           <a href={`mailto:0@${BASE_DOMAIN}`} title="Mail Me?">{`1@${BASE_DOMAIN}`}</a>
           &nbsp;&middot;&nbsp;
           <a
@@ -87,7 +87,6 @@ export default function Layout({ children, hideAdminInput, useAuth }: Props) {
             :
             <form className="adminCheck" onSubmit={setManagePass}>
               <input type="password"
-                className="dark"
                 name="managePassword"
                 style={{ marginTop: 20 }}
                 onKeyPress={onEnterKeyPress} />

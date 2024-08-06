@@ -25,6 +25,15 @@ const LoaderContainer = styled.div`
     }
   }
   
+  /* Light mode */
+  @media (prefers-color-scheme: light) {
+    .spinner {
+      & .path {
+        stroke: #121212;
+      }
+    }
+  }
+
   @keyframes rotate {
     100% {
       transform: rotate(360deg);
