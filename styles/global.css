@@ -26,9 +26,9 @@ img.icon {
 }
 
 .finger {
-  background: url(/img/finger.svg) center 30px no-repeat;
+  background: url(/img/finger.svg) center no-repeat;
   background-size: 100%;
-  height: 345px;
+  height: 350px;
   width: 340px;
   line-height: 1.6em;
 }
@@ -268,7 +268,7 @@ p {
   color: #666;
 }
 
-input.dark {
+.footer input {
   background-color: #111;
   border: 2px solid #222;
   color: #aaa;
@@ -337,6 +337,7 @@ ul.list {
 }
 
 ul.list li.link {
+  margin-bottom: 7px;
   padding-bottom: 7px;
   padding-top: 7px;
   text-align: center;
@@ -355,6 +356,11 @@ div.narrow {
   max-width: 275px;
   transition: 0.6s;
   transition-timing-function: ease;
+}
+
+div.narrow.list {
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 ul.narrow:hover,
@@ -664,20 +670,6 @@ hanko-profile {
   div.narrow {
     max-width: 300px;
   }
-
-  div.narrow.list {
-    padding-top: 18px;
-    padding-bottom: 18px;
-  }
-
-  ul.list {
-    padding: 16px 18px;
-    text-align: left;
-  }
-
-  ul.list li {
-    margin-bottom: 15px;
-  }
 }
 
 @media(min-width: 1017px) {
@@ -740,6 +732,10 @@ body:after {
     background-color: #ddd;
   }
 
+  .bsd {
+    border: 3px dashed #777;
+  }
+
   .header {
     background: #eee url(/img/header_extrovert.webp) top left no-repeat;
     background-size: cover;
@@ -751,6 +747,22 @@ body:after {
 
   .haiku-today:hover {
     color: #555;
+  }
+
+  h1 {
+    color: #222;
+  }
+
+  h2 {
+    color: #111;
+  }
+
+  h3 {
+    color: #333;
+  }
+
+  .light {
+    color: #252525;
   }
 
   ul.list li.link a {
@@ -772,11 +784,31 @@ body:after {
     transition-timing-function: ease;
   }
 
-  .footer .light a {
+  .footer a {
     color: #222;
+  }
+
+  .footer input {
+    background-color: #bbb;
+    border: 2px solid #eee;
+    color: #eee;
   }
 
   a:hover:not(:active):not(.discreet) {
     color: #111;
+  }
+
+  .finger {
+    background: url(/img/finger-light.svg) center no-repeat;
+    background-size: 100%;
+  }
+
+  hanko-auth,
+  hanko-profile {
+    /* Color Scheme */
+    --color: #444;
+    --color-shade-1: #202020;
+    --color-shade-2: #666;
+    --brand-contrast-color: #efefef;
   }
 }
