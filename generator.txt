@@ -1,0 +1,15 @@
+Jam Generator
+
+1. Band + Album <Generate | Create | Share>
+   [Genre]  Rock | Jazz | ?
+
+2. Jam Sessions <Schedule | Record | Watch | Share>
+   [Instrument]  Live | MIDI | ?
+   [Vocal track]
+   [Meta] Name | Location | Lyrics | Chords | Tabs | Notes | Links | ?
+
+3. Remixes <Share | Session | Collab>
+    [Genre]  Rock | Jazz | ?
+    [Instrument]  Live | MIDI | ?
+    [Vocal track] Edited | Replaced | ?
+    [Meta] Name | Location | Lyrics | Chords | Tabs | Notes | Links | ?

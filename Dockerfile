@@ -1,10 +1,11 @@
-# Image: rylab/mongo:7-jammy
-# Build it:
-#  docker build -t rylab/mongo:7-jammy .
-# Push it:
-#  docker push rylab/mongo:7-jammy
-# Running it:
-#  docker run -it --rm rylab/mongo:7-jammy bash
+# Image:
+#   rylab/mongo:7-jammy
+# Build:
+#   docker build -t rylab/mongo:7-jammy .
+# Run:
+#   docker run -it --rm rylab/mongo:7-jammy bash
+# Push:
+#   docker push rylab/mongo:7-jammy
 FROM mongo:7-jammy
 
 ENV LANG=C.UTF-8
@@ -18,6 +19,7 @@ RUN n stable
 # Install Helm client
 RUN curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
+# Install gcloud SDK
 ENV HOME /
 RUN curl https://sdk.cloud.google.com | bash
 
