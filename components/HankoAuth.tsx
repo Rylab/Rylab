@@ -21,7 +21,7 @@ export default function HankoAuth() {
 
   useEffect(
     () => {
-      hanko?.onAuthFlowCompleted(() => {
+      hanko?.onSessionCreated(() => {
         redirectAfterLogin()
       })
       hanko?.onSessionCreated(() => {

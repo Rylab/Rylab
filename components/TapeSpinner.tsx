@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const CassetteContainer = styled.div`
@@ -175,7 +175,7 @@ const CassetteContainer = styled.div`
       width: 300px;
       height: 192px;
     }
-  
+
     .artistInput, .titleInput {
       font-size: 18px;
       left: 44px;
@@ -269,7 +269,7 @@ const CassetteContainer = styled.div`
       width: 400px;
       height: 257px;
     }
-  
+
     .artistInput, .titleInput {
       font-size: 18px;
       left: 44px;
@@ -343,7 +343,7 @@ export default function TapeSpinner({ children, spin = true, style, id }: TapePr
   }
 
   const spinRight = t => {
-    if (window && rightWheel && rightWheel.current && active) {
+    if (window && rightWheel && rightWheel.current) {
       const m = t % 1500
       const d = m * 0.24
 
@@ -353,7 +353,7 @@ export default function TapeSpinner({ children, spin = true, style, id }: TapePr
   }
 
   const spinLeft = t => {
-    if (window && leftWheel && leftWheel.current && active) {
+    if (window && leftWheel && leftWheel.current) {
       const m = t % 1500
       const d = m * 0.24
 
@@ -386,8 +386,14 @@ export default function TapeSpinner({ children, spin = true, style, id }: TapePr
     stopRight()
   }
 
+  useEffect(() => {
+    if (spin) spinWheels()
+
+    return () => stopWheels()
+  }, [])
+
   return (
-    <CassetteContainer className="cassette" style={style} id={id} onClick={e => onCassetteClick(e)} onLoad={spin ? spinWheels() : () => { }}>
+    <CassetteContainer className="cassette" style={style} id={id} onClick={e => onCassetteClick(e)}>
       <svg className="background" width="697px" height="447px" viewBox="0 0 697 447" version="1.1">
         <g id="cassette-border" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="tapecassette" transform="translate(1.000000, 1.000000)">
