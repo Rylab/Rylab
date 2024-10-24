@@ -109,7 +109,7 @@ const CassetteContainer = styled.div`
     border-radius: 4px;
     width: 330px;
     height: 212px;
-    margin-bottom: 130px;
+    margin-bottom: 200px;
 
     .background {
       border-radius: 4px;
@@ -239,6 +239,7 @@ const CassetteContainer = styled.div`
       text-align: left;
       top: 133px;
       width: 327px;
+      margin-top: 76px;
       min-height: 113px;
       max-height: 180px;
       overflow: hidden;
@@ -315,6 +316,13 @@ const CassetteContainer = styled.div`
 
     .notesInput {
       width: 400px;
+    }
+  }
+
+  /* Light mode */
+  @media (prefers-color-scheme: light) {
+    .artistBio {
+      color: #222;
     }
   }
 `
