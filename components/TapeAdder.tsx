@@ -62,7 +62,7 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = null }) {
         _id,
         artist,
         title,
-        spin: Math.random() < 0.5,
+        spin: true,
         style: { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] },
         uuid,
       })
@@ -96,7 +96,9 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = null }) {
           maxLength={38}
           placeholder="Title"
           value={tape.title || ''}
-          onChange={handleTapeChange} />
+          onChange={handleTapeChange}
+          onClick={e => e.stopPropagation() }
+        />
         <input
           autoComplete="off"
           name="artist"
@@ -105,7 +107,9 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = null }) {
           placeholder="Artist"
           value={tape.artist || ''}
           onKeyUp={handleAddTape}
-          onChange={handleTapeChange} />
+          onChange={handleTapeChange}
+          onClick={e => e.stopPropagation() }
+        />
       </TapeSpinner>
 
       <AddButton
