@@ -59,7 +59,7 @@ export default function Index() {
     <>
       <Head>
         <link rel="canonical" href={BASE_URL} />
-        <link rel="preload" href="/img/header_introvert.webp" as="image" fetchPriority="high" type="image/webp" />
+        <link rel="preload" href="/img/header_introvert.webp" as="image" type="image/webp" />
         <link rel="preload" href="/img/header_extrovert.webp" as="image" type="image/webp" />
         <title>{pageTitle}</title>
         <meta name="og:title" content={pageTitle} />
