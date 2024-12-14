@@ -398,7 +398,7 @@ export default function TapeSpinner({ children, spin = true, style, id }: TapePr
     if (spin) spinWheels()
 
     return () => stopWheels()
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <CassetteContainer className="cassette" style={style} id={id} onClick={e => onCassetteClick(e)}>

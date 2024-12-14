@@ -1,3 +1,3 @@
 export default function HankoProfile() {
-  return <hanko-profile />
+  return <HankoProfile />
 }
