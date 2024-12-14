@@ -151,6 +151,6 @@ const Jamband = () => {
   )
 }
 
-Jamband.getLayout = page => <Layout useAuth>{page}</Layout>
+Jamband.getLayout = page => <Layout>{page}</Layout>
 
 export default Jamband

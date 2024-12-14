@@ -17,7 +17,7 @@ export default function HankoAuth() {
 
   const redirectAfterLogin = useCallback(() => {
     router.replace('/1')
-  }, [router])
+  }, [router]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(
     () => {
@@ -39,5 +39,5 @@ export default function HankoAuth() {
     })
   }, [])
 
-  return <hanko-auth />
+  return <HankoAuth />
 }
