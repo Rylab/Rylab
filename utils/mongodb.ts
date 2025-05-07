@@ -12,11 +12,10 @@ if (!process.env.MONGODB) {
   )
 }
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
- */
+declare global {
+  var mongo: { client: MongoClient | null; db: any | null } | undefined;
+}
+
 let cached = global.mongo
 
 if (!cached) {
@@ -24,7 +23,7 @@ if (!cached) {
 }
 
 async function dbConnect() {
-  if (cached.client && cached.db) {
+  if (cached?.client && cached?.db) {
     return cached
   }
 
@@ -33,15 +32,15 @@ async function dbConnect() {
     socketTimeoutMS: 20000,
   }
 
-  const client = new MongoClient(process.env.MONGODB_URI, opts)
-  const db = await client.db(process.env.MONGODB)
+  const client = new MongoClient(process.env.MONGODB_URI ?? '', opts)
+  const db = await client.db(process.env.MONGODB ?? '')
 
   cached = { client, db }
 
   return cached
 }
 
-export const dbCollection = async (collection) => {
+export const dbCollection = async (collection: string) => {
   try {
     const { db } = await dbConnect()
 

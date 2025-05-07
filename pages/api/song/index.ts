@@ -1,6 +1,8 @@
+import { NextApiRequest, NextApiResponse } from 'next'
+
 import { dbCollection } from '../../../utils/mongodb'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { headers, method } = req
 
   let { order, sort } = req.query
@@ -11,9 +13,9 @@ export default async function handler(req, res) {
       try {
         if (!sort) sort = 'artist'
         let sortObj = {}
-        sortObj[sort] = order === 'desc' ? -1 : 1
+        // sortObj[sort] = order === 'desc' ? -1 : 1
 
-        const { songsCollection } = await dbCollection('songs')
+        const { songsCollection } = await dbCollection('songs') as any
         const result = await songsCollection.find({}).sort(sortObj).toArray()
         const songs = JSON.parse(JSON.stringify(result))
 
@@ -26,7 +28,7 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { songsCollection } = await dbCollection('songs')
+        const { songsCollection } = await dbCollection('songs') as any
         const { headers, body } = req
         const { song } = body
 

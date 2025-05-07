@@ -5,6 +5,7 @@ import { AppContext, getHeaders } from '../_app'
 import { Navigation, TapeAdder, TapeSpinner, tapeColors } from '../../components'
 import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
+import { Song } from '../../types'
 
 const pageTitle = `${SITE_TITLE} :: TapeSpinner Animated React SVG Component Demo`
 
@@ -14,11 +15,11 @@ export default function TapeSpinnerDemo() {
   const { password, uuid } = useContext(AppContext)
   const [addedTapeCount, setAddedTapeCount] = useState(0)
   const [canAdd, setCanAdd] = useState(true)
-  const [songs, setSongs] = useState([])
-  const [tapes, setTapes] = useState({})
+  const [songs, setSongs] = useState<Song[]>([])
+  const [tapes, setTapes] = useState<{ [key: string]: Song }>({})
   const [loading, setLoading] = useState(true)
 
-  const addTape = ({ _id, artist = '', title, spin = true, style = '', uuid = '' }) => {
+  const addTape = ({ _id = '', artist = '', title = '', spin = true, style = '', uuid = '' }: Song) => {
     if (canAdd) {
       tapes[_id] = {
         artist,
@@ -56,7 +57,7 @@ export default function TapeSpinnerDemo() {
       }).then(res => res.json())
 
       if (songRes.data) {
-        songRes.data.map(song => {
+        songRes.data.map((song: Song) => {
           if (typeof tapeColors !== 'undefined' && !song.style)
             song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })

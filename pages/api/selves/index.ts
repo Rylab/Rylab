@@ -1,21 +1,26 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+
+import { Self } from '../../../types'
 import { dbCollection } from '../../../utils/mongodb'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req
 
   let { order, sort = 'name' } = req.query
 
   switch (method) {
     case 'GET':
-      let selves = []
+      let selves: Self[] = []
       let success
 
       try {
-        const { selvesCollection = false } = await dbCollection('selves')
+        const { selvesCollection } = await dbCollection('selves') as any
 
         if (selvesCollection) {
-          let sortObj = {}
-          sortObj[sort] = order === 'desc' ? -1 : 1
+          let sortObj = {
+            name: 1,
+          }
+
           selves = await selvesCollection.find({}).sort(sortObj).toArray()
         }
 

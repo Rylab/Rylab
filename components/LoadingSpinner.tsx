@@ -1,3 +1,4 @@
+import { CSSProperties, ReactNode } from 'react'
 import styled from 'styled-components'
 
 const LoaderContainer = styled.div`
@@ -17,14 +18,14 @@ const LoaderContainer = styled.div`
     margin: -25px 0 0 -25px;
     width: 50px;
     height: 50px;
-    
+
     & .path {
       stroke: #454545;
       stroke-linecap: round;
       animation: dash 2s ease-in-out infinite;
     }
   }
-  
+
   /* Light mode */
   @media (prefers-color-scheme: light) {
     .spinner {
@@ -39,7 +40,7 @@ const LoaderContainer = styled.div`
       transform: rotate(360deg);
     }
   }
-  
+
   @keyframes dash {
     0% {
       stroke-dasharray: 1, 150;
@@ -57,8 +58,8 @@ const LoaderContainer = styled.div`
 `
 
 interface LoadingSpinnerProps {
-  children?: any
-  style?: any
+  children?: ReactNode
+  style?: CSSProperties
 }
 
 const LoadingSpinner = ({ children, style }: LoadingSpinnerProps) => {

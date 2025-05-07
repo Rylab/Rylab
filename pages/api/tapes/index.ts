@@ -1,13 +1,15 @@
+import { NextApiRequest, NextApiResponse } from 'next'
+
 import { dbCollection } from '../../../utils/mongodb'
 import { validateUuid } from '../../../utils/helpers'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { headers, method } = req
 
   let isAdmin = headers['x-admin'] === process.env.MANAGE_PASS
   let { filter = '{}', order = 'asc', sort = '' } = req.query
 
-  let data = []
+  let data: any = []
   let filterObject = {}
   let result = null
   let sortObject = {}
@@ -16,10 +18,10 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const { tapesCollection } = await dbCollection('tapes')
+        const { tapesCollection } = await dbCollection('tapes') as any
 
         if (isAdmin) {
-          filterObject = JSON.parse(filter) ?? {}
+          filterObject = JSON.parse(filter as string) ?? {}
         } else {
           filterObject = {
             '$or': [
@@ -29,8 +31,8 @@ export default async function handler(req, res) {
           }
         }
 
-        sort = sort ? sort.trim() : 'artist'
-        sortObject[sort] = order === 'desc' ? -1 : 1
+        // sort = sort ? sort.trim() : 'artist'
+        // sortObject[sort] = order === 'desc' ? -1 : 1
 
         if (tapesCollection) {
           result = await tapesCollection.find(filterObject).sort(sortObject).toArray()
@@ -48,7 +50,7 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { tapesCollection } = await dbCollection('tapes')
+        const { tapesCollection } = await dbCollection('tapes') as any
 
         if (!uuid || uuid !== req.body.uuid) {
           console.warn('POST: ', req.body)

@@ -1,13 +1,16 @@
+import { NextApiRequest, NextApiResponse } from 'next'
+
+import { Song } from '../../../types'
 import { dbCollection } from '../../../utils/mongodb'
 import { validateUuid } from '../../../utils/helpers'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { headers, method } = req
 
   let isAdmin = headers['x-admin'] === process.env.MANAGE_PASS
   let { filter = '{}', order = 'asc', sort = '' } = req.query
 
-  let data = []
+  let data: Song[] = []
   let filterObject = {}
   let result = null
   let sortObject = {}
@@ -16,10 +19,10 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const { songsCollection } = await dbCollection('songs')
+        const { songsCollection } = await dbCollection('songs') as any
 
         if (isAdmin) {
-          filterObject = JSON.parse(filter) ?? {}
+          filterObject = JSON.parse(filter as string) ?? {}
         } else {
           filterObject = {
             '$or': [
@@ -29,8 +32,8 @@ export default async function handler(req, res) {
           }
         }
 
-        sort = sort ? sort.trim() : 'artist'
-        sortObject[sort] = order === 'desc' ? -1 : 1
+        // sort = sort ? sort.trim() : 'artist'
+        // sortObject[sort] = order === 'desc' ? -1 : 1
 
         if (songsCollection) {
           result = await songsCollection.find(filterObject).sort(sortObject).toArray()
@@ -48,8 +51,8 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { songsCollection } = await dbCollection('songs')
-        const { song } = req
+        const { songsCollection } = await dbCollection('songs') as any
+        const { song } = req as any
 
         if (!uuid) {
           console.warn('POST: ', song)

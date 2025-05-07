@@ -1,3 +1,4 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import { NextRequest, NextResponse } from 'next/server'
 import { BASE_URL } from '../../../utils/constants'
 import { validateUuid } from '../../../utils/helpers'
@@ -40,25 +41,25 @@ const jsonCoercion = `You are a database agent for many large music record colle
   `Valid JSON format: ` +
   `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
 
-const getAdjectives = adjectives => {
+const getAdjectives = (adjectives: string) => {
   const trimmedAdjectives = adjectives.trim().replace(/^"(.+(?="$))"$/, '$1')
 
   return trimmedAdjectives ?? defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
 }
 
-const getGenre = genre => {
+const getGenre = (genre: string) => {
   const trimmedGenre = genre.trim().replace(/^"(.+(?="$))"$/, '$1')
 
   return trimmedGenre ?? defaultGenres[~~(Math.random() * defaultGenres.length)]
 }
 
-const getModel = model => {
+const getModel = (model: string) => {
   if (model && model.trim()) return model.trim()
 
   return defaultModel
 }
 
-const getTemperature = temperature => {
+const getTemperature = (temperature: string) => {
   if (temperature && temperature.trim()) return temperature.trim() ?? defaultTemperature
 
   return defaultTemperature
@@ -78,7 +79,7 @@ export default async function handler(req: NextRequest) {
   }
 
   const { headers, method, nextUrl } = req
-  const uuid = validateUuid(headers.get('x-uuid'))
+  const uuid = validateUuid(headers.get('x-uuid') as string)
 
   if (!uuid) {
     console.warn('Invalid or empty UUID: ', uuid)
@@ -95,8 +96,8 @@ export default async function handler(req: NextRequest) {
 
   switch (method) {
     case 'GET':
-      const adjectives = getAdjectives(searchParams.get('adjectives'))
-      const genre = getGenre(searchParams.get('genre'))
+      const adjectives = getAdjectives(searchParams.get('adjectives') as string)
+      const genre = getGenre(searchParams.get('genre') as string)
 
       if (!genre) {
         return NextResponse.json(JSON.stringify({
@@ -106,8 +107,8 @@ export default async function handler(req: NextRequest) {
         }), { status: 400 })
       }
 
-      const model = getModel(searchParams.get('model'))
-      const temperature = getTemperature(searchParams.get('temperature'))
+      const model = getModel(searchParams.get('model') as string)
+      const temperature = getTemperature(searchParams.get('temperature') as string)
 
       const prompt = generateCassettePrompt(genre, adjectives)
 
@@ -170,7 +171,7 @@ export default async function handler(req: NextRequest) {
           console.warn(cassettesJson)
           return NextResponse.json(JSON.stringify({ error: { message: 'Missing expected completion data' } }), { status: 400 })
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error(error)
 
         if (error.response) {
@@ -195,7 +196,7 @@ export default async function handler(req: NextRequest) {
   }
 }
 
-function generateCassettePrompt(genre, adjectives) {
+function generateCassettePrompt(genre: string, adjectives: string) {
   const capitalizedAdjectives =
     adjectives[0].toUpperCase() + adjectives.slice(1)
 

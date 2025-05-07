@@ -87,7 +87,7 @@ exports[`renders homepage unchanged 1`] = `
         Digital Selves
       </h1>
       <div
-        class="sc-blHHSb lsbAK"
+        class="sc-Qotzb jQrpon"
         data-testid="loading-spinner"
       >
         <svg

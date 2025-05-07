@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { ReactNode, useContext } from 'react'
+import { ChangeEvent, KeyboardEvent, MouseEvent, ReactNode, useContext } from 'react'
 
 import { AppContext } from '../pages/_app'
 import { BASE_DOMAIN } from '../utils/constants'
@@ -33,10 +33,11 @@ export default function Layout({ children, hideAdminInput, useAuth }: Props) {
   const { password, setPassword } = useContext(AppContext)
   const { showLogin, setShowLogin } = useContext(AppContext)
 
-  const setManagePass = e => {
-    if (typeof e.preventDefault === 'function') e.preventDefault()
+  const setManagePass = (e: ChangeEvent<HTMLInputElement>|KeyboardEvent<HTMLInputElement>) => {
+    if (e.preventDefault && typeof e.preventDefault === 'function') e.preventDefault()
 
-    const value = e.target?.value ? e.target.value.trim() : false
+    const el = e.target as HTMLInputElement
+    const value = el.value ? el.value.trim() : false
 
     if (value) {
       const bufferPass = Buffer.from(value, 'utf8')
@@ -50,14 +51,16 @@ export default function Layout({ children, hideAdminInput, useAuth }: Props) {
     }
   }
 
-  const onEnterKeyPress = e => {
+  const onEnterKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       setManagePass(e)
     }
   }
 
-  const onLockPress = l => {
-    setManagePass({ target: {} })
+  const onLockPress = (l: MouseEvent<HTMLSpanElement>) => {
+    const emptyTarget = { target: { value: '' } }
+
+    setManagePass(emptyTarget as ChangeEvent<HTMLInputElement>)
   }
 
   return (
@@ -85,7 +88,7 @@ export default function Layout({ children, hideAdminInput, useAuth }: Props) {
           {password
             ? <span className="adminCheck lockish" onClick={onLockPress}>&#x1F512;</span>
             :
-            <form className="adminCheck" onSubmit={setManagePass}>
+            <form className="adminCheck">
               <input type="password"
                 name="managePassword"
                 style={{ marginTop: 20 }}

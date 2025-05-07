@@ -5,13 +5,14 @@ import languages from '../constants/languages'
 import { AppContext, getHeaders } from './_app'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { BASE_URL, SITE_TITLE } from '../utils/constants'
+import { Self } from '../types'
 
 const pageTitle = `${SITE_TITLE} :: Home`
 
 export default function Index() {
   const { password, uuid } = useContext(AppContext)
   const [loading, setLoading] = useState(true)
-  const [selves, setSelves] = useState({ data: [] })
+  const [selves, setSelves] = useState({ data: [] as Self[] })
 
   const getSelves = async () => {
     if (!uuid) return

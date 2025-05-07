@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { AppContext, getHeaders } from '../_app'
 import { LoadingSpinner, Navigation, TapeAdder, TapeSpinner, tapeColors } from '../../components'
+import { Song } from '../../types'
 import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
 
@@ -10,7 +11,7 @@ const pageTitle = `${SITE_TITLE} :: TapeSpinner Animated React SVG Component Dem
 
 export default function SongList() {
   const { password, uuid } = useContext(AppContext)
-  const [songs, setSongs] = useState([])
+  const [songs, setSongs] = useState<Song[]>([])
   const [loading, setLoading] = useState(true)
 
   const getSongs = async () => {
@@ -23,7 +24,7 @@ export default function SongList() {
       }).then(res => res.json())
 
       if (songRes?.data) {
-        songRes.data.map(song => {
+        songRes.data.map((song: Song) => {
           if (!song.style) song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })
 
@@ -56,7 +57,7 @@ export default function SongList() {
         </Head>
         <main>
           <Navigation path={'songs'} />
-          {songs.map(song => {
+          {songs.map((song: Song) => {
             const hasLongArtist = song.artist?.length > MAX_LINE_LENGTH
             const hasLongTitle = song.title?.length > MAX_LINE_LENGTH
 
