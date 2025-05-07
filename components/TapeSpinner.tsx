@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { CSSProperties, MouseEvent, ReactNode, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const CassetteContainer = styled.div`
@@ -328,52 +328,51 @@ const CassetteContainer = styled.div`
 `
 
 interface TapeProps {
-  children?: any
+  children?: ReactNode
   id?: string
   spin?: boolean
-  style?: any
+  style?: CSSProperties
 }
 
 export default function TapeSpinner({ children, spin = true, style, id }: TapeProps) {
   const [active, setActive] = useState(spin)
 
   const leftWheel = useRef(null)
+  const leftSpinner = useRef(0)
   const rightWheel = useRef(null)
+  const rightSpinner = useRef(0)
 
-  const leftSpinner = useRef(null)
-  const rightSpinner = useRef(null)
-
-  const onCassetteClick = e => {
+  const onCassetteClick = (e: MouseEvent) => {
     if (e.type === 'click') {
       active ? stopWheels() : spinWheels()
       setActive(!active)
     }
   }
 
-  const spinRight = t => {
+  const spinRight = (speed: number) => {
     if (window && rightWheel && rightWheel.current) {
-      const m = t % 1500
-      const d = m * 0.24
+      const m = speed % 1500
+      const d = m * 0.24;
 
-      rightWheel.current.setAttribute('transform', 'translate(292.39, 0.00) rotate(' + d + ', 44, 45)')
+      (rightWheel.current as SVGElement).setAttribute('transform', 'translate(292.39, 0.00) rotate(' + d + ', 44, 45)')
     }
     rightSpinner.current = window.requestAnimationFrame(spinRight)
   }
 
-  const spinLeft = t => {
+  const spinLeft = (speed: number) => {
     if (window && leftWheel && leftWheel.current) {
-      const m = t % 1500
-      const d = m * 0.24
+      const m = speed % 1500
+      const d = m * 0.24;
 
-      leftWheel.current.setAttribute('transform', 'rotate(' + d + ', 44, 45)')
+      (leftWheel.current as SVGElement).setAttribute('transform', 'rotate(' + d + ', 44, 45)')
     }
     leftSpinner.current = window.requestAnimationFrame(spinLeft)
   }
 
   const spinWheels = () => {
     if (typeof window !== 'undefined') {
-      window.requestAnimationFrame(spinLeft)
-      window.requestAnimationFrame(spinRight)
+      spinLeft(500)
+      spinRight(500)
     }
   }
 
@@ -390,8 +389,10 @@ export default function TapeSpinner({ children, spin = true, style, id }: TapePr
   }
 
   const stopWheels = () => {
-    stopLeft()
-    stopRight()
+    if (typeof window !== 'undefined') {
+      stopLeft()
+      stopRight()
+    }
   }
 
   useEffect(() => {
@@ -401,7 +402,7 @@ export default function TapeSpinner({ children, spin = true, style, id }: TapePr
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <CassetteContainer className="cassette" style={style} id={id} onClick={e => onCassetteClick(e)}>
+    <CassetteContainer className="cassette" style={style} id={id} onClick={onCassetteClick}>
       <svg className="background" width="697px" height="447px" viewBox="0 0 697 447" version="1.1">
         <g id="cassette-border" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="tapecassette" transform="translate(1.000000, 1.000000)">

@@ -12,6 +12,16 @@ const pageTitle = `${SITE_TITLE} :: Your Tape Collections`
 
 const HankoProfile = dynamic(() => import('../components/HankoProfile'), { ssr: false })
 
+interface Song {
+  _id: string
+  artist: string
+  spin: boolean
+  style: { backgroundColor: string }
+  length: number
+  title: string
+  uuid: string
+}
+
 export default function DashboardForUuid() {
   const [canAdd, setCanAdd] = useState(false)
   const { password, uuid } = useContext(AppContext)
@@ -35,7 +45,7 @@ export default function DashboardForUuid() {
   }, [router, password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // fetch songs by uuid
-  const getSongs = async targetUuid => {
+  const getSongs = async (targetUuid: string) => {
     try {
       setLoading(true)
 
@@ -46,7 +56,7 @@ export default function DashboardForUuid() {
       }).then(res => res.json())
 
       if (songRes?.data) {
-        songRes.data.map(song => {
+        songRes.data.map((song: Song) => {
           if (typeof tapeColors !== 'undefined' && tapeColors.length && !song.style)
             song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })
@@ -73,7 +83,7 @@ export default function DashboardForUuid() {
       </Head>
       <main>
         <Navigation path={'1'} />
-        {!loading && songs?.map(song => {
+        {!loading && songs?.map((song: Song) => {
           const hasLongArtist = song.artist.length > MAX_LINE_LENGTH
           const hasLongTitle = song.title.length > MAX_LINE_LENGTH
 

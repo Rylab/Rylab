@@ -30,6 +30,6 @@ const NotFound = (): JSX.Element => {
   )
 }
 
-NotFound.getLayout = page => <Layout hideAdminInput>{page}</Layout>
+NotFound.getLayout = (page: JSX.Element) => <Layout hideAdminInput>{page}</Layout>
 
 export default NotFound

@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { AppContext, getHeaders } from '../_app'
 import { Navigation, TapeAdder, TapeSpinner, tapeColors } from '../../components'
+import { Song } from '../../types'
 import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
 import { getSongEmbed, validateUuid } from '../../utils/helpers'
 
@@ -12,7 +13,7 @@ const pageTitle = `${SITE_TITLE} :: TapeSpinner Animated React SVG Component Dem
 export default function SongsByUuid() {
   const [canAdd, setCanAdd] = useState(false)
   const { password, uuid } = useContext(AppContext)
-  const [songs, setSongs] = useState([])
+  const [songs, setSongs] = useState<Song[]>([])
   const [pageUuid, setPageUuid] = useState('')
   const [loading, setLoading] = useState(true)
 
@@ -32,7 +33,7 @@ export default function SongsByUuid() {
   }, [router, password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // fetch songs by uuid
-  const getSongs = async targetUuid => {
+  const getSongs = async (targetUuid: string) => {
     try {
       setLoading(true)
 
@@ -43,7 +44,7 @@ export default function SongsByUuid() {
       }).then(res => res.json())
 
       if (songRes?.data) {
-        songRes.data.map(song => {
+        songRes.data.map((song: Song) => {
           if (typeof tapeColors !== 'undefined' && tapeColors.length && !song.style)
             song.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
         })
@@ -70,7 +71,7 @@ export default function SongsByUuid() {
       </Head>
       <main>
         <Navigation path={`songs/${pageUuid}`} />
-        {!loading && songs?.map(song => {
+        {!loading && songs?.map((song: Song) => {
           const hasLongArtist = song.artist.length > MAX_LINE_LENGTH
           const hasLongTitle = song.title.length > MAX_LINE_LENGTH
 

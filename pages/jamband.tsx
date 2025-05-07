@@ -1,8 +1,9 @@
 import Head from 'next/head'
-import { CSSProperties, Fragment, useContext, useState } from 'react'
+import { Fragment, JSX, useContext, useState } from 'react'
 
 import { AppContext, getHeaders } from './_app'
 import { Layout, LoadingSpinner, Navigation, TapeSpinner, tapeColors } from '../components'
+import { Song } from '../types'
 import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../utils/constants'
 import { getSongEmbed, getUserEmbed } from '../utils/helpers'
 
@@ -15,11 +16,7 @@ const pageTitle = `${SITE_TITLE} :: Jam Band Co-Creation Playground`
 
 type TapeInfo = {
   error?: any
-  tapes: Array<{
-    artist: string
-    style?: CSSProperties
-    title: string
-  }>
+  tapes: Array<Song>
 }
 
 const Jamband = () => {
@@ -27,9 +24,9 @@ const Jamband = () => {
   const [adjectivesInput, setAdjectivesInput] = useState('')
   const [genreInput, setGenreInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [tapes, setTapes] = useState([])
+  const [tapes, setTapes] = useState<Song[]>([])
 
-  async function onSubmit(event) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     let info: TapeInfo = { tapes: [] }
@@ -61,7 +58,7 @@ const Jamband = () => {
       setTapes(tapes)
     } catch (error) {
       console.error(error)
-      alert(error.message ?? 'Unexpected Error. Check console for details.')
+      alert((error as Error).message ?? 'Unexpected Error. Check console for details.')
     } finally {
       setLoading(false)
     }
@@ -151,6 +148,6 @@ const Jamband = () => {
   )
 }
 
-Jamband.getLayout = page => <Layout>{page}</Layout>
+Jamband.getLayout = (page: JSX.Element) => <Layout>{page}</Layout>
 
 export default Jamband

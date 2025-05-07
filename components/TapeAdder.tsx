@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { ChangeEvent, CSSProperties, KeyboardEvent, MouseEventHandler, useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import { AppContext } from '../pages/_app'
@@ -30,12 +30,26 @@ const AddButton = styled.button`
 const ALLOWED_TAPE_PROPS = ['artist', 'title']
 const emptyTape = { artist: '', title: '' }
 
-export default function TapeAdder({ addedTapeCount = 0, addTape = null }) {
+interface TapeAdderProps {
+  addedTapeCount?: number
+  addTape?(tapeInfo: Tape): void
+}
+
+interface Tape {
+  _id?: string
+  artist?: string
+  title?: string
+  spin?: boolean
+  style?: CSSProperties
+  uuid?: string
+}
+
+export default function TapeAdder({ addedTapeCount = 0, addTape = (tapeInfo: Tape) => {} }: TapeAdderProps) {
   const { password, uuid } = useContext(AppContext)
   const [tape, setTape] = useState(emptyTape)
   const [loading, setLoading] = useState(false)
 
-  const addTapeDebug = (tapeInfo) => {
+  const addTapeDebug = (tapeInfo: Tape) => {
     setLoading(true)
 
     console.log(tapeInfo)
@@ -47,7 +61,7 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = null }) {
     addTape = addTapeDebug
   }
 
-  const handleAddTape = (event) => {
+  const handleAddTape = (event: KeyboardEvent) => {
     if (event?.type === 'keyup' && event?.key !== 'Enter') {
       return
     }
@@ -74,7 +88,11 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = null }) {
     }
   }
 
-  const handleTapeChange = e => {
+  const handleAddTapeClick: MouseEventHandler = () => {
+    handleAddTape({ type: 'keyup', key: 'Enter' } as KeyboardEvent)
+  }
+
+  const handleTapeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
 
     if (ALLOWED_TAPE_PROPS.includes(name)) {
@@ -114,7 +132,7 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = null }) {
 
       <AddButton
         disabled={loading || !tape.title?.trim() || !tape.artist?.trim()}
-        onClick={handleAddTape}>
+        onClick={handleAddTapeClick}>
         Add Tape</AddButton>
     </div>
   )

@@ -30,6 +30,6 @@ const InternalError = (): JSX.Element => {
   )
 }
 
-InternalError.getLayout = page => <Layout hideAdminInput>{page}</Layout>
+InternalError.getLayout = (page: JSX.Element) => <Layout hideAdminInput>{page}</Layout>
 
 export default InternalError

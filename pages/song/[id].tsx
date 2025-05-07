@@ -28,7 +28,7 @@ export default function SongDetail() {
   const router = useRouter()
 
   useEffect(() => {
-    const getSong = async _id => {
+    const getSong = async (_id: string) => {
       try {
         setLoading(true)
 

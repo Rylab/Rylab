@@ -1,7 +1,9 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+
 import { validateUuid } from '../../../utils/helpers'
 import { dbCollection } from '../../../utils/mongodb'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
     headers,
     query: { id },
@@ -19,7 +21,7 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const { songsCollection = false } = await dbCollection('songs')
+        const { songsCollection = false } = await dbCollection('songs') as any
         songRes = await songsCollection.findOne({ '_id': id })
 
         res.status(200).json({ success: true, data: songRes })
@@ -55,17 +57,15 @@ export default async function handler(req, res) {
       }
 
       try {
-        const { songsCollection } = await dbCollection('songs')
+        const { songsCollection } = await dbCollection('songs') as any
 
         if (id && isAdmin) {
           songUpdate = {
             artist: req.body.artist ? req.body.artist.trim() : '',
             title: req.body.title ? req.body.title.trim() : '',
             notes: req.body.notes ? req.body.notes.trim() : '',
+            updated: new Date(),
           }
-
-          now = new Date()
-          songUpdate.updated = now
 
           songRes = await songsCollection.updateOne({ '_id': id }, { $set: songUpdate, new: true })
         }

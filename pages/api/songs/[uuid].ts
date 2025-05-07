@@ -1,7 +1,9 @@
+import { NextApiRequest, NextApiResponse } from 'next'
+
 import { validateUuid } from '../../../utils/helpers'
 import { dbCollection } from '../../../utils/mongodb'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const uuid = validateUuid(req.query.uuid)
 
   if (!uuid) {
@@ -20,7 +22,7 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const { songsCollection } = await dbCollection('songs')
+        const { songsCollection } = await dbCollection('songs') as any
         const result = await songsCollection.find({ uuid }).toArray()
         const songs = JSON.parse(JSON.stringify(result))
 
