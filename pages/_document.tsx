@@ -1,3 +1,4 @@
+import { AppType } from 'next/app';
 import Document, { DocumentContext, Html, Head, Main, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
@@ -11,7 +12,7 @@ export default class Rylab extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App: any) => (props: any) => sheet.collectStyles(<App {...props} />)
+          enhanceApp: (App: AppType) => (props: any) => sheet.collectStyles(<App {...props} />)
         })
 
       const initialProps = await Document.getInitialProps(ctx)

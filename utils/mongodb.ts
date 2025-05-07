@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb'
+import { Db, MongoClient } from 'mongodb'
 
 if (!process.env.MONGODB_URI) {
   throw new Error(
@@ -13,7 +13,7 @@ if (!process.env.MONGODB) {
 }
 
 declare global {
-  var mongo: { client: MongoClient | null; db: any | null } | undefined;
+  var mongo: { client: MongoClient | null; db: Db | null } | undefined;
 }
 
 let cached = global.mongo
@@ -45,7 +45,7 @@ export const dbCollection = async (collection: string) => {
     const { db } = await dbConnect()
 
     return {
-      [`${collection}Collection`]: db.collection(collection),
+      [`${collection}Collection`]: db?.collection(collection),
     }
   } catch (error) {
     console.error(error)

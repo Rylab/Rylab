@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export function selectText(className: string) {
   let nav: Element
-  let sel: Selection|null
+  let sel: Selection | null
 
   try {
     // basic browser compatibility check
