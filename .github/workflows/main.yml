@@ -21,6 +21,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: pnpm i
-      - run: pnpm build
-      - run: pnpm test:ci
+      - name: Enable pnpm
+        run: corepack enable pnpm
+      - name: Install app dependencies
+        run: pnpm i
+      - name: Build app
+        run: pnpm build
+      - name: Run tests
+        run: pnpm test:ci
