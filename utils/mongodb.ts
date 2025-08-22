@@ -1,4 +1,4 @@
-import { Db, MongoClient } from 'mongodb'
+import { Db, MongoClient, Collection, Document } from 'mongodb'
 
 if (!process.env.MONGODB_URI) {
   throw new Error(
@@ -40,14 +40,12 @@ async function dbConnect() {
   return cached
 }
 
-export const dbCollection = async (collection: string) => {
-  try {
-    const { db } = await dbConnect()
+export const dbCollection = async <T extends Document = Document>(collection: string): Promise<Collection<T>> => {
+  const { db } = await dbConnect()
 
-    return {
-      [`${collection}Collection`]: db?.collection(collection),
-    }
-  } catch (error) {
-    console.error(error)
+  if (!db) {
+    throw new Error('No database connection')
   }
+
+  return db.collection(collection)
 }

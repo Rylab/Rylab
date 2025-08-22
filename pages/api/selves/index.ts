@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { Sort, Collection } from 'mongodb';
 
 import { Self } from '../../../types'
 import { dbCollection } from '../../../utils/mongodb'
@@ -6,19 +7,17 @@ import { dbCollection } from '../../../utils/mongodb'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req
 
-  let { order, sort = 'name' } = req.query
-
   switch (method) {
     case 'GET':
       let selves: Self[] = []
       let success
 
       try {
-        const { selvesCollection } = await dbCollection('selves') as any
+        const selvesCollection: Collection<Self> = await dbCollection('selves')
 
         if (selvesCollection) {
-          let sortObj = {
-            name: 1,
+          const sortObj: Sort = {
+            name: 'asc',
           }
 
           selves = await selvesCollection.find({}).sort(sortObj).toArray()

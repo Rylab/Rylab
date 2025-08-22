@@ -1,3 +1,5 @@
+import { Document } from 'mongodb'
+
 declare module '*module.css' {
   const styles: {
     [className: string]: string
@@ -5,7 +7,8 @@ declare module '*module.css' {
   export default styles
 }
 
-export interface Self {
+export interface Self extends Document {
+  _id?: string
   alias: string
   error?: boolean
   name: string
@@ -13,7 +16,7 @@ export interface Self {
   url: string
 }
 
-export interface Song {
+export interface Song extends Document {
   _id?: string
   artist: string
   bio?: string
