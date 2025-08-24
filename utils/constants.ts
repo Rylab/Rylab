@@ -1,7 +1,7 @@
 export const MAX_LINE_LENGTH = 23
 
 export const BASE_DOMAIN = process.env.NEXT_PUBLIC_BASE_URI
-  ? process.env.NEXT_PUBLIC_BASE_URI.toString().trim() : 'rylab.local'
+  ? process.env.NEXT_PUBLIC_BASE_URI.toString().trim() : 'localhost'
 
 export const BASE_PORT = process.env.NEXT_PUBLIC_BASE_PORT
   ? parseInt(process.env.NEXT_PUBLIC_BASE_PORT, 10) : 3000
