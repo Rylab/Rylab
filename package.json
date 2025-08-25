@@ -3,7 +3,7 @@
   "author": "Ryan D LaBarre",
   "description": "rylab.com source code.",
   "license": "CC-BY-NC-SA-4.0",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "scripts": {
     "dev": "next dev --turbo -p 7007",
     "build": "next build",
@@ -18,7 +18,7 @@
     "@teamhanko/hanko-elements": "^2.1.0",
     "@vercel/edge": "^1.2.2",
     "mongodb": "^6.18.0",
-    "next": "^15.4.5",
+    "next": "^15.4.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-is": "^19.1.1",
@@ -33,13 +33,13 @@
     "@types/node": "22.15.15",
     "@types/react": "^19.1.9",
     "eslint": "^9.32.0",
-    "eslint-config-next": "^15.4.5",
+    "eslint-config-next": "^15.4.6",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
 }

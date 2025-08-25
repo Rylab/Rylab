@@ -20,7 +20,7 @@ const NotFound = (): JSX.Element => {
             className="crosshair"
             height="300"
             width="300"
-            src="/img/bsd_extrovert.webp" alt="RyLaB Home" />
+            src="/img/bsd_extrovert.webp" alt={`${SITE_TITLE} logo`} />
         </Link>
         <p style={{ color: '#666', marginBottom: 250, marginTop: 20 }}>
           <b>&lt;404&gt;</b>&nbsp;Not Found&nbsp;<b>&lt;/404&gt;</b>
