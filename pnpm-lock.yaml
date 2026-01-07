@@ -2384,8 +2384,8 @@ packages:
     resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
     engines: {node: ^10 || ^12 || >=14}
 
-  preact@10.28.0:
-    resolution: {integrity: sha512-rytDAoiXr3+t6OIP3WGlDd0ouCUG1iCWzkcY3++Nreuoi17y6T5i/zRhe6uYfoVcxq6YU+sBtJouuRDsq8vvqA==}
+  preact@10.28.2:
+    resolution: {integrity: sha512-lbteaWGzGHdlIuiJ0l2Jq454m6kcpI1zNje6d8MlGAFlYvP2GO4ibnat7P74Esfz4sPTdM6UxtTwh/d3pwM9JA==}
 
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
@@ -2825,6 +2825,7 @@ packages:
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
@@ -3107,9 +3108,9 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@denysvuika/preact-translate@0.5.1(preact@10.28.0)':
+  '@denysvuika/preact-translate@0.5.1(preact@10.28.2)':
     dependencies:
-      preact: 10.28.0
+      preact: 10.28.2
 
   '@emnapi/core@1.7.1':
     dependencies:
@@ -3555,19 +3556,19 @@ snapshots:
 
   '@teamhanko/hanko-elements@2.3.0':
     dependencies:
-      '@denysvuika/preact-translate': 0.5.1(preact@10.28.0)
+      '@denysvuika/preact-translate': 0.5.1(preact@10.28.2)
       '@teamhanko/hanko-frontend-sdk': 2.3.0
-      '@teamhanko/preact-custom-element': 4.2.2(preact@10.28.0)
+      '@teamhanko/preact-custom-element': 4.2.2(preact@10.28.2)
       classnames: 2.5.1
-      preact: 10.28.0
+      preact: 10.28.2
 
   '@teamhanko/hanko-frontend-sdk@2.3.0':
     dependencies:
       '@types/js-cookie': 3.0.6
 
-  '@teamhanko/preact-custom-element@4.2.2(preact@10.28.0)':
+  '@teamhanko/preact-custom-element@4.2.2(preact@10.28.2)':
     dependencies:
-      preact: 10.28.0
+      preact: 10.28.2
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -5673,7 +5674,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  preact@10.28.0: {}
+  preact@10.28.2: {}
 
   prelude-ls@1.2.1: {}
 
