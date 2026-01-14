@@ -8,10 +8,10 @@
     "dev": "next dev --turbo -p 7007",
     "build": "next build",
     "build:start": "next build && next start -p 3000",
-    "lint": "next lint",
+    "lint": "eslint .",
     "start": "next start -p 3000",
     "test": "jest --watch",
-    "test:snap": "next lint && jest -u",
+    "test:snap": "eslint . && jest -u",
     "test:ci": "jest --ci"
   },
   "dependencies": {
@@ -26,6 +26,8 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^9.39.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
