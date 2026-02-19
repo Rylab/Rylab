@@ -1,31 +1,8 @@
 import { ChangeEvent, CSSProperties, KeyboardEvent, MouseEventHandler, useContext, useState } from 'react'
-import styled from 'styled-components'
-
 import { AppContext } from '../pages/_app'
 import { tapeColors } from './Layout'
 import { TapeSpinner } from '.'
-
-const AddButton = styled.button`
-  border-radius: 20px;
-  font-size: 14pt;
-  margin-top: 7px;
-  padding: 8px 20px;
-
-  &:disabled {
-    color: #555;
-    background-color: #aaa;
-  }
-
-  &:hover:not(:disabled) {
-    background-color: #fff;
-    color: #222;
-  }
-
-  &:active:not(:disabled), &:focus:not(:disabled) {
-    background-color: #555;
-    color: #eee;
-  }
-`
+import styles from './TapeAdder.module.css'
 
 const ALLOWED_TAPE_PROPS = ['artist', 'title']
 const emptyTape = { artist: '', title: '' }
@@ -130,10 +107,11 @@ export default function TapeAdder({ addedTapeCount = 0, addTape = (tapeInfo: Tap
         />
       </TapeSpinner>
 
-      <AddButton
+      <button
+        className={styles.addButton}
         disabled={loading || !tape.title?.trim() || !tape.artist?.trim()}
         onClick={handleAddTapeClick}>
-        Add Tape</AddButton>
+        Add Tape</button>
     </div>
   )
 }

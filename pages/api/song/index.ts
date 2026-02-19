@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let sortObj = {}
         // sortObj[sort] = order === 'desc' ? -1 : 1
 
-        const { songsCollection } = await dbCollection('songs') as any
+        const songsCollection = await dbCollection('songs')
         const result = await songsCollection.find({}).sort(sortObj).toArray()
         const songs = JSON.parse(JSON.stringify(result))
 
@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case 'POST':
       try {
-        const { songsCollection } = await dbCollection('songs') as any
+        const songsCollection = await dbCollection('songs')
         const { headers, body } = req
         const { song } = body
 

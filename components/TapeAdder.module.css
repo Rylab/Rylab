@@ -1,0 +1,22 @@
+.addButton {
+  border-radius: 20px;
+  font-size: 14pt;
+  margin-top: 7px;
+  padding: 8px 20px;
+}
+
+.addButton:disabled {
+  color: #555;
+  background-color: #aaa;
+}
+
+.addButton:hover:not(:disabled) {
+  background-color: #fff;
+  color: #222;
+}
+
+.addButton:active:not(:disabled),
+.addButton:focus:not(:disabled) {
+  background-color: #555;
+  color: #eee;
+}

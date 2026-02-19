@@ -1,61 +1,5 @@
 import { CSSProperties, ReactNode } from 'react'
-import styled from 'styled-components'
-
-const LoaderContainer = styled.div`
-  display: inline-block;
-  height: 50px;
-  width: 50px;
-  margin: 20px;
-  position: relative;
-
-  .spinner {
-    animation: rotate 3s linear infinite;
-    cursor: url(/img/bsd_cursor_invert.webp) 20 20, progress;
-    z-index: 2;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -25px 0 0 -25px;
-    width: 50px;
-    height: 50px;
-
-    & .path {
-      stroke: #454545;
-      stroke-linecap: round;
-      animation: dash 2s ease-in-out infinite;
-    }
-  }
-
-  /* Light mode */
-  @media (prefers-color-scheme: light) {
-    .spinner {
-      & .path {
-        stroke: #121212;
-      }
-    }
-  }
-
-  @keyframes rotate {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes dash {
-    0% {
-      stroke-dasharray: 1, 150;
-      stroke-dashoffset: 0;
-    }
-    50% {
-      stroke-dasharray: 90, 150;
-      stroke-dashoffset: -35;
-    }
-    100% {
-      stroke-dasharray: 90, 150;
-      stroke-dashoffset: -124;
-    }
-  }
-`
+import styles from './LoadingSpinner.module.css'
 
 interface LoadingSpinnerProps {
   children?: ReactNode
@@ -64,16 +8,24 @@ interface LoadingSpinnerProps {
 
 const LoadingSpinner = ({ children, style }: LoadingSpinnerProps) => {
   return (
-    <LoaderContainer data-testid="loading-spinner" style={style}>
-      <svg className="spinner" viewBox="0 0 50 50">
-        <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%" gradientTransform="rotate(120)">
-          <stop offset="5%" stopColor="#010101" />
-          <stop offset="95%" stopColor="#343434" />
-        </linearGradient>
-        <circle className="path" cx="25" cy="25" r="20" fill="url(#linear)" strokeWidth="2"></circle>
+    <div className={styles.loaderContainer} data-testid="loading-spinner" style={style}>
+      <svg className={styles.spinner} viewBox="0 0 50 50">
+        <defs>
+          <linearGradient id="spinner-gradient-light" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="50%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#ec4899" />
+          </linearGradient>
+          <linearGradient id="spinner-gradient-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#06b6d4" />
+            <stop offset="50%" stopColor="#10b981" />
+            <stop offset="100%" stopColor="#fbbf24" />
+          </linearGradient>
+        </defs>
+        <circle className={styles.path} cx="25" cy="25" r="20" fill="none" strokeWidth="2"></circle>
       </svg>
       {children}
-    </LoaderContainer>
+    </div>
   )
 }
 

@@ -3,6 +3,7 @@ import { ChangeEvent, KeyboardEvent, MouseEvent, ReactNode, useContext } from 'r
 
 import { AppContext } from '../pages/_app'
 import { BASE_DOMAIN } from '../utils/constants'
+import ThemeToggle from './ThemeToggle'
 
 const HankoAuth = dynamic(() => import('./HankoAuth'), { ssr: false })
 
@@ -65,6 +66,7 @@ export default function Layout({ children, hideAdminInput, useAuth }: Props) {
 
   return (
     <>
+      <ThemeToggle />
       {children}
       {useAuth && (
         <div className="finger light narrow mt-30" style={{ minHeight: 300 }}>

@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { Song } from '../../../types'
 import { validateUuid } from '../../../utils/helpers'
 import { dbCollection } from '../../../utils/mongodb'
 
@@ -11,6 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } = req
 
   const isAdmin = headers['x-admin'] === process.env.MANAGE_PASS
+  const songId = Array.isArray(id) ? id[0] : id
 
   let now = new Date()
   let songRes
@@ -21,8 +23,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (method) {
     case 'GET':
       try {
-        const { songsCollection = false } = await dbCollection('songs') as any
-        songRes = await songsCollection.findOne({ '_id': id })
+        if (!songId) {
+          throw new Error('Song ID is required')
+        }
+
+        const songsCollection = await dbCollection<Song>('songs')
+        songRes = await songsCollection.findOne({ '_id': songId })
 
         res.status(200).json({ success: true, data: songRes })
       } catch (error) {
@@ -57,9 +63,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       try {
-        const { songsCollection } = await dbCollection('songs') as any
+        const songsCollection = await dbCollection<Song>('songs')
 
-        if (id && isAdmin) {
+        if (songId && isAdmin) {
           songUpdate = {
             artist: req.body.artist ? req.body.artist.trim() : '',
             title: req.body.title ? req.body.title.trim() : '',
@@ -67,7 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             updated: new Date(),
           }
 
-          songRes = await songsCollection.updateOne({ '_id': id }, { $set: songUpdate, new: true })
+          songRes = await songsCollection.updateOne({ '_id': songId }, { $set: songUpdate })
         }
         res.status(202).json({ success: true, data: songRes })
       } catch (error) {
