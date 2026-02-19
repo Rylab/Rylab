@@ -4,7 +4,7 @@ export default [
   {
     ignores: ['.next/**', 'node_modules/**', 'build/**', 'dist/**'],
   },
-  nextPlugin.flatConfig.coreWebVitals,
+  nextPlugin.configs['core-web-vitals'],
   {
     rules: {
       '@next/next/no-img-element': 'off',
