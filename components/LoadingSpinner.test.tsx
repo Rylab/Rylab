@@ -10,6 +10,8 @@ describe('LoadingSpinner', () => {
         uuid: '',
         setPassword: jest.fn(),
         setUuid: jest.fn(),
+        showLogin: false,
+        setShowLogin: jest.fn(),
       }}>
         <LoadingSpinner />
       </AppContext.Provider>

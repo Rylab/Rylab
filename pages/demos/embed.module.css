@@ -1,0 +1,11 @@
+.tapeEmbed {
+  min-height: 400px;
+  min-width: 400px;
+}
+
+@media (min-width: 569px) {
+  .tapeEmbed {
+    min-height: 480px;
+    min-width: 500px;
+  }
+}

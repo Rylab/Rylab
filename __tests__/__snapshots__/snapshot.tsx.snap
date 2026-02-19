@@ -87,35 +87,60 @@ exports[`renders homepage unchanged 1`] = `
         Digital Selves
       </h1>
       <div
-        class="sc-bcXHqh fUSeNr"
+        class="loaderContainer"
         data-testid="loading-spinner"
       >
         <svg
           class="spinner"
           viewBox="0 0 50 50"
         >
-          <lineargradient
-            gradientTransform="rotate(120)"
-            id="linear"
-            x1="0%"
-            x2="100%"
-            y1="0%"
-            y2="0%"
-          >
-            <stop
-              offset="5%"
-              stop-color="#010101"
-            />
-            <stop
-              offset="95%"
-              stop-color="#343434"
-            />
-          </lineargradient>
+          <defs>
+            <lineargradient
+              id="spinner-gradient-light"
+              x1="0%"
+              x2="100%"
+              y1="0%"
+              y2="100%"
+            >
+              <stop
+                offset="0%"
+                stop-color="#3b82f6"
+              />
+              <stop
+                offset="50%"
+                stop-color="#8b5cf6"
+              />
+              <stop
+                offset="100%"
+                stop-color="#ec4899"
+              />
+            </lineargradient>
+            <lineargradient
+              id="spinner-gradient-dark"
+              x1="0%"
+              x2="100%"
+              y1="0%"
+              y2="100%"
+            >
+              <stop
+                offset="0%"
+                stop-color="#06b6d4"
+              />
+              <stop
+                offset="50%"
+                stop-color="#10b981"
+              />
+              <stop
+                offset="100%"
+                stop-color="#fbbf24"
+              />
+            </lineargradient>
+          </defs>
           <circle
             class="path"
             cx="25"
             cy="25"
-            fill="url(#linear)"
+            fill="none"
             r="20"
             stroke-width="2"
           />

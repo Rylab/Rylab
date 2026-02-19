@@ -182,7 +182,7 @@ img.icon {
 }
 
 .embedCodeContainer {
-  color: #666;
+  color: #aaa;
   display: block;
   margin: 0 auto;
   word-wrap: break-word;
@@ -194,7 +194,7 @@ img.icon {
 .embedCode {
   border: 3px solid #777;
   border-radius: 3px;
-  color: #666;
+  color: #aaa;
   display: block;
   margin: 0 auto;
   min-height: 85px;
@@ -216,7 +216,7 @@ a:active:not(.discreet) {
 }
 
 a:hover:not(:active):not(.discreet) {
-  color: #dedede;
+  color: #f5f5f5;
   border-bottom: 1px #9c9c9c dotted;
   transition: 0.1s;
 }
@@ -265,7 +265,15 @@ p {
 }
 
 .dark {
-  color: #666;
+  color: #aaa;
+}
+
+.footer a {
+  color: #ccc;
+}
+
+.footer a:hover:not(:active) {
+  color: #f5f5f5;
 }
 
 .footer input {
@@ -470,15 +478,17 @@ div.narrow:hover {
 }
 
 .navigation .protocol {
-  color: #666;
+  color: #aaa;
 }
 
 .navigation a {
   text-decoration: none;
+  color: #ccc;
 }
 
 .navigation a:hover:not(:active) {
   cursor: url(/img/bsd_cursor_invert.webp) 20 20, progress;
+  color: #f5f5f5;
 }
 
 .demo {
@@ -533,7 +543,7 @@ div.narrow:hover {
 }
 
 .rylab-copy {
-  color: #666;
+  color: #aaa;
   margin: 0px auto;
   opacity: 0.1;
   padding-top: 17px;
@@ -811,4 +821,120 @@ body:after {
     --color-shade-2: #666;
     --brand-contrast-color: #efefef;
   }
+}
+
+/* Manual theme overrides */
+[data-theme="light"] body {
+  background-color: #ddd;
+}
+
+[data-theme="light"] .bsd {
+  border: 3px dashed #777;
+}
+
+[data-theme="light"] .header {
+  background: #eee url(/img/header_extrovert.webp) top left no-repeat;
+  background-size: cover;
+}
+
+[data-theme="light"] .header:hover {
+  background-image: url(/img/header_introvert.webp);
+}
+
+[data-theme="light"] .haiku-today:hover {
+  color: #555;
+}
+
+[data-theme="light"] h1 {
+  color: #222;
+}
+
+[data-theme="light"] h2 {
+  color: #111;
+}
+
+[data-theme="light"] h3 {
+  color: #333;
+}
+
+[data-theme="light"] .light {
+  color: #252525;
+}
+
+[data-theme="light"] ul.list li.link a {
+  color: #000;
+}
+
+[data-theme="light"] ul.narrow,
+[data-theme="light"] div.narrow {
+  color: #101010;
+  background-color: #fff;
+  border: 3px dashed #777;
+}
+
+[data-theme="light"] ul.narrow:hover,
+[data-theme="light"] div.narrow:hover {
+  background-color: #fefefe;
+  border: 3px dashed #777;
+  transition: 0.5s;
+  transition-timing-function: ease;
+}
+
+[data-theme="light"] .footer a {
+  color: #222;
+}
+
+[data-theme="light"] .footer input {
+  background-color: #bbb;
+  border: 2px solid #eee;
+  color: #eee;
+}
+
+[data-theme="light"] a:hover:not(:active):not(.discreet) {
+  color: #111;
+}
+
+[data-theme="light"] .finger {
+  background: url(/img/finger-light.svg) center no-repeat;
+  background-size: 100%;
+}
+
+[data-theme="light"] hanko-auth,
+[data-theme="light"] hanko-profile {
+  --color: #444;
+  --color-shade-1: #202020;
+  --color-shade-2: #666;
+  --brand-contrast-color: #efefef;
+}
+
+[data-theme="dark"] body {
+  background-color: #111;
+}
+
+[data-theme="dark"] .footer a {
+  color: #ccc;
+}
+
+[data-theme="dark"] .footer a:hover:not(:active) {
+  color: #f5f5f5;
+}
+
+[data-theme="dark"] .navigation a {
+  color: #ccc;
+}
+
+[data-theme="dark"] .navigation a:hover:not(:active) {
+  color: #f5f5f5;
+}
+
+[data-theme="dark"] h1 {
+  color: #ebebeb;
+}
+
+[data-theme="dark"] h3 {
+  color: #ddd;
+}
+
+[data-theme="dark"] .light {
+  color: #ddd;
 }

@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (method) {
     case 'GET':
       try {
-        const { songsCollection } = await dbCollection('songs') as any
+        const songsCollection = await dbCollection('songs')
         const result = await songsCollection.find({ uuid }).toArray()
         const songs = JSON.parse(JSON.stringify(result))
 

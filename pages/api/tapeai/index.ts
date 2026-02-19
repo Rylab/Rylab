@@ -1,11 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { NextRequest, NextResponse } from 'next/server'
 import { BASE_URL } from '../../../utils/constants'
 import { validateUuid } from '../../../utils/helpers'
 
-const defaultModel = 'gpt-3.5-turbo-instruct'
-const defaultTemperature = 0.5
-const max_tokens = 500
+const defaultModel = 'gpt-4o-mini'
+const defaultTemperature = 1
+const maxCompletionTokens = 800
 
 const defaultAdjectives = [
   'cheesy',
@@ -113,15 +112,24 @@ export default async function handler(req: NextRequest) {
       const prompt = generateCassettePrompt(genre, adjectives)
 
       const completionRequest = {
-        max_tokens,
+        max_completion_tokens: maxCompletionTokens,
         model,
-        prompt,
+        messages: [
+          {
+            role: 'system',
+            content: jsonCoercion
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
         temperature,
         user: uuid,
       }
 
       try {
-        const cassettesJson = await fetch('https://api.openai.com/v1/completions', {
+        const cassettesJson = await fetch('https://api.openai.com/v1/chat/completions', {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${process.env.OPENAI_KEY}`,
@@ -147,7 +155,7 @@ export default async function handler(req: NextRequest) {
 
           try {
             const [first] = cassettesJson.choices
-            const tapeList = first.text.trim()
+            const tapeList = first.message.content.trim()
 
             tapes.data = JSON.parse(tapeList)
 
@@ -209,5 +217,5 @@ function generateCassettePrompt(genre: string, adjectives: string) {
 
   console.log(`\n\n${generatedPrompt}..`)
 
-  return generatedPrompt + jsonCoercion
+  return generatedPrompt
 }

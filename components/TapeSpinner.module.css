@@ -1,0 +1,396 @@
+.cassetteContainer {
+  border-radius: 2px;
+  display: inline-block;
+  margin: 20px;
+  width: 248px;
+  height: 159px;
+  position: relative;
+}
+
+.background {
+  border-radius: 2px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 248px;
+  height: 159px;
+  transition: 0.1s;
+}
+
+.cassetteContainer :global(.artistInput),
+.cassetteContainer :global(.titleInput) {
+  margin: 0;
+  left: 24px;
+  position: absolute;
+  width: 200px;
+}
+
+.cassetteContainer :global(.artistInput) {
+  bottom: 20px;
+}
+
+.cassetteContainer :global(.titleInput) {
+  bottom: 43px;
+}
+
+.cassetteContainer :global(.artistLine),
+.cassetteContainer :global(.songIdLine),
+.cassetteContainer :global(.titleLine),
+.cassetteContainer :global(.uuidLine) {
+  font-size: 14px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  white-space: nowrap;
+  width: 202px;
+}
+
+.cassetteContainer :global(.artistLine) {
+  bottom: 24px;
+  left: 24px;
+  font-style: italic;
+  transition: 0.4s;
+}
+
+.cassetteContainer :global(.artistLine:hover),
+.cassetteContainer :global(.titleLine:hover) {
+  cursor: default;
+  transition: 0.4s;
+  overflow: visible;
+  user-select: none;
+}
+
+.cassetteContainer :global(.artistLine.long) {
+  font-size: 11px;
+  bottom: 26px;
+}
+
+.cassetteContainer :global(.artistLine.long:hover) {
+  left: 0px;
+  outline: 1px solid #fff;
+  transition: 0.5s;
+}
+
+.cassetteContainer :global(.titleLine) {
+  left: 24px;
+  bottom: 46px;
+  transition: 0.5s;
+  font-weight: 600;
+}
+
+.cassetteContainer :global(.titleLine.long) {
+  font-size: 11px;
+  bottom: 47px;
+}
+
+.cassetteContainer :global(.titleLine.long:hover) {
+  left: 20px;
+  text-shadow: 0px 1px 3px #ccc;
+}
+
+.cassetteContainer :global(.artistBio) {
+  display: none;
+  align-items: flex-end;
+  color: #f5f5f5;
+}
+
+.cassetteContainer :global(.songIdLine),
+.cassetteContainer :global(.uuidLine) {
+  color: #222;
+  text-shadow: 0px 0px 10px #efefef;
+}
+
+.cassetteContainer :global(.songIdLine) {
+  display: none;
+  bottom: 8px;
+  font-size: 9px;
+  right: 15px;
+}
+
+.cassetteContainer :global(.uuidLine) {
+  position: absolute;
+  font-size: 9px;
+  bottom: 3px;
+  left: -20px;
+}
+
+.cassetteContainer :global(.songIdLine:hover:not(.disabled)),
+.cassetteContainer :global(.uuidLine:hover:not(.disabled)) {
+  color: #000;
+  cursor: pointer;
+}
+
+.cassetteContainer :global(.notesInput) {
+  width: 400px;
+}
+
+@media(min-width: 569px) {
+  .cassetteContainer {
+    border-radius: 4px;
+    width: 330px;
+    height: 212px;
+    margin-bottom: 200px;
+  }
+
+  .background {
+    border-radius: 4px;
+    width: 330px;
+    height: 212px;
+  }
+
+  .cassetteContainer :global(.artistInput),
+  .cassetteContainer :global(.titleInput) {
+    font-size: 18px;
+    left: 32px;
+    width: 266px;
+  }
+
+  .cassetteContainer :global(.artistInput) {
+    bottom: 30px;
+  }
+
+  .cassetteContainer :global(.titleInput) {
+    bottom: 59px;
+  }
+
+  .cassetteContainer :global(.songIdLine) {
+    display: block;
+    bottom: 7px;
+    font-size: 9px;
+    right: -8px;
+  }
+
+  .cassetteContainer :global(.uuidLine) {
+    font-size: 10px;
+    bottom: 7px;
+    left: -2px;
+  }
+
+  .cassetteContainer :global(.artistLine),
+  .cassetteContainer :global(.titleLine) {
+    font-size: 19px;
+    left: 38px;
+    width: 269px;
+  }
+
+  .cassetteContainer :global(.artistLine) {
+    bottom: 33px;
+  }
+
+  .cassetteContainer :global(.artistLine.long) {
+    bottom: 34px;
+    font-size: 16px;
+  }
+
+  .cassetteContainer :global(.titleLine) {
+    bottom: 62px;
+  }
+
+  .cassetteContainer :global(.titleLine.long) {
+    bottom: 63px;
+    font-size: 16px;
+  }
+
+  .cassetteContainer :global(.notesInput) {
+    width: 330px;
+  }
+}
+
+@media(min-width: 1400px) {
+  .cassetteContainer {
+    border-radius: 4px;
+    width: 300px;
+    height: 192px;
+  }
+
+  .background {
+    border-radius: 4px;
+    width: 300px;
+    height: 192px;
+  }
+
+  .cassetteContainer :global(.artistInput),
+  .cassetteContainer :global(.titleInput) {
+    font-size: 18px;
+    left: 44px;
+    width: 280px;
+  }
+
+  .cassetteContainer :global(.artistInput) {
+    bottom: 38px;
+  }
+
+  .cassetteContainer :global(.titleInput) {
+    bottom: 71px;
+  }
+
+  .cassetteContainer :global(.songIdLine) {
+    display: block;
+    bottom: 7px;
+    font-size: 9px;
+    right: -8px;
+  }
+
+  .cassetteContainer :global(.uuidLine) {
+    font-size: 10px;
+    bottom: 7px;
+    left: -2px;
+  }
+
+  .cassetteContainer :global(.artistLine),
+  .cassetteContainer :global(.titleLine) {
+    font-size: 19px;
+    left: 27px;
+    width: 252px;
+  }
+
+  .cassetteContainer :global(.artistLine) {
+    bottom: 27px;
+  }
+
+  .cassetteContainer :global(.artistLine.long) {
+    bottom: 29px;
+    font-size: 15px;
+  }
+
+  .cassetteContainer :global(.titleLine) {
+    bottom: 54px;
+  }
+
+  .cassetteContainer :global(.titleLine.long) {
+    bottom: 56px;
+    font-size: 15px;
+  }
+
+  .cassetteContainer :global(.notesInput) {
+    width: 400px;
+  }
+}
+
+@media(min-width: 569px) {
+  .cassetteContainer :global(.artistBio) {
+    display: flex;
+    background-color: #222;
+    vertical-align: bottom;
+    border: 1px solid #666;
+    border-top: 76px transparent;
+    color: #efefef;
+    line-height: 20px;
+    opacity: 85%;
+    padding: 10px;
+    position: absolute;
+    text-align: left;
+    top: 133px;
+    width: 327px;
+    margin-top: 76px;
+    min-height: 113px;
+    max-height: 180px;
+    overflow: hidden;
+    left: 2px;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s;
+    z-index: 5;
+    user-select: all;
+    -webkit-user-select: all;
+    -ms-user-select: all;
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+@media(min-width: 1200px) {
+  .cassetteContainer {
+    border-radius: 5px;
+    width: 400px;
+    height: 257px;
+  }
+
+  .cassetteContainer :global(.artistBio) {
+    border-top: 33px transparent;
+    margin-top: 33px;
+    top: 224px;
+    width: 398px;
+  }
+
+  .background {
+    border-radius: 4px;
+    width: 400px;
+    height: 257px;
+  }
+
+  .cassetteContainer :global(.artistInput),
+  .cassetteContainer :global(.titleInput) {
+    font-size: 18px;
+    left: 44px;
+    width: 314px;
+  }
+
+  .cassetteContainer :global(.artistInput) {
+    bottom: 38px;
+  }
+
+  .cassetteContainer :global(.titleInput) {
+    bottom: 71px;
+  }
+
+  .cassetteContainer :global(.songIdLine) {
+    display: block;
+    bottom: 7px;
+    font-size: 9px;
+    right: -8px;
+  }
+
+  .cassetteContainer :global(.uuidLine) {
+    font-size: 10px;
+    bottom: 7px;
+    left: -2px;
+  }
+
+  .cassetteContainer :global(.artistLine),
+  .cassetteContainer :global(.titleLine) {
+    font-size: 19px;
+    left: 38px;
+    width: 326px;
+  }
+
+  .cassetteContainer :global(.artistLine) {
+    bottom: 41px;
+  }
+
+  .cassetteContainer :global(.artistLine.long) {
+    bottom: 41px;
+    font-size: 16px;
+  }
+
+  .cassetteContainer :global(.titleLine) {
+    bottom: 76px;
+  }
+
+  .cassetteContainer :global(.titleLine.long) {
+    bottom: 75px;
+    font-size: 16px;
+  }
+
+  .cassetteContainer :global(.notesInput) {
+    width: 400px;
+  }
+}
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+  .cassetteContainer :global(.artistBio) {
+    background-color: transparent;
+    border: 2px solid #666;
+    color: #222;
+  }
+}
+
+/* Manual theme overrides */
+[data-theme="light"] .cassetteContainer :global(.artistBio) {
+  background-color: transparent;
+  border: 2px solid #666;
+  color: #222;
+}
+
+[data-theme="dark"] .cassetteContainer :global(.artistBio) {
+  background-color: #222;
+  color: #f5f5f5;
+}

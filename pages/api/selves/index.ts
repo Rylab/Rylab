@@ -15,13 +15,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         const selvesCollection: Collection<Self> = await dbCollection('selves')
 
-        if (selvesCollection) {
-          const sortObj: Sort = {
-            name: 'asc',
-          }
-
-          selves = await selvesCollection.find({}).sort(sortObj).toArray()
+        const sortObj: Sort = {
+          name: 'asc',
         }
+
+        selves = await selvesCollection.find({}).sort(sortObj).toArray()
 
         success = true
         res.status(200).json({ success, data: selves })

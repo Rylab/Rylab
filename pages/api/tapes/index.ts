@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (method) {
     case 'GET':
       try {
-        const { tapesCollection } = await dbCollection('tapes') as any
+        const tapesCollection = await dbCollection('tapes')
 
         if (isAdmin) {
           filterObject = JSON.parse(filter as string) ?? {}
@@ -34,10 +34,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // sort = sort ? sort.trim() : 'artist'
         // sortObject[sort] = order === 'desc' ? -1 : 1
 
-        if (tapesCollection) {
-          result = await tapesCollection.find(filterObject).sort(sortObject).toArray()
-          data = JSON.parse(JSON.stringify(result))
-        }
+        result = await tapesCollection.find(filterObject).sort(sortObject).toArray()
+        data = JSON.parse(JSON.stringify(result))
 
         res.status(200).json({ success: true, data })
       } catch (error) {
@@ -50,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case 'POST':
       try {
-        const { tapesCollection } = await dbCollection('tapes') as any
+        const tapesCollection = await dbCollection('tapes')
 
         if (!uuid || uuid !== req.body.uuid) {
           console.warn('POST: ', req.body)

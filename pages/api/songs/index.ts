@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (method) {
     case 'GET':
       try {
-        const { songsCollection } = await dbCollection('songs') as any
+        const songsCollection = await dbCollection('songs')
 
         if (isAdmin) {
           filterObject = JSON.parse(filter as string) ?? {}
@@ -35,10 +35,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // sort = sort ? sort.trim() : 'artist'
         // sortObject[sort] = order === 'desc' ? -1 : 1
 
-        if (songsCollection) {
-          result = await songsCollection.find(filterObject).sort(sortObject).toArray()
-          data = JSON.parse(JSON.stringify(result))
-        }
+        result = await songsCollection.find(filterObject).sort(sortObject).toArray()
+        data = JSON.parse(JSON.stringify(result))
 
         res.status(200).json({ success: true, data })
       } catch (error) {
@@ -51,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case 'POST':
       try {
-        const { songsCollection } = await dbCollection('songs') as any
+        const songsCollection = await dbCollection('songs')
         const { song } = req as any
 
         if (!uuid) {
