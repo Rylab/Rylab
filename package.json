@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@teamhanko/hanko-elements": "^2.4.0",
-    "@vercel/functions": "^3.4.2",
+    "@vercel/functions": "^3.4.3",
     "mongodb": "^6.21.0",
     "next": "^16.1.6",
     "react": "^19.2.4",
@@ -34,7 +34,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^22.19.11",
     "@types/react": "^19.2.14",
-    "eslint": "^10.0.0",
+    "eslint": "^10.0.2",
     "eslint-config-next": "^16.1.6",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
@@ -43,5 +43,5 @@
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "pnpm@10.28.1+sha512.7d7dbbca9e99447b7c3bf7a73286afaaf6be99251eb9498baefa7d406892f67b879adb3a1d7e687fc4ccc1a388c7175fbaae567a26ab44d1067b54fcb0d6a316"
+  "packageManager": "pnpm@10.30.2+sha512.36cdc707e7b7940a988c9c1ecf88d084f8514b5c3f085f53a2e244c2921d3b2545bc20dd4ebe1fc245feec463bb298aecea7a63ed1f7680b877dc6379d8d0cb4"
 }
