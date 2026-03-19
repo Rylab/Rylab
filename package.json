@@ -16,10 +16,10 @@
     "test:snap": "eslint . && jest -u"
   },
   "dependencies": {
-    "@teamhanko/hanko-elements": "^2.4.0",
+    "@teamhanko/hanko-elements": "^2.5.0",
     "@vercel/functions": "^3.4.3",
     "mongodb": "^6.21.0",
-    "next": "^16.1.6",
+    "next": "^16.2.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-is": "^19.2.4",
@@ -27,21 +27,21 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@next/eslint-plugin-next": "^16.1.6",
+    "@next/eslint-plugin-next": "^16.2.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.19.13",
+    "@types/node": "^22.19.15",
     "@types/react": "^19.2.14",
-    "eslint": "^10.0.2",
-    "eslint-config-next": "^16.1.6",
-    "jest": "^30.2.0",
-    "jest-environment-jsdom": "^30.2.0",
+    "eslint": "^10.0.3",
+    "eslint-config-next": "^16.2.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
+  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
 }
