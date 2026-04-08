@@ -16,10 +16,10 @@
     "test:snap": "eslint . && jest -u"
   },
   "dependencies": {
-    "@teamhanko/hanko-elements": "^2.5.0",
+    "@teamhanko/hanko-elements": "^2.6.0",
     "@vercel/functions": "^3.4.3",
     "mongodb": "^6.21.0",
-    "next": "^16.2.0",
+    "next": "^16.2.2",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-is": "^19.2.4",
@@ -27,15 +27,15 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@next/eslint-plugin-next": "^16.2.0",
+    "@next/eslint-plugin-next": "^16.2.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.19.15",
+    "@types/node": "^22.19.17",
     "@types/react": "^19.2.14",
-    "eslint": "^10.0.3",
-    "eslint-config-next": "^16.2.0",
+    "eslint": "^10.2.0",
+    "eslint-config-next": "^16.2.2",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "typescript": "^5.9.3"

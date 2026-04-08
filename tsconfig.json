@@ -17,7 +17,7 @@
     "isolatedModules": true,
     "target": "es2023",
     "module": "esnext",
-    "moduleResolution": "node"
+    "moduleResolution": "bundler"
   },
   "include": [
     "next-env.d.ts",
