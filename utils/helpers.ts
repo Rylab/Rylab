@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+const uuidv4 = (): string => crypto.randomUUID()
 
 export function selectText(className: string) {
   let nav: Element
