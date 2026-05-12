@@ -4,5 +4,8 @@ allowBuilds:
 onlyBuiltDependencies:
   - sharp
   - unrs-resolver
+overrides:
+  glob@<13.0.3: '13.0.3'
+  postcss@<8.5.14: '8.5.14'
 packages:
   - .
