@@ -16,7 +16,7 @@
     "test:snap": "eslint . && jest -u"
   },
   "dependencies": {
-    "@teamhanko/hanko-elements": "^2.6.0",
+    "@teamhanko/hanko-elements": "^2.7.0",
     "@vercel/functions": "^3.6.1",
     "mongodb": "^7.2.0",
     "next": "^16.2.6",
