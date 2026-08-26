@@ -7,9 +7,11 @@ describe('Navigation', () => {
     render(
       <AppContext.Provider value={{
         password: '',
-        uuid: '',
         setPassword: jest.fn(),
+        setShowLogin: jest.fn(),
+        uuid: '',
         setUuid: jest.fn(),
+        showLogin: false,
       }}>
         <Navigation />
       </AppContext.Provider>
@@ -24,9 +26,11 @@ describe('Navigation', () => {
     render(
       <AppContext.Provider value={{
         password: '',
-        uuid: '',
         setPassword: jest.fn(),
+        setShowLogin: jest.fn(),
+        uuid: '',
         setUuid: jest.fn(),
+        showLogin: false,
       }}>
         <Navigation path="test" />
       </AppContext.Provider>

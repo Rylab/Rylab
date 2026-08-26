@@ -6,9 +6,11 @@ it('renders homepage unchanged', () => {
   const { container } = render(
     <AppContext.Provider value={{
       password: '',
-      uuid: '',
       setPassword: jest.fn(),
+      setShowLogin: jest.fn(),
+      uuid: '',
       setUuid: jest.fn(),
+      showLogin: false,
     }}>
       <Index />
     </AppContext.Provider>
