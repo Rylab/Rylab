@@ -12,7 +12,9 @@ describe('Index', () => {
         password: '',
         uuid: '',
         setPassword: jest.fn(),
+        setShowLogin: jest.fn(),
         setUuid: jest.fn(),
+        showLogin: false,
       }}>
         <Index />
       </AppContext.Provider>
