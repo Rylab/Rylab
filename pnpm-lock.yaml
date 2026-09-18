@@ -171,8 +171,8 @@ importers:
   .:
     dependencies:
       '@teamhanko/hanko-elements':
-        specifier: ^2.7.0
-        version: 2.7.0
+        specifier: ^3.0.0
+        version: 3.0.0
       '@vercel/functions':
         specifier: ^3.9.8
         version: 3.9.8(ws@8.21.3)
@@ -998,11 +998,11 @@ packages:
   '@swc/helpers@0.5.23':
     resolution: {integrity: sha512-5lSsMOTXURePglDfvuAQUqkGek9Hg2kksOYay2m0+XR++b2NWYL/4sWyuvVBIs8oKnJaxkdi9whaL/sqN13afw==}
 
-  '@teamhanko/hanko-elements@2.7.0':
-    resolution: {integrity: sha512-evCgUu7OTVfzmdhs/FhN40Qn7zF8VZxmlZXBad6gB0m/59JRvPmQxaIoMPR9LkiLSzTjuaS5Vjg+e9I+LAUBwQ==}
+  '@teamhanko/hanko-elements@3.0.0':
+    resolution: {integrity: sha512-QExz0qgAOQnmbIFQX6qoRCvV+mj5RnwFmZUAqiI4a/Yz1gErhgYDcJNHq9BCFgnb4PZAn0kA0LUHAqi9QBc3kg==}
 
-  '@teamhanko/hanko-frontend-sdk@2.7.0':
-    resolution: {integrity: sha512-kI+a8bupz/LE8+ed0YzjuofRvHrlMULJ3p0CV8DL19qQnRjQwuqnH0e0SzUfX5gW9JMyScV0R93/I1bl/vyydQ==}
+  '@teamhanko/hanko-frontend-sdk@3.0.0':
+    resolution: {integrity: sha512-O32QQS2Uczjf5mN4Kl59LsEVeiuF9ON6D9cqmTAJV1QlDZUjPAaBk0GOUdBiTr/gMcSOx2u6aeE6MVFY6RkSuw==}
 
   '@teamhanko/preact-custom-element@4.2.2':
     resolution: {integrity: sha512-3djCQr25IxQIgpidxD8J0fTQ7/hMuoa5Nmv7delQc6sX4kXgv9e/pE01cywpmGZLi69H1KUH4dmZ4cPPJQrsQQ==}
@@ -3997,17 +3997,17 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@teamhanko/hanko-elements@2.7.0':
+  '@teamhanko/hanko-elements@3.0.0':
     dependencies:
       '@denysvuika/preact-translate': 0.6.0(preact@10.29.8)
-      '@teamhanko/hanko-frontend-sdk': 2.7.0
+      '@teamhanko/hanko-frontend-sdk': 3.0.0
       '@teamhanko/preact-custom-element': 4.2.2(preact@10.29.8)
       classnames: 2.5.1
       preact: 10.29.8
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@teamhanko/hanko-frontend-sdk@2.7.0':
+  '@teamhanko/hanko-frontend-sdk@3.0.0':
     dependencies:
       '@types/js-cookie': 3.0.6
 
