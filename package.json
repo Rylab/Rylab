@@ -19,7 +19,7 @@
     "@teamhanko/hanko-elements": "^2.7.0",
     "@vercel/functions": "^3.9.8",
     "mongodb": "^7.6.0",
-    "next": "^16.3.5",
+    "next": "^16.3.6",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-is": "^19.3.0"
