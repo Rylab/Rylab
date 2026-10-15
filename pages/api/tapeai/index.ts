@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { BASE_URL } from '../../../utils/constants'
 import { validateUuid } from '../../../utils/helpers'
 
-const defaultModel = 'gpt-4o-mini'
+const defaultModel = 'gpt-6-luna'
+const defaultReasoning = 'none'
 const defaultTemperature = 1
 const maxCompletionTokens = 800
 
@@ -58,6 +59,12 @@ const getModel = (model: string) => {
   return defaultModel
 }
 
+const getReasoning = (reasoning: string) => {
+  if (reasoning && reasoning.trim()) return reasoning.trim() ?? defaultReasoning
+
+  return defaultReasoning
+}
+
 const getTemperature = (temperature: string) => {
   if (temperature && temperature.trim()) return temperature.trim() ?? defaultTemperature
 
@@ -103,13 +110,17 @@ export default async function handler(req: NextRequest) {
       }
 
       const model = getModel(searchParams.get('model') as string)
+      const reasoning = getReasoning(searchParams.get('reasoning') as string)
       const temperature = getTemperature(searchParams.get('temperature') as string)
 
       const prompt = generateCassettePrompt(genre, adjectives)
 
+      const isReasoningModel = /^(gpt-5|gpt-6|o\d)/.test(model)
+
       const completionRequest = {
         max_completion_tokens: maxCompletionTokens,
         model,
+        ...(isReasoningModel ? { reasoning_effort: reasoning } : {}),
         messages: [
           {
             role: 'system',
@@ -120,7 +131,7 @@ export default async function handler(req: NextRequest) {
             content: prompt
           }
         ],
-        temperature,
+        ...(!isReasoningModel || reasoning === 'none' ? { temperature } : {}),
         user: uuid,
       }
 
