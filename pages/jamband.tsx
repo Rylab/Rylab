@@ -33,7 +33,7 @@ const Jamband = () => {
     setLoading(true)
 
     try {
-      const response = await fetch(`/api/tapeai?adjectives=${adjectivesInput}&genre=${genreInput}`, {
+      const response = await fetch(`/api/tapeai?adjectives=${encodeURIComponent(adjectivesInput)}&genre=${encodeURIComponent(genreInput)}`, {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
       })
@@ -105,7 +105,7 @@ const Jamband = () => {
               type="submit"
               style={{ marginTop: 20 }}
               value={`Generate ${tapes.length ? 'More ' : ''}`}
-              disabled={loading || !genreInput || !adjectivesInput} />
+              disabled={loading || !genreInput.trim() || !adjectivesInput.trim()} />
           </form>
           <div className="small mt-30">ChatGPT generation used to create and match jam band vibe ideas, trained by your prompts</div>
         </div>

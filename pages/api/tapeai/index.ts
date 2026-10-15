@@ -42,15 +42,15 @@ const jsonCoercion = `You are a database agent for many large music record colle
   `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
 
 const getAdjectives = (adjectives: string) => {
-  const trimmedAdjectives = adjectives.trim().replace(/^"(.+(?="$))"$/, '$1')
+  const trimmedAdjectives = adjectives?.trim().replace(/^"(.+(?="$))"$/, '$1')
 
-  return trimmedAdjectives ?? defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
+  return trimmedAdjectives || defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
 }
 
 const getGenre = (genre: string) => {
-  const trimmedGenre = genre.trim().replace(/^"(.+(?="$))"$/, '$1')
+  const trimmedGenre = genre?.trim().replace(/^"(.+(?="$))"$/, '$1')
 
-  return trimmedGenre ?? defaultGenres[~~(Math.random() * defaultGenres.length)]
+  return trimmedGenre || defaultGenres[~~(Math.random() * defaultGenres.length)]
 }
 
 const getModel = (model: string) => {
@@ -99,14 +99,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     case 'GET':
       const adjectives = getAdjectives(query.adjectives as string)
       const genre = getGenre(query.genre as string)
-
-      if (!genre) {
-        return res.status(400).json({
-          error: {
-            message: 'Genre type not valid; see instructions in README.md',
-          }
-        })
-      }
 
       const model = getModel(query.model as string)
       const reasoning = getReasoning(query.reasoning as string)
