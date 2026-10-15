@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextApiRequest, NextApiResponse } from 'next'
 import { BASE_URL } from '../../../utils/constants'
 import { validateUuid } from '../../../utils/helpers'
 
-const defaultModel = 'gpt-4o-mini'
+const defaultModel = 'gpt-6-luna'
+const defaultReasoning = 'none'
 const defaultTemperature = 1
 const maxCompletionTokens = 800
 
@@ -41,15 +42,15 @@ const jsonCoercion = `You are a database agent for many large music record colle
   `[{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"},{"title":"string","artist":"string","bio":string"}]`
 
 const getAdjectives = (adjectives: string) => {
-  const trimmedAdjectives = adjectives.trim().replace(/^"(.+(?="$))"$/, '$1')
+  const trimmedAdjectives = adjectives?.trim().replace(/^"(.+(?="$))"$/, '$1')
 
-  return trimmedAdjectives ?? defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
+  return trimmedAdjectives || defaultAdjectives[~~(Math.random() * defaultAdjectives.length)]
 }
 
 const getGenre = (genre: string) => {
-  const trimmedGenre = genre.trim().replace(/^"(.+(?="$))"$/, '$1')
+  const trimmedGenre = genre?.trim().replace(/^"(.+(?="$))"$/, '$1')
 
-  return trimmedGenre ?? defaultGenres[~~(Math.random() * defaultGenres.length)]
+  return trimmedGenre || defaultGenres[~~(Math.random() * defaultGenres.length)]
 }
 
 const getModel = (model: string) => {
@@ -58,58 +59,59 @@ const getModel = (model: string) => {
   return defaultModel
 }
 
+const getReasoning = (reasoning: string) => {
+  if (reasoning && reasoning.trim()) return reasoning.trim() ?? defaultReasoning
+
+  return defaultReasoning
+}
+
 const getTemperature = (temperature: string) => {
   if (temperature && temperature.trim()) return temperature.trim() ?? defaultTemperature
 
   return defaultTemperature
 }
 
-export default async function handler(req: NextRequest) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!process.env.OPENAI_KEY) {
-    return NextResponse.json(JSON.stringify({
+    return res.status(500).json({
       error: {
         message: 'OpenAI API key not set; see instructions in README.md',
       }
-    }), { status: 500 })
+    })
   }
 
-  const { headers, method, nextUrl } = req
-  const uuid = validateUuid(headers.get('x-uuid') as string)
+  const { headers, method, query } = req
+  const uuid = validateUuid(headers['x-uuid'])
 
   if (!uuid) {
     console.warn('Invalid or empty UUID: ', uuid)
 
-    return NextResponse.json(JSON.stringify({
+    return res.status(401).json({
       error: {
         message: 'UUID not set; see instructions in README.md',
       }
-    }), { status: 401 })
+    })
   }
 
-  const isAdmin = headers.get('x-admin') === process.env.MANAGE_PASS
-  const searchParams = new URLSearchParams(decodeURI(nextUrl.search))
+  const isAdmin = headers['x-admin'] === process.env.MANAGE_PASS
 
   switch (method) {
     case 'GET':
-      const adjectives = getAdjectives(searchParams.get('adjectives') as string)
-      const genre = getGenre(searchParams.get('genre') as string)
+      const adjectives = getAdjectives(query.adjectives as string)
+      const genre = getGenre(query.genre as string)
 
-      if (!genre) {
-        return NextResponse.json(JSON.stringify({
-          error: {
-            message: 'Genre type not valid; see instructions in README.md',
-          }
-        }), { status: 400 })
-      }
-
-      const model = getModel(searchParams.get('model') as string)
-      const temperature = getTemperature(searchParams.get('temperature') as string)
+      const model = getModel(query.model as string)
+      const reasoning = getReasoning(query.reasoning as string)
+      const temperature = getTemperature(query.temperature as string)
 
       const prompt = generateCassettePrompt(genre, adjectives)
+
+      const isReasoningModel = /^(gpt-5|gpt-6|o\d)/.test(model)
 
       const completionRequest = {
         max_completion_tokens: maxCompletionTokens,
         model,
+        ...(isReasoningModel ? { reasoning_effort: reasoning } : {}),
         messages: [
           {
             role: 'system',
@@ -120,7 +122,7 @@ export default async function handler(req: NextRequest) {
             content: prompt
           }
         ],
-        temperature,
+        ...(!isReasoningModel || reasoning === 'none' ? { temperature } : {}),
         user: uuid,
       }
 
@@ -133,10 +135,10 @@ export default async function handler(req: NextRequest) {
           },
           method: 'POST',
           body: JSON.stringify(completionRequest),
-        }).then(res => {
-          console.info(res)
+        }).then(response => {
+          console.info(response)
 
-          return res.json()
+          return response.json()
         })
 
         console.log(cassettesJson)
@@ -165,37 +167,37 @@ export default async function handler(req: NextRequest) {
               body: JSON.stringify(tapes),
             })
 
-            return NextResponse.json(tapeList, { status: 200 })
+            return res.status(200).json(tapes.data)
           } catch (error) {
             console.error(error)
 
-            return NextResponse.json(tapes.data, { status: 400 })
+            return res.status(400).json(tapes.data)
           }
         } else {
           console.warn(cassettesJson)
-          return NextResponse.json(JSON.stringify({ error: { message: 'Missing expected completion data' } }), { status: 400 })
+          return res.status(400).json({ error: { message: 'Missing expected completion data' } })
         }
       } catch (error: any) {
         console.error(error)
 
         if (error.response) {
-          return NextResponse.json(JSON.stringify(error.response), { status: 400 })
+          return res.status(400).json(error.response)
         } else {
-          return NextResponse.json(JSON.stringify({
+          return res.status(400).json({
             error: {
               message: 'An unexpected error occurred processing your request.',
             }
-          }), { status: 400 })
+          })
         }
       }
       break
 
     default:
-      return NextResponse.json(JSON.stringify({
+      return res.status(400).json({
         error: {
-          message: `Unexpected ${method} attempt on /api/songs`,
+          message: `Unexpected ${method} attempt on /api/tapeai`,
         }
-      }), { status: 400 })
+      })
       break
   }
 }

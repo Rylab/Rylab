@@ -15,7 +15,6 @@ const MAX_GENRE_LENGTH = 45
 const pageTitle = `${SITE_TITLE} :: Jam Band Co-Creation Playground`
 
 type TapeInfo = {
-  error?: any
   tapes: Array<Song>
 }
 
@@ -34,21 +33,20 @@ const Jamband = () => {
     setLoading(true)
 
     try {
-      const response = await fetch(`/api/tapeai?adjectives=${adjectivesInput}&genre=${genreInput}`, {
+      const response = await fetch(`/api/tapeai?adjectives=${encodeURIComponent(adjectivesInput)}&genre=${encodeURIComponent(genreInput)}`, {
         headers: getHeaders({ uuid, password }),
         method: 'GET',
       })
 
       const responseJson = await response.json()
-      info.tapes = JSON.parse(responseJson) ?? []
 
       if (response.status >= 400) {
-        let message = info.error?.message ?? 'GET request failed'
-
         setLoading(false)
 
-        throw new Error(`${message} [status: ${response.status}]`)
+        throw new Error(`${responseJson?.error?.message ?? 'GET request failed'} [status: ${response.status}]`)
       }
+
+      info.tapes = responseJson ?? []
 
       info.tapes.map(tape => {
         tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
@@ -107,7 +105,7 @@ const Jamband = () => {
               type="submit"
               style={{ marginTop: 20 }}
               value={`Generate ${tapes.length ? 'More ' : ''}`}
-              disabled={loading || !genreInput || !adjectivesInput} />
+              disabled={loading || !genreInput.trim() || !adjectivesInput.trim()} />
           </form>
           <div className="small mt-30">ChatGPT generation used to create and match jam band vibe ideas, trained by your prompts</div>
         </div>
