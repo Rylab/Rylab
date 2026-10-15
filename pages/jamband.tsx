@@ -15,7 +15,6 @@ const MAX_GENRE_LENGTH = 45
 const pageTitle = `${SITE_TITLE} :: Jam Band Co-Creation Playground`
 
 type TapeInfo = {
-  error?: any
   tapes: Array<Song>
 }
 
@@ -40,15 +39,14 @@ const Jamband = () => {
       })
 
       const responseJson = await response.json()
-      info.tapes = JSON.parse(responseJson) ?? []
 
       if (response.status >= 400) {
-        let message = info.error?.message ?? 'GET request failed'
-
         setLoading(false)
 
-        throw new Error(`${message} [status: ${response.status}]`)
+        throw new Error(`${responseJson?.error?.message ?? 'GET request failed'} [status: ${response.status}]`)
       }
+
+      info.tapes = responseJson ?? []
 
       info.tapes.map(tape => {
         tape.style = { backgroundColor: tapeColors[Math.floor(Math.random() * tapeColors.length)] }
