@@ -4,12 +4,13 @@ import { useContext, useEffect, useState } from 'react'
 import { AppContext, getHeaders } from '../_app'
 import { Navigation, TapeAdder, TapeSpinner, tapeColors } from '../../components'
 import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../../utils/constants'
-import { getSongEmbed, getUserEmbed } from '../../utils/helpers'
+import { getSongEmbed, getUserEmbed, loadLocalTapes, saveLocalTape } from '../../utils/helpers'
 import { Song } from '../../types'
 
 const pageTitle = `${SITE_TITLE} :: TapeSpinner Animated React SVG Component Demo`
 
 const MAX_TAPES = Number.MAX_SAFE_INTEGER
+const LOCAL_TAPE_ID_PREFIX = 'localtape-'
 
 export default function TapeSpinnerDemo() {
   const { password, uuid } = useContext(AppContext)
@@ -38,6 +39,10 @@ export default function TapeSpinnerDemo() {
       setTapes({
         ...tapes,
       })
+
+      if (_id.startsWith(LOCAL_TAPE_ID_PREFIX)) {
+        saveLocalTape(_id, tapes[_id]).catch(e => console.error(e))
+      }
 
       if (uuid) {
         setAddedTapeCount(addedTapeCount + 1)
@@ -119,6 +124,22 @@ export default function TapeSpinnerDemo() {
 
     getDemoSongs()
   }, [addedTapeCount, password, uuid]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    loadLocalTapes()
+      .then(localTapes => {
+        const localTapeCount = Object.keys(localTapes).length
+
+        if (localTapeCount) {
+          setTapes(prevTapes => ({
+            ...prevTapes,
+            ...localTapes,
+          }))
+          setAddedTapeCount(count => count + localTapeCount)
+        }
+      })
+      .catch(e => console.error(e))
+  }, [])
 
   return (
     <>

@@ -1,11 +1,9 @@
-import dynamic from 'next/dynamic'
 import { ChangeEvent, KeyboardEvent, MouseEvent, ReactNode, useContext } from 'react'
 
 import { AppContext } from '../pages/_app'
 import { BASE_DOMAIN } from '../utils/constants'
+import HankoAuth from './HankoAuth'
 import ThemeToggle from './ThemeToggle'
-
-const HankoAuth = dynamic(() => import('./HankoAuth'), { ssr: false })
 
 // NOTE: should consolidate style defaults elsewhere if adding more
 export const tapeColors = [

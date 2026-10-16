@@ -1,16 +1,14 @@
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 
 import { AppContext, getHeaders } from './_app'
 import { Navigation, TapeAdder, TapeSpinner, tapeColors } from '../components'
+import HankoProfile from '../components/HankoProfile'
 import { BASE_URL, MAX_LINE_LENGTH, SITE_TITLE } from '../utils/constants'
 import { getSongEmbed, validateUuid } from '../utils/helpers'
 
 const pageTitle = `${SITE_TITLE} :: Your Tape Collections`
-
-const HankoProfile = dynamic(() => import('../components/HankoProfile'), { ssr: false })
 
 interface Song {
   _id: string
@@ -99,7 +97,7 @@ export default function DashboardForUuid() {
           )
         })}
         {canAdd && <TapeAdder />}
-        {false && <div className="flex flex-center mt-60"><HankoProfile /></div>}
+        <div className="flex flex-center mt-60"><HankoProfile /></div>
       </main>
     </>
   )

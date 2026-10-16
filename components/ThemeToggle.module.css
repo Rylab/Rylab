@@ -1,13 +1,13 @@
 .themeToggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   width: 44px;
   height: 44px;
   border-radius: 50%;
   border: none;
   background-color: transparent;
-  color: #efefef;
+  color: #eee;
   cursor: pointer;
   display: flex;
   align-items: center;

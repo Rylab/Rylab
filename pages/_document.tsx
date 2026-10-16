@@ -14,8 +14,6 @@ export default class Rylab extends Document {
           <meta name="theme-color" content="#222" />
           <meta property="og:site_name" content={BASE_DOMAIN} />
           <link rel="icon" type="image/png" href="/img/bsd_introvert.webp" />
-          <link rel="preload" href="/img/bsd_cursor.webp" as="image" type="image/webp" />
-          <link rel="preload" href="/img/bsd_cursor_invert.webp" as="image" type="image/webp" />
           <link rel="preload" href="/img/bsd_extrovert.webp" as="image" type="image/webp" />
           <link rel="preload" href="/img/bsd_introvert.webp" as="image" type="image/webp" />
         </Head>
