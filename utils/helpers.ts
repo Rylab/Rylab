@@ -1,3 +1,5 @@
+import { Song } from '../types'
+
 const uuidv4 = (): string => crypto.randomUUID()
 
 export function selectText(className: string) {
@@ -61,6 +63,81 @@ export const initUuid = (): string => {
 
     return ''
   }
+}
+
+const LOCAL_TAPES_KEY = 'localTapes'
+const TAPE_DB_NAME = 'rylab'
+const TAPE_DB_STORE = 'localTapes'
+
+let tapeDb: Promise<IDBDatabase | null> | null = null
+
+const openTapeDb = (): Promise<IDBDatabase | null> => {
+  if (!tapeDb) {
+    tapeDb = new Promise(resolve => {
+      try {
+        if (!window.indexedDB) return resolve(null)
+
+        const request = indexedDB.open(TAPE_DB_NAME, 1)
+
+        request.onupgradeneeded = () => request.result.createObjectStore(TAPE_DB_STORE)
+        request.onsuccess = () => resolve(request.result)
+        request.onerror = request.onblocked = () => resolve(null)
+      } catch {
+        resolve(null)
+      }
+    })
+  }
+
+  return tapeDb
+}
+
+const readLocalStorageTapes = (): { [key: string]: Song } => {
+  try {
+    return JSON.parse(localStorage.getItem(LOCAL_TAPES_KEY) ?? '{}')
+  } catch {
+    return {}
+  }
+}
+
+export const loadLocalTapes = async (): Promise<{ [key: string]: Song }> => {
+  const db = await openTapeDb()
+
+  if (!db) return readLocalStorageTapes()
+
+  return new Promise<{ [key: string]: Song }>((resolve, reject) => {
+    const tx = db.transaction(TAPE_DB_STORE, 'readonly')
+    const store = tx.objectStore(TAPE_DB_STORE)
+    const keys = store.getAllKeys()
+    const values = store.getAll()
+
+    tx.oncomplete = () => {
+      const result: { [key: string]: Song } = {}
+      keys.result.forEach((key, i) => {
+        result[String(key)] = values.result[i]
+      })
+      resolve(result)
+    }
+    tx.onerror = tx.onabort = () => reject(tx.error)
+  })
+}
+
+export const saveLocalTape = async (_id: string, tape: Song): Promise<void> => {
+  const db = await openTapeDb()
+
+  if (db) {
+    await new Promise<void>((resolve, reject) => {
+      const tx = db.transaction(TAPE_DB_STORE, 'readwrite')
+      tx.objectStore(TAPE_DB_STORE).put(tape, _id)
+      tx.oncomplete = () => resolve()
+      tx.onerror = tx.onabort = () => reject(tx.error)
+    })
+
+    return
+  }
+
+  const tapes = readLocalStorageTapes()
+  tapes[_id] = tape
+  localStorage.setItem(LOCAL_TAPES_KEY, JSON.stringify(tapes))
 }
 
 export const validateUuid = (uuid?: string|string[]): string => {

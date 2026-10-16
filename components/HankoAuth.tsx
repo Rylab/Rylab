@@ -3,6 +3,7 @@
 import { useEffect, useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Hanko, register } from '@teamhanko/hanko-elements'
+import HankoLoggedIn from './HankoLoggedIn'
 
 const hankoApi = process.env.NEXT_PUBLIC_HANKO_API_URL || ''
 
@@ -10,32 +11,34 @@ export default function HankoAuth() {
   const router = useRouter()
 
   const [hanko, setHanko] = useState<Hanko>()
-
-  useEffect(() => setHanko(new Hanko(hankoApi)), [])
+  const [loggedIn, setLoggedIn] = useState(false)
 
   const redirectAfterLogin = useCallback(() => {
     router.replace('/1')
   }, [router]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(
-    () => {
-      hanko?.onSessionCreated(() => {
-        redirectAfterLogin()
-      })
-      hanko?.onSessionCreated(() => {
-        redirectAfterLogin()
-      })
-      hanko?.onSessionExpired(() => {
-        router.reload()
-      })
-    }, [hanko, redirectAfterLogin]
-  )
-
   useEffect(() => {
-    register(hankoApi).catch((error) => {
-      console.error('Failed to login', error)
-    })
-  }, [])
+    register(hankoApi)
+      .then(async ({ hanko }) => {
+        setHanko(hanko)
 
-  return <HankoAuth />
+        hanko.onSessionCreated(() => {
+          redirectAfterLogin()
+        })
+        hanko.onSessionExpired(() => {
+          setLoggedIn(false)
+        })
+        hanko.onUserLoggedOut(() => {
+          setLoggedIn(false)
+        })
+
+        const session = await hanko.validateSession()
+        setLoggedIn(session.is_valid)
+      })
+      .catch((error) => {
+        console.error('Failed to login', error)
+      })
+  }, [redirectAfterLogin])
+
+  return loggedIn && hanko ? <HankoLoggedIn hanko={hanko} /> : <hanko-auth />
 }

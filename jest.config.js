@@ -13,6 +13,9 @@ const customJestConfig = {
     '^@/components/(.*)$': '<rootDir>/components/$1',
 
     '^@/pages/(.*)$': '<rootDir>/pages/$1',
+
+    // hanko-elements is ESM-only; stub it so suites that pull in HankoAuth stay CommonJS-compatible
+    '^@teamhanko/hanko-elements$': '<rootDir>/__mocks__/hanko-elements.ts',
   },
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/docker/'],
